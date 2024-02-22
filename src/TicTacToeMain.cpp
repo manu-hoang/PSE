@@ -8,10 +8,13 @@
 
 #include <iostream>
 #include "TicTacToe.h"
+#include "contracts/DesignByContract_windows.h"
 
 using namespace std;
 
 int main(int argc, char **argv) {
+    REQUIRE((5 >= 3), "aaaaaaaa");
+
 	TicTacToe ttt;
 
 	cout << "START: ttt.nrOfMoves() = " << ttt.nrOfMoves() << endl;
