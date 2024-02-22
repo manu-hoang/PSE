@@ -21,7 +21,8 @@ set(RELEASE_SOURCE_FILES ./src/TicTacToe.cpp ./src/TicTacToeMain.cpp)
 
 # Set source files for DEBUG target
 # Only add cpp files, no h files!
-set(DEBUG_SOURCE_FILES ./src/TicTacToe.cpp ./src/TicTacToeTests.cpp )
+set(DEBUG_SOURCE_FILES ./src/TicTacToe.cpp ./src/TicTacToeTests.cpp
+)
 
 # Create RELEASE target
 add_executable(release_target ${RELEASE_SOURCE_FILES})
