@@ -17,7 +17,7 @@ link_directories(./gtest/lib)
 # Set source files for RELEASE target
 # Only add cpp files, no h files!
 # Only add files with functionality here, no test files!
-set(RELEASE_SOURCE_FILES ./src/TicTacToe.cpp ./src/TicTacToeMain.cpp src/contracts/DesignByContract_windows.h)
+set(RELEASE_SOURCE_FILES ./src/TicTacToe.cpp ./src/TicTacToeMain.cpp src/contracts/DesignByContract.h)
 
 # Set source files for DEBUG target
 # Only add cpp files, no h files!

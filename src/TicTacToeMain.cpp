@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include "TicTacToe.h"
-#include "contracts/DesignByContract_windows.h"
+#include "contracts/DesignByContract.h"
 
 using namespace std;
 
