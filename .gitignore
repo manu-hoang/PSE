@@ -229,6 +229,6 @@ $RECYCLE.BIN/
 .DS_Store
 
 cmake-build-debug/
-src/contracts
+src/contracts/
 
 ###
