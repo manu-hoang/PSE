@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: PSE
+# Project: ProjectTitle
 # Configurations: Debug
 # =============================================================================
 
@@ -41,66 +41,90 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = C$:/Users/manuh/OneDrive/Bureaublad/Project$ Software$ Engineering/PSE/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target PSE
+# Object build statements for EXECUTABLE target release_target
 
 
 #############################################
-# Order-only phony target for PSE
+# Order-only phony target for release_target
 
-build cmake_object_order_depends_target_PSE: phony || CMakeFiles/PSE.dir
+build cmake_object_order_depends_target_release_target: phony || CMakeFiles/release_target.dir
 
-build CMakeFiles/PSE.dir/tinyxml/tinystr.cpp.obj: CXX_COMPILER__PSE_unscanned_Debug C$:/Users/manuh/OneDrive/Bureaublad/Project$ Software$ Engineering/PSE/tinyxml/tinystr.cpp || cmake_object_order_depends_target_PSE
-  DEP_FILE = CMakeFiles\PSE.dir\tinyxml\tinystr.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  INCLUDES = -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/." -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/tinyxml"
-  OBJECT_DIR = CMakeFiles\PSE.dir
-  OBJECT_FILE_DIR = CMakeFiles\PSE.dir\tinyxml
+build CMakeFiles/release_target.dir/src/TicTacToe.cpp.obj: CXX_COMPILER__release_target_unscanned_Debug C$:/Users/manuh/OneDrive/Bureaublad/Project$ Software$ Engineering/PSE/src/TicTacToe.cpp || cmake_object_order_depends_target_release_target
+  DEP_FILE = CMakeFiles\release_target.dir\src\TicTacToe.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Werror -O2 -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/./gtest/include"
+  OBJECT_DIR = CMakeFiles\release_target.dir
+  OBJECT_FILE_DIR = CMakeFiles\release_target.dir\src
 
-build CMakeFiles/PSE.dir/tinyxml/tinyxml.cpp.obj: CXX_COMPILER__PSE_unscanned_Debug C$:/Users/manuh/OneDrive/Bureaublad/Project$ Software$ Engineering/PSE/tinyxml/tinyxml.cpp || cmake_object_order_depends_target_PSE
-  DEP_FILE = CMakeFiles\PSE.dir\tinyxml\tinyxml.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  INCLUDES = -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/." -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/tinyxml"
-  OBJECT_DIR = CMakeFiles\PSE.dir
-  OBJECT_FILE_DIR = CMakeFiles\PSE.dir\tinyxml
-
-build CMakeFiles/PSE.dir/tinyxml/tinyxmlerror.cpp.obj: CXX_COMPILER__PSE_unscanned_Debug C$:/Users/manuh/OneDrive/Bureaublad/Project$ Software$ Engineering/PSE/tinyxml/tinyxmlerror.cpp || cmake_object_order_depends_target_PSE
-  DEP_FILE = CMakeFiles\PSE.dir\tinyxml\tinyxmlerror.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  INCLUDES = -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/." -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/tinyxml"
-  OBJECT_DIR = CMakeFiles\PSE.dir
-  OBJECT_FILE_DIR = CMakeFiles\PSE.dir\tinyxml
-
-build CMakeFiles/PSE.dir/tinyxml/tinyxmlparser.cpp.obj: CXX_COMPILER__PSE_unscanned_Debug C$:/Users/manuh/OneDrive/Bureaublad/Project$ Software$ Engineering/PSE/tinyxml/tinyxmlparser.cpp || cmake_object_order_depends_target_PSE
-  DEP_FILE = CMakeFiles\PSE.dir\tinyxml\tinyxmlparser.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  INCLUDES = -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/." -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/tinyxml"
-  OBJECT_DIR = CMakeFiles\PSE.dir
-  OBJECT_FILE_DIR = CMakeFiles\PSE.dir\tinyxml
-
-build CMakeFiles/PSE.dir/main.cpp.obj: CXX_COMPILER__PSE_unscanned_Debug C$:/Users/manuh/OneDrive/Bureaublad/Project$ Software$ Engineering/PSE/main.cpp || cmake_object_order_depends_target_PSE
-  DEP_FILE = CMakeFiles\PSE.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  INCLUDES = -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/." -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/tinyxml"
-  OBJECT_DIR = CMakeFiles\PSE.dir
-  OBJECT_FILE_DIR = CMakeFiles\PSE.dir
+build CMakeFiles/release_target.dir/src/TicTacToeMain.cpp.obj: CXX_COMPILER__release_target_unscanned_Debug C$:/Users/manuh/OneDrive/Bureaublad/Project$ Software$ Engineering/PSE/src/TicTacToeMain.cpp || cmake_object_order_depends_target_release_target
+  DEP_FILE = CMakeFiles\release_target.dir\src\TicTacToeMain.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Werror -O2 -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/./gtest/include"
+  OBJECT_DIR = CMakeFiles\release_target.dir
+  OBJECT_FILE_DIR = CMakeFiles\release_target.dir\src
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target PSE
+# Link build statements for EXECUTABLE target release_target
 
 
 #############################################
-# Link the executable PSE.exe
+# Link the executable release_target.exe
 
-build PSE.exe: CXX_EXECUTABLE_LINKER__PSE_Debug CMakeFiles/PSE.dir/tinyxml/tinystr.cpp.obj CMakeFiles/PSE.dir/tinyxml/tinyxml.cpp.obj CMakeFiles/PSE.dir/tinyxml/tinyxmlerror.cpp.obj CMakeFiles/PSE.dir/tinyxml/tinyxmlparser.cpp.obj CMakeFiles/PSE.dir/main.cpp.obj
-  FLAGS = -g
+build release_target.exe: CXX_EXECUTABLE_LINKER__release_target_Debug CMakeFiles/release_target.dir/src/TicTacToe.cpp.obj CMakeFiles/release_target.dir/src/TicTacToeMain.cpp.obj
+  FLAGS = -std=c++17 -Wall -Werror -O2 -g
+  LINK_FLAGS = -pthread
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\PSE.dir
+  LINK_PATH = -LC:/Users/manuh/OneDrive/BUREAU~1/PROJEC~1/PSE/./gtest/lib
+  OBJECT_DIR = CMakeFiles\release_target.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = PSE.exe
-  TARGET_IMPLIB = libPSE.dll.a
-  TARGET_PDB = PSE.exe.dbg
+  TARGET_FILE = release_target.exe
+  TARGET_IMPLIB = librelease_target.dll.a
+  TARGET_PDB = release_target.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target debug_target
+
+
+#############################################
+# Order-only phony target for debug_target
+
+build cmake_object_order_depends_target_debug_target: phony || CMakeFiles/debug_target.dir
+
+build CMakeFiles/debug_target.dir/src/TicTacToe.cpp.obj: CXX_COMPILER__debug_target_unscanned_Debug C$:/Users/manuh/OneDrive/Bureaublad/Project$ Software$ Engineering/PSE/src/TicTacToe.cpp || cmake_object_order_depends_target_debug_target
+  DEP_FILE = CMakeFiles\debug_target.dir\src\TicTacToe.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Werror -O2 -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/./gtest/include"
+  OBJECT_DIR = CMakeFiles\debug_target.dir
+  OBJECT_FILE_DIR = CMakeFiles\debug_target.dir\src
+
+build CMakeFiles/debug_target.dir/src/TicTacToeTests.cpp.obj: CXX_COMPILER__debug_target_unscanned_Debug C$:/Users/manuh/OneDrive/Bureaublad/Project$ Software$ Engineering/PSE/src/TicTacToeTests.cpp || cmake_object_order_depends_target_debug_target
+  DEP_FILE = CMakeFiles\debug_target.dir\src\TicTacToeTests.cpp.obj.d
+  FLAGS = -std=c++17 -Wall -Werror -O2 -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/./gtest/include"
+  OBJECT_DIR = CMakeFiles\debug_target.dir
+  OBJECT_FILE_DIR = CMakeFiles\debug_target.dir\src
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target debug_target
+
+
+#############################################
+# Link the executable debug_target.exe
+
+build debug_target.exe: CXX_EXECUTABLE_LINKER__debug_target_Debug CMakeFiles/debug_target.dir/src/TicTacToe.cpp.obj CMakeFiles/debug_target.dir/src/TicTacToeTests.cpp.obj
+  FLAGS = -std=c++17 -Wall -Werror -O2 -g
+  LINK_FLAGS = -pthread
+  LINK_LIBRARIES = -lgtest  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_PATH = -LC:/Users/manuh/OneDrive/BUREAU~1/PROJEC~1/PSE/./gtest/lib
+  OBJECT_DIR = CMakeFiles\debug_target.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = debug_target.exe
+  TARGET_IMPLIB = libdebug_target.dll.a
+  TARGET_PDB = debug_target.exe.dbg
 
 
 #############################################
@@ -128,7 +152,9 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build PSE: phony PSE.exe
+build debug_target: phony debug_target.exe
+
+build release_target: phony release_target.exe
 
 # =============================================================================
 # Folder targets.
@@ -138,7 +164,7 @@ build PSE: phony PSE.exe
 #############################################
 # Folder: C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/cmake-build-debug
 
-build all: phony PSE.exe
+build all: phony release_target.exe debug_target.exe
 
 # =============================================================================
 # Built-in targets

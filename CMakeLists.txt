@@ -1,16 +1,33 @@
-cmake_minimum_required(VERSION 3.27)
-project(PSE)
+cmake_minimum_required(VERSION 3.6)
+project(ProjectTitle)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
-include_directories(.)
-include_directories(tinyxml)
+set(CMAKE_CXX_STANDARD 17)
+# Remove the "-O2" flag if you have problems with the debugger.
+set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Werror -O2")
+set(CMAKE_EXE_LINKER_FLAGS -pthread)
 
-add_executable(PSE
-        tinyxml/tinystr.cpp
-        tinyxml/tinystr.h
-        tinyxml/tinyxml.cpp
-        tinyxml/tinyxml.h
-        tinyxml/tinyxmlerror.cpp
-        tinyxml/tinyxmlparser.cpp
-        main.cpp)
+# Set include dir
+include_directories(./gtest/include)
+
+# Set Library dir
+link_directories(./gtest/lib)
+
+# Set source files for RELEASE target
+# Only add cpp files, no h files!
+# Only add files with functionality here, no test files!
+set(RELEASE_SOURCE_FILES ./src/TicTacToe.cpp ./src/TicTacToeMain.cpp)
+
+# Set source files for DEBUG target
+# Only add cpp files, no h files!
+set(DEBUG_SOURCE_FILES ./src/TicTacToe.cpp ./src/TicTacToeTests.cpp )
+
+# Create RELEASE target
+add_executable(release_target ${RELEASE_SOURCE_FILES})
+
+# Create DEBUG target
+add_executable(debug_target ${DEBUG_SOURCE_FILES})
+
+# Link library
+target_link_libraries(debug_target gtest)

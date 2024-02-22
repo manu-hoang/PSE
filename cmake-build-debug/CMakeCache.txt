@@ -157,7 +157,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=PSE
+CMAKE_PROJECT_NAME:STATIC=ProjectTitle
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/ranlib.exe
@@ -250,6 +250,15 @@ PSE_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 PSE_SOURCE_DIR:STATIC=C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE
+
+//Value Computed by CMake
+ProjectTitle_BINARY_DIR:STATIC=C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE/cmake-build-debug
+
+//Value Computed by CMake
+ProjectTitle_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+ProjectTitle_SOURCE_DIR:STATIC=C:/Users/manuh/OneDrive/Bureaublad/Project Software Engineering/PSE
 
 
 ########################
