@@ -1,5 +1,10 @@
 # PSE
 
+V: Werkend
+-: Deels werkend met gekende problemen (onderaan beschreven)
+X: Niet werkend of niet geïmplementeerd
+(blanco): TODO
+
 
 |   | Functionaliteit | Cpp | Header (only for contracts) |
 |---|-----------------|-----|-----------------------------|
@@ -18,6 +23,12 @@
 |   | 1.3             |     |                             |
 |   | 1.4             |     |                             |
 
+Gekende problemen
+
+...
+Niet-gequoteerde functionaliteit
+
+...
 
 
 Timetable:
