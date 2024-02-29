@@ -1,3 +1,5 @@
+#pragma once
+
 #include "vector"
 
 #include "Device.h"
@@ -9,6 +11,10 @@ private:
     vector<Job*> _jobs;
 
 public:
+    System(){
+        _devices = {};
+        _jobs = {};
+    };
 
     void addDevice(Device* &device);
     void addJob(Job* &job);

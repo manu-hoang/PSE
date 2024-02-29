@@ -1,4 +1,5 @@
 #include <iostream>
+#include "System.h"
 #include "PrinterInput.cpp"
 #include "contracts/DesignByContract.h"
 
