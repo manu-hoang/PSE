@@ -23,5 +23,7 @@ public:
     }
 
     void toggle_busy();
+
+    const string &getName() const;
 };
 

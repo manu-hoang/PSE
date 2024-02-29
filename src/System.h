@@ -19,6 +19,6 @@ public:
     void addDevice(Device* &device);
     void addJob(Job* &job);
 
-    void process_job();
+    void process_job(Job* &job, Device* &printer);
 
 };
