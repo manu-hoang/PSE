@@ -7,7 +7,7 @@
 //============================================================================
 
 #include <iostream>
-#include "TicTacToe.h"
+#include "PrinterInput.h"
 #include "contracts/DesignByContract.h"
 
 using namespace std;
@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
     // a
     REQUIRE((5 >= 3), "aaaaaaaa");
 
-	TicTacToe ttt;
+	PrinterInput ttt;
 
 	cout << "START: ttt.nrOfMoves() = " << ttt.nrOfMoves() << endl;
 	while (ttt.notDone()) {

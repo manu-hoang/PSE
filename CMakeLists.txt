@@ -17,11 +17,15 @@ link_directories(./gtest/lib)
 # Set source files for RELEASE target
 # Only add cpp files, no h files!
 # Only add files with functionality here, no test files!
-set(RELEASE_SOURCE_FILES ./src/TicTacToe.cpp ./src/TicTacToeMain.cpp src/contracts/DesignByContract.h)
+set(RELEASE_SOURCE_FILES src/PrinterInput.cpp src/PrinterMain.cpp src/contracts/DesignByContract.h)
 
 # Set source files for DEBUG target
 # Only add cpp files, no h files!
-set(DEBUG_SOURCE_FILES ./src/TicTacToe.cpp ./src/TicTacToeTests.cpp)
+set(DEBUG_SOURCE_FILES src/PrinterInput.cpp ./src/TicTacToeTests.cpp
+        src/Device.h
+        src/Device.cpp
+        src/Job.h
+        src/Job.cpp)
 
 # Create RELEASE target
 add_executable(release_target ${RELEASE_SOURCE_FILES})

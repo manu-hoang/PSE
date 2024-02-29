@@ -9,7 +9,7 @@
 #include <iostream>
 #include <gtest/gtest.h>
     
-#include "TicTacToe.h"
+#include "PrinterInput.h"
 
 class TicTactToeTest: public ::testing::Test {
 protected:
@@ -29,7 +29,7 @@ protected:
 	}
 
 	// Declares the variables your tests want to use.
-	TicTacToe ttt_;
+	PrinterInput ttt_;
 };
 
 // Tests the default constructor.
