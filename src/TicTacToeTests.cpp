@@ -8,8 +8,7 @@
 
 #include <iostream>
 #include <gtest/gtest.h>
-    
-#include "PrinterInput.h"
+
 
 class TicTactToeTest: public ::testing::Test {
 protected:

@@ -1,13 +1,13 @@
 #include <iostream>
 #include <string>
-#include <cctype>
-#include "cstdlib"
 using namespace std;
 
 // Parser
 #include "../tinyxml/tinyxml.h"
 
-int load(const char* filename, Metronet& metro) {
+#include "System.h"
+
+int load(const char* filename, System &system) {
 
     // load input file
     TiXmlDocument doc;
@@ -24,7 +24,7 @@ int load(const char* filename, Metronet& metro) {
         return 1;
     }
 
-    // read file and generate Metronet object
+    // read file
     TiXmlElement* elem = root->FirstChildElement();
     while (elem != NULL) {
         string element = elem->Value();
@@ -68,14 +68,6 @@ int load(const char* filename, Metronet& metro) {
             Station s(naam, type, vorige, volgende, spoorNr);
 
             metro.addStation(s);
-
-            /*
-             * Problem with DesignByContract:
-             *  Every time addStation gets called all the station _initcheck pointers (supposedly to themselves)
-             *  get altered. This results in that after all the stations get added ALL stations have the last stations
-             *  init pointer. ?
-             */
-
 
         }
 
@@ -138,16 +130,6 @@ int load(const char* filename, Metronet& metro) {
         else {std::cerr << "Element not recognized (not STATION or TRAM)" << std::endl;}
         elem = elem->NextSiblingElement();
     }
-
-
-    // Link all the stations using pointers
-    metro.linkStations();
-
-    // Link all the trams to their corresponding stations
-    metro.linkTrams();
-
-    // consistency check Metronet
-    metro.consistent();
 
     // close input file
     doc.Clear();

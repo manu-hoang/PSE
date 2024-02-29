@@ -24,8 +24,9 @@ set(RELEASE_SOURCE_FILES src/PrinterInput.cpp src/PrinterMain.cpp src/contracts/
 set(DEBUG_SOURCE_FILES src/PrinterInput.cpp ./src/TicTacToeTests.cpp
         src/Device.h
         src/Device.cpp
-        src/Job.h
-        src/Job.cpp)
+        src/Job.cpp
+        src/System.cpp
+        src/PrinterOutput.cpp)
 
 # Create RELEASE target
 add_executable(release_target ${RELEASE_SOURCE_FILES})
