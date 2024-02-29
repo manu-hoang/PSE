@@ -6,7 +6,7 @@
 #include <fstream>
 
 void writeDeviceInfo(const System& system, std::ofstream& file) {
-    const auto& devices = system.getDevices();
+    const auto& devices = system._devices);
 
     for (const auto& device : devices) {
         file << "NEW-Printer (CO2: " << device->getEmissions() << "g/page):\n";
