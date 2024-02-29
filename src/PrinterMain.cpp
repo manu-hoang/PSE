@@ -10,6 +10,6 @@ int main(int argc, char **argv) {
     REQUIRE((5 >= 3), "aaaaaaaa");
 
     System system;
-    load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
+    load("Use_Case_1.1_Reading_printers_and_jobs.xml", system);
 }
 

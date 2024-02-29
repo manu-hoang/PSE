@@ -29,34 +29,64 @@ int load(const char* filename, System &system) {
     while (elem != NULL) {
         string element = elem->Value();
 
-        if (element == "DEVICE"){
 
+        if (element == "DEVICE"){
             // CHECK FOR ERRORS
+
+            string name = "";
+            int emission = 0;
+            int speed = 0;
+
             for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
                 string attrValue = attr->Value();
                 string attrText = attr->GetText();
 
-                cout<<attrValue<<endl;
-                cout<<attrText<<endl;
+                if (attrValue == "name"){
+                    name = attrText;
+                }
+                else if (attrValue == "emission"){
+                    emission = stoi(attrText);
+                }
+                else if (attrValue == "speed"){
+                    speed = stoi(attrText);
+                }
 
             }
 
+            Device *device_to_add = new Device(name,emission,speed);
+
+            system.addDevice(device_to_add);
+
         }
 
-        else if (element == "TRAM"){
-
+        if (element == "JOB"){
             // CHECK FOR ERRORS
-            for(TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
-                string data = attr->Value();
+
+            int jobNumber = 0;
+            int pageCount = 0;
+            string userName = "";
+
+            for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
                 string attrValue = attr->Value();
                 string attrText = attr->GetText();
 
+                if (attrValue == "jobNumber"){
+                    jobNumber = stoi(attrText);
+                }
+                else if (attrValue == "pageCount"){
+                    pageCount = stoi(attrText);
+                }
+                else if (attrValue == "userName"){
+                    userName = attrText;
+                }
+
             }
 
-        }
+            Job *job_to_add = new Job(jobNumber,pageCount,userName);
 
-            // If not STATION or TRAM
-        else {std::cerr << "Element not recognized (not STATION or TRAM)" << std::endl;}
+            system.addJob(job_to_add);
+
+        }
         elem = elem->NextSiblingElement();
     }
 
