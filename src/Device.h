@@ -8,3 +8,4 @@ private:
     int emission;
     int speed;
 };
+
