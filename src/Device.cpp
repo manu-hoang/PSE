@@ -8,3 +8,7 @@ void Device::toggle_busy() {
         busy = false;
     }
 }
+
+const string &Device::getName() const {
+    return name;
+}
