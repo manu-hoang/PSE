@@ -12,3 +12,17 @@ void Device::toggle_busy() {
 const string &Device::getName() const {
     return name;
 }
+
+int Device::getEmissions() const {
+    return emissions;
+}
+
+string Device::getQueueInfo() {
+    string queueinfo;
+    return queueinfo;
+}
+
+string Device::getCurrentInfo() {
+    string currentinfo;
+    return currentinfo;
+}

@@ -27,3 +27,7 @@ void System::process_job(Job* &job, Device* &printer) {
 
     print_message(job, printer);
 }
+
+const std::vector<Device *> &System::getDevices() const{
+    return _devices;
+}

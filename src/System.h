@@ -20,5 +20,7 @@ public:
     void addJob(Job* &job);
 
     void process_job(Job* &job, Device* &printer);
+    const std::vector<Device*>& getDevices() const;
+
 
 };

@@ -24,6 +24,13 @@ public:
 
     void toggle_busy();
 
+
+
+    //Functions used for PrinterOutput.cpp
     const string &getName() const;
+    int getEmissions() const;
+    string getQueueInfo();
+    string getCurrentInfo();
+    //
 };
 
