@@ -9,11 +9,10 @@ X: Niet werkend of niet geïmplementeerd
 |   | Functionaliteit | Cpp | Header (only for contracts) |
 |---|-----------------|-----|-----------------------------|
 | 1 | Tests           |     |                             |
-|   | file1           |     |                             |
-|   | file2           |     |                             |
-|   | file3           |     |                             |
-|   | file4           |     |                             |
-|   | file5           |     |                             |
+|   | Use Case 1.1    |     |                             |
+|   | Use Case 2.1    |     |                             |
+|   | Use Case 3.1    |     |                             |
+|   | Use Case 3.2    |     |                             |
 | 2 | Contracts       |     |                             |
 |   | file1           |     |                             |
 |   | file2           |     |                             |

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "PrinterInput.h"
+#include "PrinterInput.cpp"
 #include "contracts/DesignByContract.h"
 
 using namespace std;
