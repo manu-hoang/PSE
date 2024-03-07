@@ -19,6 +19,7 @@ private:
 
     bool busy;
 
+    Job* current_job;
     vector<Job*> jobs;
     double printing_time; // time to complete current job (seconds)
 
@@ -28,10 +29,11 @@ public:
     }
 
     void print_page();
-
     void print_message(Job *&job);
 
     void add_job(Job *&job);
+    Job* getCurrentJob();
+    void update_current_job(int current_time);
 
     double get_printing_time();
 

@@ -20,10 +20,9 @@ public:
 
     void print_page();
 
-    void set_start_time(int time);
-
+    void setStartTime(int time);
+    int getStartTime();
     bool getFinished();
-
     int getJobNumber() const;
     int getPageCount() const;
     const string &getUserName() const;

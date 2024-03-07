@@ -25,6 +25,10 @@ bool Job::getFinished() {
     return finished;
 }
 
-void Job::set_start_time(int time) {
-    this->start_time = time;
+int Job::getStartTime() {
+    return start_time;
+}
+
+void Job::setStartTime(int time) {
+    start_time = time;
 }
