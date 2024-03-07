@@ -17,10 +17,10 @@ X: Niet werkend of niet geïmplementeerd
 |   | file1           |     |                             |
 |   | file2           |     |                             |
 | 3 | Functionality   |     |                             |
-|   | 1.1             |     |                             |
-|   | 1.2             |     |                             |
-|   | 1.3             |     |                             |
-|   | 1.4             |     |                             |
+|   | Use Case 1.1    | V   |                             |
+|   | Use Case 1.2    | V   |                             |
+|   | Use Case 3.1    |     |                             |
+|   | Use Case 3.2    |     |                             |
 
 Gekende problemen
 
