@@ -8,6 +8,7 @@ private:
     int pageCount;
     string userName;
 
+    int start_time;
     bool finished;
 
 public:
@@ -15,7 +16,9 @@ public:
         finished = false;
     }
 
-    void process();
+    void print_page();
+
+    void set_start_time(int time);
 
     bool getFinished();
 

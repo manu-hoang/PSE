@@ -1,12 +1,12 @@
 #include "Job.h"
 
-void Job::process() {
-    while (pageCount >= 0){
-        // print page
-        pageCount--;
-    }
+void Job::print_page() {
 
-    finished = true;
+    pageCount--;
+
+    if(pageCount == 0){
+        finished = true;
+    }
 }
 
 int Job::getJobNumber() const {
@@ -23,4 +23,8 @@ const string &Job::getUserName() const {
 
 bool Job::getFinished() {
     return finished;
+}
+
+void Job::set_start_time(int time) {
+    this->start_time = time;
 }
