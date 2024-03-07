@@ -38,3 +38,7 @@ void System::addJob(Job* &job) {
 const std::vector<Device *> &System::getDevices() const{
     return _devices;
 }
+
+const vector<Job *> &System::getJobs() const {
+    return _jobs;
+}

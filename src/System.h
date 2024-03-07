@@ -29,5 +29,7 @@ public:
 
     const std::vector<Device*>& getDevices() const;
 
+    const vector<Job *> &getJobs() const;
+
 
 };

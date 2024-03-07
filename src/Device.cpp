@@ -44,7 +44,7 @@ int Device::getEmissions() const {
 
 string Device::getQueueInfo() {
     string queueinfo = "";
-    int jobsammount = jobs.size()-1;
+    int jobsammount = jobs.size();
     for (int i = 1; i < jobsammount ; ++i) {
         Job* currentjobinqueue = jobs[i];
         int  jobnummer = currentjobinqueue->getJobNumber();
