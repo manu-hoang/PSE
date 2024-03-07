@@ -21,11 +21,17 @@ set(RELEASE_SOURCE_FILES  src/Job.cpp src/Device.cpp src/System.cpp src/PrinterM
 
 # Set source files for DEBUG target
 # Only add cpp files, no h files!
-set(DEBUG_SOURCE_FILES src/PrinterInput.cpp
+set(DEBUG_SOURCE_FILES
+        src/PrinterInput.cpp
         src/Device.cpp
         src/Job.cpp
         src/System.cpp
-        src/PrinterOutput.cpp)
+        src/PrinterOutput.cpp
+        tests/PrinterOutputTests.cpp
+        tinyxml/tinyxml.cpp tinyxml/tinystr.cpp tinyxml/tinyxmlerror.cpp tinyxml/tinyxmlparser.cpp
+        src/PrinterInput.h
+        src/PrinterOutput.h
+)
 
 # Create RELEASE target
 add_executable(release_target ${RELEASE_SOURCE_FILES})

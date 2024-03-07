@@ -27,8 +27,6 @@ protected:
 	virtual void TearDown() {
 	}
 
-	// Declares the variables your tests want to use.
-	PrinterInput ttt_;
 };
 
 // Tests the default constructor.
