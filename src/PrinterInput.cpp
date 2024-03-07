@@ -1,12 +1,47 @@
 #include <iostream>
 #include <string>
 #include "fstream"
+#include <cctype>
 using namespace std;
 
 // Parser
 #include "../tinyxml/tinyxml.h"
 
 #include "System.h"
+
+bool isInteger(string &str) {
+    if(str.empty()){
+        return false;
+    }
+
+    // Check if the first character is a minus sign, if so, start loop from next character
+    int start = (str[0] == '-') ? 1 : 0;
+
+
+    int length = str.length();
+    for(int i = start; i < length; i++) {
+        if(!isdigit(str[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool isString(const std::string &str) {
+    bool hasNonDigit = false;
+
+    // Check each character
+    for (char ch : str) {
+        // Check if the character is not a digit and not a space
+        if (!isdigit(ch) && !isspace(ch) && ch != '.' && ch != '-') {
+            hasNonDigit = true;
+            break;
+        }
+    }
+
+    return hasNonDigit;
+}
 
 int load(const char* filename, System &system) {
 
@@ -46,6 +81,7 @@ int load(const char* filename, System &system) {
             string name = "";
             int emission = 0;
             int speed = 0;
+            bool dont_add = false;
 
             for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
                 string attrValue = attr->Value();
@@ -54,18 +90,44 @@ int load(const char* filename, System &system) {
                 if (attrValue == "name"){
                     name = attrText;
                 }
-                else if (attrValue == "emission"){
-                    emission = stoi(attrText);
+                else if (attrValue == "emission" ){
+                    if(isInteger(attrText)){
+                        emission = stoi(attrText);
+                    }
+                    else{
+                        dont_add = true;
+
+                        cerr<<"INCORRECT VALUE: "<<attrText<<endl;
+                        outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
+                    }
                 }
                 else if (attrValue == "speed"){
-                    speed = stoi(attrText);
+                    if(isInteger(attrText)){
+                        speed = stoi(attrText);
+                    }
+                    else{
+                        dont_add = true;
+
+                        cerr<<"INCORRECT VALUE: "<<attrText<<endl;
+                        outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
+                    }
+                }
+                else{
+                    elem = elem->NextSiblingElement();
+
+                    cerr<<"UNRECOGNISED ATTRIBUTE: "<<attrValue<<endl;
+                    outputFile<<"UNRECOGNISED ATTRIBUTE: "<<attrValue<<endl;
                 }
 
             }
-
-            Device *device_to_add = new Device(name,emission,speed);
-
-            system.addDevice(device_to_add);
+            if (!dont_add){
+                Device *device_to_add = new Device(name,emission,speed);
+                system.addDevice(device_to_add);
+            }
+            else {
+                cerr<<"DEVICE not added"<<endl;
+                outputFile<<"DEVICE not added"<<endl;
+            }
 
         }
 
@@ -75,16 +137,33 @@ int load(const char* filename, System &system) {
             int jobNumber = 0;
             int pageCount = 0;
             string userName = "";
+            bool dont_add = false;
 
             for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
                 string attrValue = attr->Value();
                 string attrText = attr->GetText();
 
                 if (attrValue == "jobNumber"){
-                    jobNumber = stoi(attrText);
+                    if(isInteger(attrText)){
+                        jobNumber = stoi(attrText);
+                    }
+                    else{
+                        dont_add = true;
+
+                        cerr<<"INCORRECT VALUE: "<<attrText<<endl;
+                        outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
+                    }
                 }
                 else if (attrValue == "pageCount"){
-                    pageCount = stoi(attrText);
+                    if(isInteger(attrText)){
+                        pageCount = stoi(attrText);
+                    }
+                    else{
+                        dont_add = true;
+
+                        cerr<<"INCORRECT VALUE: "<<attrText<<endl;
+                        outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
+                    }
                 }
                 else if (attrValue == "userName"){
                     userName = attrText;
@@ -92,9 +171,14 @@ int load(const char* filename, System &system) {
 
             }
 
-            Job *job_to_add = new Job(jobNumber,pageCount,userName);
-
-            system.addJob(job_to_add);
+            if (!dont_add){
+                Job *job_to_add = new Job(jobNumber,pageCount,userName);
+                system.addJob(job_to_add);
+            }
+            else {
+                cerr<<"DEVICE not added"<<endl;
+                outputFile<<"DEVICE not added"<<endl;
+            }
 
         }
         else{
