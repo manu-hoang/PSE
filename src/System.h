@@ -16,6 +16,8 @@ public:
         _jobs = {};
     };
 
+    void automatic_run(int seconds);
+
     void addDevice(Device* &device);
     void addJob(Job* &job);
 

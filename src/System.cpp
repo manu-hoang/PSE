@@ -1,6 +1,10 @@
 #include "System.h"
 #include "iostream"
 
+void System::automatic_run(int seconds) {
+
+}
+
 void System::addDevice(Device* &device) {
     this->_devices.push_back(device);
 }

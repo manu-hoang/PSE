@@ -1,4 +1,6 @@
+#include <vector>
 #include "string"
+#include "Job.h"
 
 using namespace std;
 
@@ -16,6 +18,7 @@ private:
     int speed; // pages per minute
 
     bool busy;
+    vector<Job*> jobs;
 
 public:
     Device(string name, int emissions, int speed): name(name), emissions(emissions), speed(speed){
@@ -24,7 +27,7 @@ public:
 
     void toggle_busy();
 
-
+    void print();
 
     //Functions used for PrinterOutput.cpp
     const string &getName() const;

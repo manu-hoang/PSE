@@ -1,8 +1,5 @@
 #include "System.h"
 #include <fstream>
-
-#include "System.h"
-#include <fstream>
 #include <sstream>
 
 void writeDeviceInfo(const System& system, std::ofstream& file) {

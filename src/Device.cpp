@@ -1,4 +1,7 @@
 #include "Device.h"
+#include <sstream>
+#include "iostream"
+
 
 void Device::toggle_busy() {
     if(!this->busy){
@@ -8,6 +11,17 @@ void Device::toggle_busy() {
         busy = false;
     }
 }
+
+void Device::print() {
+
+    if(jobs.empty()) {
+        cout << "yo device jobs queue is empty" << endl;
+        return;
+    }
+
+    jobs[0]->process();
+}
+
 
 const string &Device::getName() const {
     return name;
@@ -24,6 +38,10 @@ string Device::getQueueInfo() {
 
 string Device::getCurrentInfo() {
     string currentinfo;
+    Job* currentjob = this->jobs[0];
+    int jobnummer = currentjob->getJobNumber();
+    string user = currentjob->getUserName();
+    currentinfo = "[#" + to_string(jobnummer) + "|" + user + "]";
     return currentinfo;
 }
 
