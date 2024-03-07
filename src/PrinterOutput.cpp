@@ -5,11 +5,9 @@
 void writeDeviceInfo(const System& system, std::ofstream& file) {
     const auto& devices = system.getDevices();
     for (const auto& device : devices) {
-        std::stringstream deviceInfo;
-        deviceInfo << device->getName() << " (CO2: " << device->getEmissions() << "g/page):" << endl;
-        deviceInfo << "* Current:" << endl << device->getCurrentInfo() << endl;
-        deviceInfo << "* Queue:" << endl << device->getQueueInfo() << endl;
-        file << deviceInfo.str();
+        file << device->getName() << " (CO2: " << device->getEmissions() << "g/page):" << endl;
+        file << "* Current:" << endl << device->getCurrentInfo() << endl;
+        file << "* Queue:" << endl << device->getQueueInfo() << endl;
     }
 }
 

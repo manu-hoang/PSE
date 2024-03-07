@@ -1,2 +1,0 @@
-INCORRECT VALUE: a
-DEVICE not added
