@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "fstream"
 using namespace std;
 
 // Parser
@@ -15,6 +16,15 @@ int load(const char* filename, System &system) {
         std::cerr << doc.ErrorDesc() << std::endl;
         return 1;
     }
+
+    // load error file
+    std::ofstream outputFile("src/inputError.txt"); // create a new output file or overwrite an existing one
+
+    // check if the file was opened successfully
+    if (!outputFile.is_open()) {
+        std::cerr << "Error opening file"<<endl;
+    }
+
 
     // check for root element
     TiXmlElement* root = doc.FirstChildElement();
@@ -59,7 +69,7 @@ int load(const char* filename, System &system) {
 
         }
 
-        if (element == "JOB"){
+        else if (element == "JOB"){
             // CHECK FOR ERRORS
 
             int jobNumber = 0;
@@ -86,6 +96,10 @@ int load(const char* filename, System &system) {
 
             system.addJob(job_to_add);
 
+        }
+        else{
+            cerr<<"UNRECOGNISED ELEMENT: "<<element<<endl;
+            outputFile<<"UNRECOGNISED ELEMENT: "<<element<<endl;
         }
         elem = elem->NextSiblingElement();
     }
