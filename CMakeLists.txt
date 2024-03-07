@@ -17,7 +17,7 @@ link_directories(./gtest/lib)
 # Set source files for RELEASE target
 # Only add cpp files, no h files!
 # Only add files with functionality here, no test files!
-set(RELEASE_SOURCE_FILES  src/Job.cpp src/Device.cpp src/System.cpp src/PrinterMain.cpp tinyxml/tinyxml.cpp tinyxml/tinystr.cpp tinyxml/tinyxmlerror.cpp tinyxml/tinyxmlparser.cpp)
+set(RELEASE_SOURCE_FILES  src/PrinterOutput.cpp src/PrinterInput.cpp src/Job.cpp src/Device.cpp src/System.cpp src/PrinterMain.cpp tinyxml/tinyxml.cpp tinyxml/tinystr.cpp tinyxml/tinyxmlerror.cpp tinyxml/tinyxmlparser.cpp)
 
 # Set source files for DEBUG target
 # Only add cpp files, no h files!
