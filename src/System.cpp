@@ -22,10 +22,41 @@ void print_message(Job* &job, Device* &printer){
     cout << job_pagecount << " pages" << endl;
 }
 
-void System::process_job(Job* &job, Device* &printer) {
-    job->process();
+Device *System::find_available_printer() {
 
+    for (auto printer : this->_devices) {
+        if(!printer->getBusy()){
+            return printer;
+        }
+    }
+
+    // if no !busy printers, return nullptr
+    return nullptr;
+}
+
+
+bool System::process_job(Job* &job) {
+
+    if(job->getFinished()){
+        cout << "alr finished" << endl;
+        return false;
+    }
+
+    Device* printer = find_available_printer();
+
+    if(printer == nullptr){
+        return false;
+    }
+
+    job->process();
     print_message(job, printer);
+    return true;
+}
+
+void System::process_all_jobs() {
+    for (auto job : this->_jobs){
+        process_job(job);
+    }
 }
 
 const std::vector<Device *> &System::getDevices() const{

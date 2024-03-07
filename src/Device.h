@@ -31,6 +31,7 @@ public:
     int getEmissions() const;
     string getQueueInfo();
     string getCurrentInfo();
+    bool getBusy();
     //
 };
 

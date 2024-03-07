@@ -19,7 +19,12 @@ public:
     void addDevice(Device* &device);
     void addJob(Job* &job);
 
-    void process_job(Job* &job, Device* &printer);
+    Device* find_available_printer();
+
+    bool process_job(Job* &job);
+
+    void process_all_jobs();
+
     const std::vector<Device*>& getDevices() const;
 
 

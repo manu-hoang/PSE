@@ -26,3 +26,7 @@ string Device::getCurrentInfo() {
     string currentinfo;
     return currentinfo;
 }
+
+bool Device::getBusy() {
+    return busy;
+}
