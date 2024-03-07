@@ -10,6 +10,8 @@ private:
     vector<Device*> _devices;
     vector<Job*> _jobs;
 
+    int time;
+
 public:
     System(){
         _devices = {};
@@ -22,8 +24,6 @@ public:
     void addJob(Job* &job);
 
     Device* find_available_printer();
-
-    bool process_job(Job* &job);
 
     void process_all_jobs();
 
