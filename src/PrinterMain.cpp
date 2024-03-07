@@ -1,7 +1,7 @@
 #include <iostream>
 #include "System.h"
-#include "PrinterInput.cpp"
-#include "PrinterOutput.cpp"
+#include "PrinterInput.h"
+#include "PrinterOutput.h"
 #include "contracts/DesignByContract.h"
 
 using namespace std;

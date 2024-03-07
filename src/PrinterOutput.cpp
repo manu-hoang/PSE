@@ -1,6 +1,4 @@
-#include "System.h"
-#include <fstream>
-#include <sstream>
+#include "PrinterOutput.h"
 
 void writeDeviceInfo(const System& system, std::ofstream& file) {
     const auto& devices = system.getDevices();

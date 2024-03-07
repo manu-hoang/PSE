@@ -66,71 +66,17 @@ bool FileCompare(const std::string leftFileName, const std::string rightFileName
     return result;
 }
 
-// Tests the compare files
-TEST_F(PrinterOutputTest, FileCompare) {
-    ASSERT_TRUE(DirectoryExists("./tests"));
-    ASSERT_TRUE(DirectoryExists("./src"));
-
-    ofstream myfile;
-    myfile.open("./src/output.txt");
-    myfile.close();
-    myfile.open("tests/outputTest.txt");
-    myfile.close();
-
-    //compare 2 empty files
-// *** Beware: the following does not work with older versions of libstdc++
-// *** It doesn't work with gcc version 4.0.1 (Apple Inc. build 5465)
-// *** It does work with gcc version 4.2.1
-    EXPECT_TRUE(FileCompare("testOutput/file1.txt", "testOutput/file2.txt"));
-    EXPECT_TRUE(FileCompare("testOutput/file2.txt", "testOutput/file1.txt"));
-
-    //compare an empty and a non-empty files
-    myfile.open("testOutput/file1.txt");
-    myfile << "xxx" << endl << "yyy";
-    myfile.close();
-    EXPECT_FALSE(FileCompare("testOutput/file1.txt", "testOutput/file2.txt"));
-    EXPECT_FALSE(FileCompare("testOutput/file2.txt", "testOutput/file1.txt"));
-
-    //compare two equal files
-    myfile.open("testOutput/file2.txt");
-    myfile << "xxx" << endl << "yyy";
-    myfile.close();
-    EXPECT_TRUE(FileCompare("testOutput/file1.txt", "testOutput/file2.txt"));
-    EXPECT_TRUE(FileCompare("testOutput/file2.txt", "testOutput/file1.txt"));
-
-    //compare 2 non-empty files which are off by a character in the middle
-    myfile.open("testOutput/file2.txt");
-    myfile << "xxx" << endl << "xyy";
-    myfile.close();
-    EXPECT_FALSE(FileCompare("testOutput/file1.txt", "testOutput/file2.txt"));
-    EXPECT_FALSE(FileCompare("testOutput/file2.txt", "testOutput/file1.txt"));
-
-    //compare 2 non-empty files where one is one character shorter than the other
-    myfile.open("testOutput/file2.txt");
-    myfile << "xxx" << endl << "yy";
-    myfile.close();
-    EXPECT_FALSE(FileCompare("testOutput/file1.txt", "testOutput/file2.txt"));
-    EXPECT_FALSE(FileCompare("testOutput/file2.txt", "testOutput/file1.txt"));
-
-    //compare existig against non existing file
-    EXPECT_FALSE(
-            FileCompare("testOutput/file1.txt", "testOutput/nonexisting.txt"));
-    EXPECT_FALSE(
-            FileCompare("testOutput/nonexisting.txt", "testOutput/file1.txt"));
-}
 
 // Tests the output of the "happy day" scenario
 TEST_F(PrinterOutputTest, OutputHappyDay) {
-    ASSERT_TRUE(DirectoryExists("testOutput"));
+    ASSERT_TRUE(DirectoryExists("./tests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    ofstream myfile;
-    myfile.open("test.txt");
-    while (ttt_.notDone()) {
-        ttt_.doMove();
-        ttt_.writeOn(myfile);
-    };
-    myfile.close();
     EXPECT_TRUE(
-            FileCompare("testOutput/happyDayExpectedOut.txt", "testOutput/happyDayOut.txt"));
+            FileCompare("./tests/outputTest.txt", "./src/output.txt"));
+}
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

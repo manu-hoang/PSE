@@ -1,13 +1,7 @@
-#include <iostream>
-#include <string>
-#include "fstream"
-#include <cctype>
+
+#include "PrinterInput.h"
 using namespace std;
 
-// Parser
-#include "../tinyxml/tinyxml.h"
-
-#include "System.h"
 
 bool isInteger(string &str) {
     if(str.empty()){
