@@ -18,22 +18,30 @@ private:
     int speed; // pages per minute
 
     bool busy;
+
     vector<Job*> jobs;
+    double printing_time; // time to complete current job (seconds)
 
 public:
     Device(string name, int emissions, int speed): name(name), emissions(emissions), speed(speed){
         busy = false;
     }
 
-    void toggle_busy();
+    void print_page();
 
-    void print();
+    void print_message(Job *&job);
+
+    void add_job(Job *&job);
+
+    double get_printing_time();
 
     //Functions used for PrinterOutput.cpp
     const string &getName() const;
     int getEmissions() const;
     string getQueueInfo();
     string getCurrentInfo();
+
+    void setBusy(bool busy);
     bool getBusy();
     //
 };

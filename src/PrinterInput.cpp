@@ -187,6 +187,11 @@ int load(const char* filename, System &system) {
         }
         elem = elem->NextSiblingElement();
     }
+    
+    auto first_device = system.getDevices()[0];
+    for (auto job: system.getJobs() ) {
+        first_device->add_job(job);
+    }
 
     // close input file
     doc.Clear();

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "System.h"
 #include "PrinterInput.cpp"
+#include "PrinterOutput.cpp"
 #include "contracts/DesignByContract.h"
 
 using namespace std;
@@ -10,6 +11,9 @@ int main(int argc, char **argv) {
     REQUIRE((5 >= 3), "aaaaaaaa");
 
     System system;
+    ofstream output("./src/output.txt");
+
     load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
+    writeDeviceInfo(system, output);
 }
 
