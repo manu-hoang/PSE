@@ -25,7 +25,8 @@ set(DEBUG_SOURCE_FILES src/PrinterInput.cpp
         src/Device.cpp
         src/Job.cpp
         src/System.cpp
-        src/PrinterOutput.cpp)
+        src/PrinterOutput.cpp
+        tests/PrinterOutputTests.cpp)
 
 # Create RELEASE target
 add_executable(release_target ${RELEASE_SOURCE_FILES})
