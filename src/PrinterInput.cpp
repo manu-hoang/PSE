@@ -181,11 +181,16 @@ int load(const char* filename, System &system) {
         }
         elem = elem->NextSiblingElement();
     }
-    
-    auto first_device = system.getDevices()[0];
-    for (auto job: system.getJobs() ) {
-        first_device->add_job(job);
+
+
+    // Depending on how we are supposed to queue tasks, this will change
+    if(!system.getDevices().empty()){
+        auto first_device = system.getDevices()[0];
+        for (auto job: system.getJobs() ) {
+            first_device->add_job(job);
+        }
     }
+
 
     // close input file
     doc.Clear();

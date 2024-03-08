@@ -16,6 +16,6 @@ int main(int argc, char **argv) {
     load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
     writeDeviceInfo(system, output);
 
-    system.automatic_run(100);
+    //system.automatic_run(100);
 }
 

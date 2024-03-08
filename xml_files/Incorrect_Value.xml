@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<SYSTEM>
+    <DEVICE>
+        <name>Office_Printer5</name>
+        <emission>ABBA</emission>
+        <speed>40</speed>
+    </DEVICE>
+    <JOB>
+        <jobNumber>89751</jobNumber>
+        <pageCount>JDDh32</pageCount>
+        <userName>SergeDemeyer</userName>
+    </JOB>
+</SYSTEM>
