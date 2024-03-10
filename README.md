@@ -16,6 +16,7 @@ X: Niet werkend of niet geïmplementeerd
 | 2 | Contracts       |        |                                    |
 |   | System.h        |        |                                    |
 |   | Device.h        |        |                                    |
+|   | Job.h           |        |                                    |
 |   | PrinterInput.h  |        |                                    |
 |   | PrinterOutput.h |        |                                    |
 | 3 | Functionality   |        |                                    |
