@@ -2,9 +2,9 @@
 
 void Job::print_page() {
 
-    pageCount--;
+    pagesToPrint--;
 
-    if(pageCount == 0){
+    if(pagesToPrint <= 0){
         finished = true;
     }
 }

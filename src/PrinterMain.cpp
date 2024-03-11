@@ -7,15 +7,13 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-    // a
-    REQUIRE((5 >= 3), "aaaaaaaa");
 
     System system;
-    ofstream output("./src/output.txt");
 
     load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
-    writeDeviceInfo(system, output);
+    system.automatic_run(60);
 
-    system.automatic_run(100);
+    ofstream output("./src/output.txt");
+    writeDeviceInfo(system, output);
 }
 

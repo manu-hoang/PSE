@@ -8,6 +8,7 @@ class Job {
 private:
     int jobNumber;
     int pageCount;
+    int pagesToPrint;
     string userName;
 
     int start_time;
@@ -16,6 +17,7 @@ private:
 public:
     Job(int jobNumber, int pageCount, string userName): jobNumber(jobNumber), pageCount(pageCount), userName(userName){
         finished = false;
+        pagesToPrint = pageCount;
     }
 
     void print_page();

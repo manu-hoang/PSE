@@ -17,34 +17,39 @@ void Device::print_message(Job* &job){
 
 void Device::update_current_job(int time){
 
-    if(current_job == nullptr and jobs.empty()){
-        return; // nothing to update
-    }
+    if(current_job == nullptr){
 
-    if(current_job == nullptr and !jobs.empty()){
-        current_job = jobs[0];
-        jobs.erase(jobs.begin());
+        if(jobs.empty()) {
+            return; // nothing to update
+        }
 
-        current_job->setStartTime(time);
+        else {
+            current_job = jobs[0];
+            jobs.erase(jobs.begin());
+
+            current_job->setStartTime(time);
+            busy = true;
+            return;
+        }
+
     }
 
     if(current_job->getFinished()){
 
-        // output message Use Case 3.1
-        print_message(jobs[0]);
-
         current_job = nullptr;
+        busy = false;
+        update_current_job(time);
     }
 }
 
 void Device::print_page() {
+    current_job->print_page();
 
-    if(current_job == nullptr) {
-        cout << "yo nothing to print" << endl;
-        return;
+    if(current_job->getFinished()){
+        // output message Use Case 3.1
+        print_message(current_job);
     }
 
-    current_job->print_page();
 }
 
 
@@ -86,17 +91,12 @@ bool Device::getBusy() {
 }
 
 void Device::add_job(Job *&job) {
+    this->busy = true;
 
                           //amount of pages     // pages per second
     this->printing_time = job->getPageCount() * (this->speed/60);
 
-    if(current_job == nullptr) {
-        current_job = job;
-    }
-    else {
-        this->jobs.push_back(job);
-    }
-
+    this->jobs.push_back(job);
 }
 
 double Device::get_printing_time() {

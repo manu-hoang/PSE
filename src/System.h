@@ -21,8 +21,11 @@ public:
 
     void automatic_run(int seconds);
 
+    void update_all_devices();
+
     void process_all_jobs();
 
+    int get_current_time() const;
 
 
 

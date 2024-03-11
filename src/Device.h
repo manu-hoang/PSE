@@ -28,10 +28,14 @@ private:
 public:
     Device(string name, int emissions, int speed): name(name), emissions(emissions), speed(speed){
         busy = false;
+        current_job = nullptr;
     }
 
     void print_page();
     void print_message(Job *&job);
+
+
+
 
     void add_job(Job *&job);
     Job* getCurrentJob();
