@@ -27,8 +27,6 @@ public:
 
     void process_all_jobs();
 
-    int get_current_time() const;
-
 
 
 
@@ -42,6 +40,4 @@ public:
 
     const std::vector<Device*>& getDevices() const;
     const vector<Job *> &getJobs() const;
-
-
 };

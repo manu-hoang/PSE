@@ -1,5 +1,4 @@
 #include "Device.h"
-#include <sstream>
 #include "iostream"
 
 void Device::print_message(Job* &job){
@@ -12,7 +11,7 @@ void Device::print_message(Job* &job){
     cout << "Printer " << printer_name << " finished job:" << endl;
     cout << "Number: " << job_number << endl;
     cout << "Submitted by: " << job_username << endl;
-    cout << job_pagecount << " pages" << endl;
+    cout << job_pagecount << " pages" << endl << endl;
 }
 
 void Device::update_current_job(int time){
@@ -28,6 +27,10 @@ void Device::update_current_job(int time){
             jobs.erase(jobs.begin());
 
             current_job->setStartTime(time);
+
+            //amount of pages     // pages per second
+            this->printing_time = current_job->getPageCount() / (this->speed/60);
+
             busy = true;
             return;
         }
@@ -35,7 +38,6 @@ void Device::update_current_job(int time){
     }
 
     if(current_job->getFinished()){
-
         current_job = nullptr;
         busy = false;
         update_current_job(time);
@@ -43,13 +45,12 @@ void Device::update_current_job(int time){
 }
 
 void Device::print_page() {
+    // Use Case 3.1: Manual processing
     current_job->print_page();
 
     if(current_job->getFinished()){
-        // output message Use Case 3.1
         print_message(current_job);
     }
-
 }
 
 
@@ -76,7 +77,7 @@ string Device::getQueueInfo() {
 }
 
 string Device::getCurrentInfo() {
-    string currentinfo = "";
+    string currentinfo;
 
     Job* currentjob = this->current_job;
     int jobnummer = currentjob->getJobNumber();
@@ -95,10 +96,6 @@ bool Device::getBusy() {
 
 void Device::add_job(Job *&job) {
     this->busy = true;
-
-                          //amount of pages     // pages per second
-    this->printing_time = job->getPageCount() * (this->speed/60);
-
     this->jobs.push_back(job);
 }
 

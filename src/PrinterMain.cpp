@@ -11,12 +11,11 @@ int main(int argc, char **argv) {
     System system;
 
     load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
-    system.link_jobs();
 
     ofstream output("in_output/output.txt");
     writeDeviceInfo(system, output);
 
-    system.automatic_run(60);
+    system.automatic_run(150);
 
 
 }

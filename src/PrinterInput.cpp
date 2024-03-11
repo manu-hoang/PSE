@@ -182,6 +182,8 @@ int load(const char* filename, System &system) {
         elem = elem->NextSiblingElement();
     }
 
+    system.link_jobs();
+
     // close input file
     doc.Clear();
     return 0;
