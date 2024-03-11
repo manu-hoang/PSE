@@ -1,25 +1,20 @@
 #include "System.h"
 #include "iostream"
 
-void link_jobs(System* system){
-
+void System::link_jobs() {
     // TODO: Change later, dont know how jobs are divided yet
-    Device* device = system->getDevices()[0];
-    vector<Job*> jobs = system->getJobs();
+    Device* device = _devices[0];
 
-    while(!jobs.empty()){
-        device->add_job(jobs[0]);
-        jobs.erase(jobs.begin());
+    while(!_jobs.empty()){
+        device->add_job(_jobs[0]);
+        _jobs.erase(_jobs.begin());
     }
 
-    device->update_current_job(system->get_current_time());
+    device->update_current_job(current_time);
 }
 
-void System::automatic_run(int seconds) {
 
-    // divide jobs to their respective printers
-    // (currently just printers[0])
-    link_jobs(this);
+void System::automatic_run(int seconds) {
 
     while (current_time <= seconds){
 
@@ -101,3 +96,5 @@ const vector<Job *> &System::getJobs() const {
 int System::get_current_time() const {
     return this->current_time;
 }
+
+

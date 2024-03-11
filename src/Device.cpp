@@ -63,19 +63,22 @@ int Device::getEmissions() const {
 
 string Device::getQueueInfo() {
     string queueinfo;
-    int jobsammount = jobs.size();
-    for (int i = 1; i < jobsammount ; ++i) {
+    int jobsamount = jobs.size();
+
+    for (int i = 0; i < jobsamount ; ++i) {
         Job* currentjobinqueue = jobs[i];
         int  jobnummer = currentjobinqueue->getJobNumber();
         string userinqueue = currentjobinqueue->getUserName();
         queueinfo += "[#" + to_string(jobnummer) + "|" + userinqueue + "]\n";
     }
+
     return queueinfo;
 }
 
 string Device::getCurrentInfo() {
-    string currentinfo;
-    Job* currentjob = jobs[0];
+    string currentinfo = "";
+
+    Job* currentjob = this->current_job;
     int jobnummer = currentjob->getJobNumber();
     string user = currentjob->getUserName();
     currentinfo = "[#" + to_string(jobnummer) + "|" + user + "]";

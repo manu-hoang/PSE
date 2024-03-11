@@ -19,6 +19,8 @@ public:
         current_time = 0;
     };
 
+    void link_jobs();
+
     void automatic_run(int seconds);
 
     void update_all_devices();
