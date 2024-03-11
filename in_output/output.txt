@@ -2,3 +2,4 @@ Office_Printer5 (CO2: 3g/page):
 	* Current:
 		[#89751|SergeDemeyer]
 	* Queue:
+		[#2189|anonymous_user]

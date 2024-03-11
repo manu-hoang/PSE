@@ -1,7 +1,11 @@
 #include "System.h"
-#include "iostream"
 
 void System::link_jobs() {
+
+    if(_devices.empty()){
+        return;
+    }
+
     // TODO: Change later, dont know how jobs are divided yet
     Device* device = _devices[0];
     vector<Job*> tempjobs = _jobs;
