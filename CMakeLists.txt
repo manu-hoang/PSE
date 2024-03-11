@@ -27,10 +27,8 @@ set(DEBUG_SOURCE_FILES
         src/Job.cpp
         src/System.cpp
         src/PrinterOutput.cpp
-        tests/PrinterOutputTests.cpp
         tinyxml/tinyxml.cpp tinyxml/tinystr.cpp tinyxml/tinyxmlerror.cpp tinyxml/tinyxmlparser.cpp
-        src/PrinterInput.h
-        src/PrinterOutput.h
+        tests/PrinterIn_OutputTests.cpp
 )
 
 # Create RELEASE target

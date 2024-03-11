@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<SYSTEM>
+    <DEVICE>
+        <name>Office_Printer5</name>
+        <emission>3sé</emission>
+        <speed>,jdjjd</speed>
+    </DEVICE>
+    <JOB>
+        <jobNumber>89751a</jobNumber>
+        <pageCount>2cc</pageCount>
+        <userName>SergeDemeyer</userName>
+    </JOB>
+    <JOB>
+        <jobNumber>218déddd9</jobNumber>
+        <pageCount>3q</pageCount>
+        <userName>anonymous_user</userName>
+    </JOB>
+    <RANDOM>
+        <jobNumber>218déddd9</jobNumber>
+        <pageCount>3q</pageCount>
+        <userName>anonymous_user</userName>
+    </RANDOM>
+</SYSTEM>
