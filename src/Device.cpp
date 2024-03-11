@@ -70,7 +70,12 @@ string Device::getQueueInfo() {
         Job* currentjobinqueue = jobs[i];
         int  jobnummer = currentjobinqueue->getJobNumber();
         string userinqueue = currentjobinqueue->getUserName();
-        queueinfo += "[#" + to_string(jobnummer) + "|" + userinqueue + "]\n";
+
+        queueinfo += "\t\t[#" + to_string(jobnummer) + "|" + userinqueue + "]";
+
+        if(i != jobsamount-1){
+            queueinfo += "\n";
+        }
     }
 
     return queueinfo;
