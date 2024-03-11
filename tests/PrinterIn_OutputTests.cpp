@@ -6,6 +6,7 @@
 #include "../src/System.h"
 #include <fstream>
 #include "../src/PrinterInput.h"
+#include "../src/PrinterOutput.h"
 
 
 class PrinterIn_OutputTest: public ::testing::Test {
@@ -67,15 +68,6 @@ bool FileCompare(const std::string leftFileName, const std::string rightFileName
 }
 
 
-// Tests the output of the "happy day" scenario
-TEST_F(PrinterIn_OutputTest, OutputHappyDay) {
-    ASSERT_TRUE(DirectoryExists("tests"));
-    //if directory doesn't exist then no need in proceeding with the test
-
-    EXPECT_TRUE(
-            FileCompare("tests/outputTest.txt", "src/output.txt"));
-}
-
 // Tests the input of the "happy day" scenario
 TEST_F(PrinterIn_OutputTest, InputHappyDay) {
     ASSERT_TRUE(DirectoryExists("tests/inputTests"));
@@ -86,7 +78,7 @@ TEST_F(PrinterIn_OutputTest, InputHappyDay) {
     load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
 
     EXPECT_TRUE(
-            FileCompare("tests/inputTests/input1.txt", "src/inputError.txt"));
+            FileCompare("tests/inputTests/happy_day.txt", "in_output/inputError.txt"));
 }
 
 // Tests the error code given by an unrecognised element
@@ -99,7 +91,7 @@ TEST_F(PrinterIn_OutputTest, UnrecognisedElement) {
     load("./xml_files/Unrecognised_Element.xml", system);
 
     EXPECT_TRUE(
-            FileCompare("tests/inputTests/unrecognised_element.txt", "src/inputError.txt"));
+            FileCompare("tests/inputTests/unrecognised_element.txt", "in_output/inputError.txt"));
 
     // Device should still get added as the unrecognised doesnt impact it
     EXPECT_TRUE(system.getDevices().size() == 1);
@@ -118,7 +110,7 @@ TEST_F(PrinterIn_OutputTest, IncorrectValue) {
     load("./xml_files/Incorrect_Value.xml", system);
 
     EXPECT_TRUE(
-            FileCompare("tests/inputTests/incorrect_value.txt", "src/inputError.txt"));
+            FileCompare("tests/inputTests/incorrect_value.txt", "in_output/inputError.txt"));
 
     // Device has an incorrect value, so should not get added
     EXPECT_TRUE(system.getDevices().empty());
@@ -137,7 +129,7 @@ TEST_F(PrinterIn_OutputTest, Doomsday) {
     load("./xml_files/Doomsday.xml", system);
 
     EXPECT_TRUE(
-            FileCompare("tests/inputTests/doomsday.txt", "src/inputError.txt"));
+            FileCompare("tests/inputTests/doomsday.txt", "in_output/inputError.txt"));
 
     // Device has an incorrect value, so should not get added
     EXPECT_TRUE(system.getDevices().empty());
@@ -145,6 +137,28 @@ TEST_F(PrinterIn_OutputTest, Doomsday) {
     // Job has an incorrect value, so should not get added
     EXPECT_TRUE(system.getJobs().empty());
 }
+
+// Tests the output of the "happy day" scenario
+TEST_F(PrinterIn_OutputTest, HappyDayOutput) {
+    ASSERT_TRUE(DirectoryExists("tests/outputTests"));
+    ASSERT_TRUE(DirectoryExists("in_output"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    System system;
+
+    load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
+    system.link_jobs();
+
+    ofstream output("in_output/output.txt");
+    writeDeviceInfo(system, output);
+
+
+    EXPECT_TRUE(
+            FileCompare("tests/outputTests/happy_day_output.txt", "in_output/output.txt"));
+}
+
+
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

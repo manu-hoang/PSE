@@ -47,7 +47,7 @@ int load(const char* filename, System &system) {
     }
 
     // load error file
-    std::ofstream outputFile("src/inputError.txt"); // create a new output file or overwrite an existing one
+    std::ofstream outputFile("in_output/inputError.txt"); // create a new output file or overwrite an existing one
 
     // check if the file was opened successfully
     if (!outputFile.is_open()) {

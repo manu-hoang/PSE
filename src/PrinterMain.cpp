@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
     load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
     system.link_jobs();
 
-    ofstream output("./src/output.txt");
+    ofstream output("in_output/output.txt");
     writeDeviceInfo(system, output);
 
     system.automatic_run(60);
