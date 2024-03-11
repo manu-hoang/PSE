@@ -1,5 +1,4 @@
 #include "Device.h"
-#include <sstream>
 #include "iostream"
 
 void Device::print_message(Job* &job){
@@ -39,7 +38,6 @@ void Device::update_current_job(int time){
     }
 
     if(current_job->getFinished()){
-
         current_job = nullptr;
         busy = false;
         update_current_job(time);
@@ -79,7 +77,7 @@ string Device::getQueueInfo() {
 }
 
 string Device::getCurrentInfo() {
-    string currentinfo = "";
+    string currentinfo;
 
     Job* currentjob = this->current_job;
     int jobnummer = currentjob->getJobNumber();

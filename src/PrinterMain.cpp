@@ -11,7 +11,6 @@ int main(int argc, char **argv) {
     System system;
 
     load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
-    system.link_jobs();
 
     ofstream output("./src/output.txt");
     writeDeviceInfo(system, output);
