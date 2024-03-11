@@ -4,10 +4,11 @@
 void System::link_jobs() {
     // TODO: Change later, dont know how jobs are divided yet
     Device* device = _devices[0];
+    vector<Job*> tempjobs = _jobs;
 
-    while(!_jobs.empty()){
-        device->add_job(_jobs[0]);
-        _jobs.erase(_jobs.begin());
+    while(!tempjobs.empty()){
+        device->add_job(tempjobs[0]);
+        tempjobs.erase(tempjobs.begin());
     }
 
     device->update_current_job(current_time);
