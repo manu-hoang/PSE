@@ -17,7 +17,7 @@ class Device {
 private:
     string name;
     int emissions; // gram CO2 per page
-    int speed; // pages per minute
+    double speed; // pages per minute
 
     bool busy;
 
@@ -26,7 +26,7 @@ private:
     double printing_time; // time to complete current job (seconds)
 
 public:
-    Device(string name, int emissions, int speed): name(name), emissions(emissions), speed(speed){
+    Device(string name, int emissions, double speed): name(name), emissions(emissions), speed(speed){
         busy = false;
         current_job = nullptr;
     }

@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
     ofstream output("./src/output.txt");
     writeDeviceInfo(system, output);
 
-    system.automatic_run(60);
+    system.automatic_run(150);
 
 
 }

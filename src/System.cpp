@@ -15,12 +15,12 @@ void System::link_jobs() {
 
 
 void System::automatic_run(int seconds) {
+    update_all_devices();
 
     while (current_time <= seconds){
 
-        update_all_devices();
-
         process_all_jobs();
+        update_all_devices();
 
         current_time++;
     }
@@ -47,12 +47,12 @@ void System::process_all_jobs() {
         // job finish time
         double finish_time = current_job->getStartTime() + device->get_printing_time();
 
-
         if(current_time >= finish_time){
 
             while(!current_job->getFinished()) {
                 device->print_page();
             }
+
         }
 
     }
@@ -92,9 +92,3 @@ const std::vector<Device *> &System::getDevices() const{
 const vector<Job *> &System::getJobs() const {
     return _jobs;
 }
-
-int System::get_current_time() const {
-    return this->current_time;
-}
-
-
