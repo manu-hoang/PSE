@@ -1,18 +1,6 @@
 #include "Device.h"
+#include "PrinterOutput.h"
 #include "iostream"
-
-void Device::print_message(Job* &job){
-    string printer_name = this->getName();
-
-    int job_number = job->getJobNumber();
-    string job_username = job->getUserName();
-    int job_pagecount = job->getPageCount();
-
-    cout << "Printer " << printer_name << " finished job:" << endl;
-    cout << "Number: " << job_number << endl;
-    cout << "Submitted by: " << job_username << endl;
-    cout << job_pagecount << " pages" << endl << endl;
-}
 
 void Device::update_current_job(int time){
 
@@ -49,7 +37,7 @@ void Device::print_page() {
     current_job->print_page();
 
     if(current_job->getFinished()){
-        print_message(current_job);
+        device_print_message(*this, current_job);
     }
 }
 

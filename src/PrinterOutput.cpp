@@ -39,3 +39,16 @@ void writeDeviceInfo(System& system, std::ofstream& file) {
     }
 }
 
+void device_print_message(Device &device, Job *&job) {
+    const string& printer_name = device.getName();
+
+    int job_number = job->getJobNumber();
+    const string& job_username = job->getUserName();
+    int job_pagecount = job->getPageCount();
+
+    cout << "Printer " << printer_name << " finished job:" << endl;
+    cout << "Number: " << job_number << endl;
+    cout << "Submitted by: " << job_username << endl;
+    cout << job_pagecount << " pages" << endl << endl;
+}
+
