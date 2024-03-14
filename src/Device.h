@@ -42,13 +42,14 @@ public:
     void add_job(Job *&job);
     Job* getCurrentJob();
 
+    vector<Job*> getJobs();
+
     double get_printing_time();
 
     //Functions used for PrinterOutput.cpp
     const string &getName() const;
     int getEmissions() const;
-    string getQueueInfo();
-    string getCurrentInfo();
+
 
     void setBusy(bool busy);
     bool getBusy();
