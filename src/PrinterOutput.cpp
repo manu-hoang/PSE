@@ -7,7 +7,7 @@ void writeDeviceInfo(const System& system, std::ofstream& file) {
         file << device->getName() << " (CO2: " << device->getEmissions() << "g/page):" << endl;
         file << "\t* Current:" << endl << "\t\t"+device->getCurrentInfo() << endl;
         file << "\t* Queue:" << endl;
-        file << device->getQueueInfo() << endl;
+        file << device->getQueueInfo();
     }
 }
 
