@@ -50,35 +50,6 @@ int Device::getEmissions() const {
     return emissions;
 }
 
-string Device::getQueueInfo() {
-    string queueinfo;
-    int jobsamount = jobs.size();
-
-    for (int i = 0; i < jobsamount ; ++i) {
-        Job* currentjobinqueue = jobs[i];
-        int  jobnummer = currentjobinqueue->getJobNumber();
-        string userinqueue = currentjobinqueue->getUserName();
-
-        queueinfo += "\t\t[#" + to_string(jobnummer) + "|" + userinqueue + "]";
-
-        if(i != jobsamount-1){
-            queueinfo += "\n";
-        }
-    }
-
-    return queueinfo;
-}
-
-string Device::getCurrentInfo() {
-    string currentinfo;
-
-    Job* currentjob = this->current_job;
-    int jobnummer = currentjob->getJobNumber();
-    string user = currentjob->getUserName();
-    currentinfo = "[#" + to_string(jobnummer) + "|" + user + "]";
-    return currentinfo;
-}
-
 void Device::setBusy(bool boolean) {
     this->busy = boolean;
 }
@@ -98,4 +69,8 @@ double Device::get_printing_time() {
 
 Job *Device::getCurrentJob() {
     return current_job;
+}
+
+vector<Job *> Device::getJobs() {
+    return jobs;
 }

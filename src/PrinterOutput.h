@@ -9,10 +9,14 @@
 #pragma once
 
 #include "System.h"
+#include "Device.h"
 #include <fstream>
 #include <sstream>
 
-void writeDeviceInfo(const System& system, std::ofstream& file);
+string getQueueInfo(Device* &device);
+string getCurrentInfo(Device* &device);
+
+void writeDeviceInfo(System& system, std::ofstream& file);
 
 void device_print_message(Device &device, Job* &job);
 
