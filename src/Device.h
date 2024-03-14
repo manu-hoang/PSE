@@ -33,12 +33,14 @@ public:
 
     void print_page();
 
+    void update_current_job(int current_time);
+
+
 
 
 
     void add_job(Job *&job);
     Job* getCurrentJob();
-    void update_current_job(int current_time);
 
     double get_printing_time();
 
