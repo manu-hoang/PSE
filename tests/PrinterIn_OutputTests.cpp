@@ -140,19 +140,19 @@ TEST_F(PrinterIn_OutputTest, Doomsday) {
 
 // Tests the output of the "happy day" scenario
 TEST_F(PrinterIn_OutputTest, HappyDayOutput) {
-    ASSERT_TRUE(DirectoryExists("../tests/outputTests"));
-    ASSERT_TRUE(DirectoryExists("../in_output"));
+    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
+    ASSERT_TRUE(DirectoryExists("./in_output"));
     //if directory doesn't exist then no need in proceeding with the test
 
     System system1;
 
-    load("../xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system1);
+    load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system1);
 
-    ofstream output("../in_output/output.txt");
+    ofstream output("./in_output/output.txt");
     writeDeviceInfo(system1, output);
 
     EXPECT_TRUE(
-            FileCompare("../tests/outputTests/happy_day_output.txt", "../in_output/output.txt")
+            FileCompare("./tests/outputTests/happy_day_output.txt", "./in_output/output.txt")
             );
 }
 

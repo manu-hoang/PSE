@@ -29,6 +29,7 @@ set(DEBUG_SOURCE_FILES
         src/PrinterOutput.cpp
         tinyxml/tinyxml.cpp tinyxml/tinystr.cpp tinyxml/tinyxmlerror.cpp tinyxml/tinyxmlparser.cpp
         tests/PrinterIn_OutputTests.cpp
+        src/contracts/DesignByContract.h
 )
 
 # Create RELEASE target
