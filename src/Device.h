@@ -32,7 +32,6 @@ public:
     }
 
     void print_page();
-    void print_message(Job *&job);
 
 
 

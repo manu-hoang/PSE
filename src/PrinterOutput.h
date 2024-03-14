@@ -14,4 +14,6 @@
 
 void writeDeviceInfo(const System& system, std::ofstream& file);
 
+void device_print_message(Device &device, Job* &job);
+
 #endif //PROJECTTITLE_PRINTEROUTPUT_H
