@@ -44,7 +44,7 @@ void device_print_message(Device &device, Job *&job) {
 
     int job_number = job->getJobNumber();
     const string& job_username = job->getUserName();
-    int job_pagecount = job->getPageCount();
+    int job_pagecount = job->getTotalPageCount();
 
     cout << "Printer " << printer_name << " finished job:" << endl;
     cout << "Number: " << job_number << endl;
