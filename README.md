@@ -14,9 +14,9 @@ X: Niet werkend of niet geïmplementeerd
 |   | Use Case 3.1    |        | Needs more tests                   |
 |   | Use Case 3.2    |        | Needs more tests                   |
 | 2 | Contracts       |        |                                    |
-|   | System.h        |        |                                    |
-|   | Device.h        |        |                                    |
-|   | Job.h           |        |                                    |
+|   | System.h        | V      |                                    |
+|   | Device.h        | V      |                                    |
+|   | Job.h           | V      |                                    |
 |   | PrinterInput.h  |        |                                    |
 |   | PrinterOutput.h |        |                                    |
 | 3 | Functionality   | V      |                                    |
@@ -28,34 +28,7 @@ X: Niet werkend of niet geïmplementeerd
 Gekende problemen
 
 ...
+
 Niet-gequoteerde functionaliteit
 
 ...
-
-
-Timetable:
-
-| date | name | start time | end time |
-|------|------|------------|----------|
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
-|      |      |            |          |
