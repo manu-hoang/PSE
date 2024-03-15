@@ -156,11 +156,59 @@ TEST_F(PrinterIn_OutputTest, HappyDayOutput) {
             );
 }
 
+// Tests the output of the "incorrect value" scenario
+TEST_F(PrinterIn_OutputTest, IncorrectValueOutput) {
+    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
+    ASSERT_TRUE(DirectoryExists("./in_output"));
+    //if directory doesn't exist then no need in proceeding with the test
 
+    System system1;
 
+    load("./xml_files/Incorrect_Value.xml", system1);
 
+    ofstream output("./in_output/output.txt");
+    writeDeviceInfo(system1);
 
+    EXPECT_TRUE(
+            FileCompare("./tests/outputTests/incorrect_value_output.txt", "./in_output/output.txt")
+    );
+}
 
+// Tests the output of the "unrecognised element" scenario
+TEST_F(PrinterIn_OutputTest, UnrecognisedElementOutput) {
+    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
+    ASSERT_TRUE(DirectoryExists("./in_output"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    System system1;
+
+    load("./xml_files/Unrecognised_Element.xml", system1);
+
+    ofstream output("./in_output/output.txt");
+    writeDeviceInfo(system1);
+
+    EXPECT_TRUE(
+            FileCompare("./tests/outputTests/unrecognised_element_output.txt", "./in_output/output.txt")
+    );
+}
+
+// Tests the output of the "doomsday" scenario
+TEST_F(PrinterIn_OutputTest, DoomsdayOutput) {
+    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
+    ASSERT_TRUE(DirectoryExists("./in_output"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    System system1;
+
+    load("./xml_files/Doomsday.xml", system1);
+
+    ofstream output("./in_output/output.txt");
+    writeDeviceInfo(system1);
+
+    EXPECT_TRUE(
+            FileCompare("./tests/outputTests/doomsday_output.txt", "./in_output/output.txt")
+    );
+}
 
 
 int main(int argc, char **argv) {
