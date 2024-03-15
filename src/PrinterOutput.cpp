@@ -29,7 +29,8 @@ string getCurrentInfo(Device* &device){
     return currentinfo;
 }
 
-void writeDeviceInfo(System& system, std::ofstream& file) {
+void writeDeviceInfo(System& system) {
+    ofstream file("in_output/output.txt");
     auto& devices = system.getDevices();
     for (Device* device : devices) {
         file << device->getName() << " (CO2: " << device->getEmissions() << "g/page):" << endl;
@@ -47,8 +48,15 @@ void device_print_message(Device &device, Job *&job) {
     int job_pagecount = job->getTotalPageCount();
 
     cout << "Printer " << printer_name << " finished job:" << endl;
-    cout << "Number: " << job_number << endl;
-    cout << "Submitted by: " << job_username << endl;
-    cout << job_pagecount << " pages" << endl << endl;
+    cout << "\tNumber: " << job_number << endl;
+    cout << "\tSubmitted by: " << job_username << endl;
+    cout << "\t" << job_pagecount << " pages" << endl << endl;
+
+    ofstream file("in_output/console_output.txt");
+
+    file << "Printer " << printer_name << " finished job:" << endl;
+    file << "\tNumber: " << job_number << endl;
+    file << "\tSubmitted by: " << job_username << endl;
+    file << "\t" << job_pagecount << " pages" << endl << endl;
 }
 

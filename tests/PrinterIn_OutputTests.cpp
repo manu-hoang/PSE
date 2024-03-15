@@ -149,7 +149,7 @@ TEST_F(PrinterIn_OutputTest, HappyDayOutput) {
     load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system1);
 
     ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system1, output);
+    writeDeviceInfo(system1);
 
     EXPECT_TRUE(
             FileCompare("./tests/outputTests/happy_day_output.txt", "./in_output/output.txt")
