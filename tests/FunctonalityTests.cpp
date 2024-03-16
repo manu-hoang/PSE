@@ -3,6 +3,8 @@
 #include "../src/System.h"
 #include "../src/Device.h"
 #include "../src/Job.h"
+#include "../src/PrinterInput.h"
+#include "../src/PrinterOutput.h"
 
 
 class FunctionalityTests: public ::testing::Test {
@@ -99,3 +101,26 @@ TEST_F(FunctionalityTests, JobTests) {
 }
 
 // Testing the Use Case 3.1: Manual Processing and Use Case 3.2: Automated Processing
+// In- and Output get tested in PrinterIn_OutputTests.cpp
+TEST_F(FunctionalityTests, UseCase3_1_2Processing) {
+
+    System system;
+
+    load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
+
+    // First job should be the current job
+    EXPECT_TRUE(system.getDevices()[0]->getCurrentJob() == system.getJobs()[0]);
+
+    // System did not run for long enough to pass the first job, so current job should stay the same
+    system.automatic_run(2);
+    EXPECT_TRUE(system.getDevices()[0]->getCurrentJob() == system.getJobs()[0]);
+
+    // System had enough time to go to the next job but doesnt complete the next one
+    system.automatic_run(3);
+    EXPECT_TRUE(system.getDevices()[0]->getCurrentJob() == system.getJobs()[1]);
+
+    // System finishes the job and there should be no current jobs left
+    system.automatic_run(100);
+    EXPECT_FALSE(system.getDevices()[0]->getCurrentJob());
+
+}
