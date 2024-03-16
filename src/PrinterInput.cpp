@@ -48,6 +48,7 @@ int load(const char* filename, System &system) {
 
     // load error file
     std::ofstream outputFile("in_output/inputError.txt"); // create a new output file or overwrite an existing one
+    std::ofstream consolefile("in_output/console_output.txt");
 
     // check if the file was opened successfully
     if (!outputFile.is_open()) {
@@ -93,6 +94,8 @@ int load(const char* filename, System &system) {
 
                         cerr<<"INCORRECT VALUE: "<<attrText<<endl;
                         outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
+                        consolefile<<"INCORRECT VALUE: "<<attrText<<endl;
+
                     }
                 }
                 else if (attrValue == "speed"){
@@ -104,6 +107,8 @@ int load(const char* filename, System &system) {
 
                         cerr<<"INCORRECT VALUE: "<<attrText<<endl;
                         outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
+                        consolefile<<"INCORRECT VALUE: "<<attrText<<endl;
+
                     }
                 }
                 else{
@@ -111,6 +116,8 @@ int load(const char* filename, System &system) {
 
                     cerr<<"UNRECOGNISED ATTRIBUTE: "<<attrValue<<endl;
                     outputFile<<"UNRECOGNISED ATTRIBUTE: "<<attrValue<<endl;
+                    consolefile<<"UNRECOGNISED ATTRIBUTE: "<<attrValue<<endl;
+
                 }
 
             }
@@ -121,6 +128,8 @@ int load(const char* filename, System &system) {
             else {
                 cerr<<"DEVICE not added"<<endl;
                 outputFile<<"DEVICE not added"<<endl;
+                consolefile<<"DEVICE not added"<<endl;
+
             }
 
         }
@@ -146,6 +155,7 @@ int load(const char* filename, System &system) {
 
                         cerr<<"INCORRECT VALUE: "<<attrText<<endl;
                         outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
+                        consolefile<<"INCORRECT VALUE: "<<attrText<<endl;
                     }
                 }
                 else if (attrValue == "pageCount"){
@@ -157,6 +167,7 @@ int load(const char* filename, System &system) {
 
                         cerr<<"INCORRECT VALUE: "<<attrText<<endl;
                         outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
+                        consolefile<<"INCORRECT VALUE: "<<attrText<<endl;
                     }
                 }
                 else if (attrValue == "userName"){
@@ -172,17 +183,22 @@ int load(const char* filename, System &system) {
             else {
                 cerr<<"DEVICE not added"<<endl;
                 outputFile<<"DEVICE not added"<<endl;
+                consolefile<<"DEVICE not added"<<endl;
             }
 
         }
         else{
             cerr<<"UNRECOGNISED ELEMENT: "<<element<<endl;
             outputFile<<"UNRECOGNISED ELEMENT: "<<element<<endl;
+            consolefile<<"UNRECOGNISED ELEMENT: "<<element<<endl;
+
         }
         elem = elem->NextSiblingElement();
     }
 
     system.link_jobs();
+
+    consolefile.close();
 
     // close input file
     doc.Clear();

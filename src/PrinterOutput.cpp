@@ -53,12 +53,12 @@ void device_print_message(Device &device, Job *&job) {
     cout << "\tSubmitted by: " << job_username << endl;
     cout << "\t" << job_pagecount << " pages" << endl << endl;
 
-    static bool first_write = true;
+    std::ifstream ifile(filename);
+    bool file_exists = ifile.good();
 
     ofstream file;
-    if (first_write) {
+    if (!file_exists) {
         file.open(filename, ios::out);
-        first_write = false;
     } else {
         file.open(filename, ios::app);
     }

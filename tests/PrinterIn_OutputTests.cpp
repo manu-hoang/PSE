@@ -210,6 +210,89 @@ TEST_F(PrinterIn_OutputTest, DoomsdayOutput) {
     );
 }
 
+TEST_F(PrinterIn_OutputTest, ConsoleOutput) {
+    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
+    ASSERT_TRUE(DirectoryExists("./in_output"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    System system1;
+
+    load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system1);
+
+    ofstream output("./in_output/output.txt");
+    writeDeviceInfo(system1);
+
+    system1.automatic_run(150);
+
+
+    EXPECT_TRUE(
+            FileCompare("./tests/outputTests/console_test_output.txt", "./in_output/console_output.txt")
+    );
+}
+
+
+TEST_F(PrinterIn_OutputTest, ConsoleDoomsdayOutput) {
+    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
+    ASSERT_TRUE(DirectoryExists("./in_output"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    System system1;
+
+    load("./xml_files/Doomsday.xml", system1);
+
+    ofstream output("./in_output/output.txt");
+    writeDeviceInfo(system1);
+
+    system1.automatic_run(150);
+
+
+    EXPECT_TRUE(
+            FileCompare("./tests/outputTests/console_doomsday_output.txt", "./in_output/console_output.txt")
+    );
+}
+
+
+TEST_F(PrinterIn_OutputTest, ConsoleIncorrectValueOutput) {
+    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
+    ASSERT_TRUE(DirectoryExists("./in_output"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    System system1;
+
+    load("./xml_files/Incorrect_Value.xml", system1);
+
+    ofstream output("./in_output/output.txt");
+    writeDeviceInfo(system1);
+
+    system1.automatic_run(150);
+
+
+    EXPECT_TRUE(
+            FileCompare("./tests/outputTests/console_incorrect_value_output.txt", "./in_output/console_output.txt")
+    );
+}
+
+
+TEST_F(PrinterIn_OutputTest, ConsoleUnrecognisedElementOutput) {
+    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
+    ASSERT_TRUE(DirectoryExists("./in_output"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    System system1;
+
+    load("./xml_files/Unrecognised_Element.xml", system1);
+
+    ofstream output("./in_output/output.txt");
+    writeDeviceInfo(system1);
+
+    system1.automatic_run(150);
+
+
+    EXPECT_TRUE(
+            FileCompare("./tests/outputTests/console_unrecognised_element_output.txt", "./in_output/console_output.txt")
+    );
+}
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
