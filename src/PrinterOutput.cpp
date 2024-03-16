@@ -53,7 +53,15 @@ void device_print_message(Device &device, Job *&job) {
     cout << "\tSubmitted by: " << job_username << endl;
     cout << "\t" << job_pagecount << " pages" << endl << endl;
 
-    ofstream file(filename, std::ios::app);
+    static bool first_write = true;
+
+    ofstream file;
+    if (first_write) {
+        file.open(filename, ios::out);
+        first_write = false;
+    } else {
+        file.open(filename, ios::app);
+    }
 
     file << "Printer " << printer_name << " finished job:" << endl;
     file << "\tNumber: " << job_number << endl;
