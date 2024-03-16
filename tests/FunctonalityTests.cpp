@@ -26,7 +26,7 @@ protected:
     System sys;
 };
 
-// Testing attributes and function of System.h
+// Testing basic attributes and function of System.h
 TEST_F(FunctionalityTests, SystemTest) {
 
     System system1;
@@ -56,3 +56,46 @@ TEST_F(FunctionalityTests, SystemTest) {
     // System should be properly initialized
     EXPECT_TRUE(system1.properlyInitialized());
 }
+
+// Testing basic attributes and function of Device.h
+TEST_F(FunctionalityTests, DeviceTests) {
+
+    string device_name1;
+    Device *device1 = new Device(device_name1,1,1);
+
+    // All the getter should work
+    EXPECT_TRUE(device1->getBusy() == false);
+    EXPECT_TRUE(device1->getName() == device_name1);
+    EXPECT_TRUE(device1->getEmissions() == 1);
+
+    // Device should not have any jobs
+    EXPECT_TRUE(device1->getJobs().empty());
+
+    string user1;
+    Job *job1 = new Job(1,1,user1);
+
+    string user2;
+    Job *job2 = new Job(2,2,user2);
+
+    // Jobs gets added (setter)
+    device1->add_job(job1);
+    device1->add_job(job2);
+
+    EXPECT_TRUE(device1->getJobs().size() == 2);
+}
+
+// Testing basic attributes and function of Job.h
+TEST_F(FunctionalityTests, JobTests) {
+    string user1;
+    Job *job1 = new Job(1,1,user1);
+
+    // All the getters and setters should work
+    EXPECT_TRUE(job1->getJobNumber() == 1);
+    EXPECT_TRUE(job1->getCurrentPageCount() == 1);
+    EXPECT_TRUE(job1->getUserName() == user1);
+
+    job1->setStartTime(200);
+    EXPECT_TRUE(job1->getStartTime() == 200);
+}
+
+// Testing the Use Case 3.1: Manual Processing and Use Case 3.2: Automated Processing
