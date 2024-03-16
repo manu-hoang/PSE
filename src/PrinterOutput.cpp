@@ -42,6 +42,7 @@ void writeDeviceInfo(System& system) {
 
 void device_print_message(Device &device, Job *&job) {
     const string& printer_name = device.getName();
+    const string filename = "in_output/console_output.txt";
 
     int job_number = job->getJobNumber();
     const string& job_username = job->getUserName();
@@ -52,11 +53,12 @@ void device_print_message(Device &device, Job *&job) {
     cout << "\tSubmitted by: " << job_username << endl;
     cout << "\t" << job_pagecount << " pages" << endl << endl;
 
-    ofstream file("in_output/console_output.txt");
+    ofstream file(filename, std::ios::app);
 
     file << "Printer " << printer_name << " finished job:" << endl;
     file << "\tNumber: " << job_number << endl;
     file << "\tSubmitted by: " << job_username << endl;
     file << "\t" << job_pagecount << " pages" << endl << endl;
+
 }
 
