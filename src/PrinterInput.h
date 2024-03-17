@@ -1,10 +1,3 @@
-//
-// Created by michael on 7/03/24.
-//
-
-#ifndef PROJECTTITLE_PRINTERINPUT_H
-#define PROJECTTITLE_PRINTERINPUT_H
-
 #pragma once
 
 #include <iostream>
@@ -17,7 +10,13 @@
 
 #include "System.h"
 
-bool haha(string &str);
-int load(const char* filename, System &system);
+// TODO: change input load function to return different success / failure states
+enum SuccessEnum {ImportAborted, PartialImport, Success};
 
-#endif //PROJECTTITLE_PRINTERINPUT_H
+/**
+// Read an XML description of a printing system(s) from the given filename and load it into the system class
+// Currently only returns 0 if success, 1 if failure
+//
+//\n REQUIRE(system.properlyInitialized(), "system wasn't initialized when passed to input load function");
+*/
+int load(const char* filename, System &system);

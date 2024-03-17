@@ -16,7 +16,4 @@ int main(int argc, char **argv) {
     writeDeviceInfo(system);
 
     system.automatic_run(150);
-
-
 }
-

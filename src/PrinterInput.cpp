@@ -1,5 +1,5 @@
-
 #include "PrinterInput.h"
+#include "contracts/DesignByContract.h."
 using namespace std;
 
 
@@ -38,6 +38,7 @@ bool isString(const std::string &str) {
 }
 
 int load(const char* filename, System &system) {
+    REQUIRE(system.properlyInitialized(), "system wasn't initialized when passed to input load function");
 
     // load input file
     TiXmlDocument doc;
