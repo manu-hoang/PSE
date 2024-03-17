@@ -11,8 +11,8 @@ X: Niet werkend of niet geïmplementeerd
 | 1 | Tests           |        |                                    |
 |   | Use Case 1.1    | V      |                                    |
 |   | Use Case 2.1    | V      |                                    |
-|   | Use Case 3.1    | X      | Needs more tests                   |
-|   | Use Case 3.2    | X      | Needs more tests                   |
+|   | Use Case 3.1    | V      |                                    |
+|   | Use Case 3.2    | V      |                                    |
 | 2 | Contracts       |        |                                    |
 |   | System.h        | V      |                                    |
 |   | Device.h        | V      |                                    |
