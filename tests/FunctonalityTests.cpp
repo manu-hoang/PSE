@@ -3,8 +3,8 @@
 #include "../src/System.h"
 #include "../src/Device.h"
 #include "../src/Job.h"
-#include "../src/PrinterInput.h"
-#include "../src/PrinterOutput.h"
+#include "../src/SystemImporter.h"
+#include "../src/SystemExporter.h"
 
 
 class FunctionalityTests: public ::testing::Test {

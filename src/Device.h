@@ -13,6 +13,9 @@ using namespace std;
     Scanner                     12g CO2 per page
 */
 
+enum DeviceEnum {printer, scanner};
+enum PrinterEnum {bw, color};
+
 class Device {
 public:
 

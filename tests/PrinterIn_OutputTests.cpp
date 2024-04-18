@@ -5,8 +5,8 @@
 #include <gtest/gtest.h>
 #include "../src/System.h"
 #include <fstream>
-#include "../src/PrinterInput.h"
-#include "../src/PrinterOutput.h"
+#include "../src/SystemImporter.h"
+#include "../src/SystemExporter.h"
 
 
 class PrinterIn_OutputTest: public ::testing::Test {

@@ -1,5 +1,5 @@
 #include "Device.h"
-#include "PrinterOutput.h"
+#include "SystemExporter.h"
 #include "iostream"
 #include "contracts/DesignByContract.h"
 
@@ -30,7 +30,18 @@ void Device::print_page() {
     current_job->print_page();
 
     if(current_job->getFinished()){
-        device_print_message(*this, current_job);
+
+        // TODO: change later (exporter)
+        const string& printer_name = this->getName();
+
+        int job_number = current_job->getJobNumber();
+        const string& job_username = current_job->getUserName();
+        int job_pagecount = current_job->getTotalPageCount();
+
+        cout << "Printer " << printer_name << " finished job:" << endl;
+        cout << "\tNumber: " << job_number << endl;
+        cout << "\tSubmitted by: " << job_username << endl;
+        cout << "\t" << job_pagecount << " pages" << endl << endl;
     }
 }
 

@@ -73,7 +73,6 @@ private:
     Job* _initCheck; //!use pointer to myself to verify whether I am properly initialized
 
     int _jobNumber;
-    // type? / subclass
 
     double _totalPageCount;
     double _currentPageCount;
@@ -83,4 +82,19 @@ private:
     double _start_time;
     bool _finished;
 };
+
+class bw_print : public Job {
+
+};
+
+class color_print : public Job {
+
+};
+
+
+class scan : public Job {
+
+};
+
+
 

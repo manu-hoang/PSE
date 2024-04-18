@@ -61,7 +61,12 @@ X: Niet werkend of niet geïmplementeerd
 | | Use Case 4.2      |  |                                    |
 | | Use Case 4.3      |  |                                    |
 
-Gekende problemen
+Gekende problemen:
+
+Console output needs to be updated / changed (resets everytime it gets called)
+check input for invalid inputs
+fix exporter / idk how it works lol
+
 
 ...
 

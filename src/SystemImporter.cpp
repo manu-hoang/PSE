@@ -7,7 +7,7 @@
 //============================================================================
 
 #include "contracts/DesignByContract.h"
-#include "PrinterInput.h"
+#include "SystemImporter.h"
 #include "../tinyxml/tinyxml.h"
 
 using namespace std;
@@ -95,6 +95,7 @@ SuccessEnum SystemImporter::importSystem(
 
                     string name = "";
                     int emission = 0;
+
                     int speed = 0;
                     bool dont_add = false;
 

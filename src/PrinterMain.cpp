@@ -1,7 +1,8 @@
 #include <iostream>
+#include <fstream>
 #include "System.h"
-#include "PrinterInput.h"
-#include "PrinterOutput.h"
+#include "SystemImporter.h"
+#include "SystemExporter.h"
 #include "contracts/DesignByContract.h"
 
 using namespace std;
@@ -15,8 +16,8 @@ int main(int argc, char **argv) {
     SystemImporter::importSystem("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", myfile, system);
     myfile.close();
 
-    ofstream output("in_output/output.txt");
-    writeDeviceInfo(system);
+/*    SystemExporter exporter;
+    exporter.documentStart(cout);*/
 
     system.automatic_run(150);
 }
@@ -28,4 +29,7 @@ int main(int argc, char **argv) {
  * output tests quality
  * mock input / output
  * just google it
+ *
+ * Step 1.2 [No device exists for the specified job type] Print an error message that the job could not be printed.
+
  */
