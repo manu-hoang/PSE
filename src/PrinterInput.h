@@ -1,22 +1,43 @@
-#pragma once
+//============================================================================
+//
+// Note:    The following code is heavily inspired by the TicTacToe example we received on the Ansymore website.
+//
+// Source: https://github.com/sergedemeyer/TicTacToe_Git
+// Name        : TicTacToeImporter.h
+// Author      : Serge Demeyer
+// Version     :
+// Copyright   : Project Software Engineering - BA1 Informatica - Serge Demeyer - University of Antwerp
+// Description : TicTactToe in C++, Ansi-style
+//============================================================================
+
+// Below are two lines serving as a so-called ``header guard''.
+// Prevents from loading the same .h file multiple times
+#ifndef TicTacToeImporter_H
+#define TicTacToeImporter_H
+
 
 #include <iostream>
-#include <string>
-#include "fstream"
-#include <cctype>
-
-// Parser
-#include "../tinyxml/tinyxml.h"
-
 #include "System.h"
 
-// TODO: change input load function to return different success / failure states
+
 enum SuccessEnum {ImportAborted, PartialImport, Success};
 
+
+class SystemImporter {
+public:
+
 /**
-// Read an XML description of a printing system(s) from the given filename and load it into the system class
-// Currently only returns 0 if success, 1 if failure
-//
-//\n REQUIRE(system.properlyInitialized(), "system wasn't initialized when passed to input load function");
+// Read an XML description of an input file from inStream and process it into the system.
+// If errors occur, report them on errStream.
+// Return whether succesful in the errorcode:
+//	- ImportAborted = System is unchanged; reason for abortion is reported on errStream
+//  - PartialImport = Some semantic errors reported on errStream; state is partially imported and system might have changed
+//  - Succes = No importer errors; no errors reported
 */
-int load(const char* filename, System &system);
+    static SuccessEnum importSystem(const char * inputfilename, std::ostream& errStream, System& system);
+
+};
+
+
+// Closing of the ``header guard''.
+#endif

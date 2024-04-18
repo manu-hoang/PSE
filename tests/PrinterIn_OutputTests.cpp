@@ -75,7 +75,10 @@ TEST_F(PrinterIn_OutputTest, InputHappyDay) {
 
     System system;
 
-    load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", myfile, system);
+    myfile.close();
 
     EXPECT_TRUE(
             FileCompare("tests/inputTests/happy_day.txt", "in_output/inputError.txt"));
@@ -88,7 +91,10 @@ TEST_F(PrinterIn_OutputTest, UnrecognisedElement) {
 
     System system;
 
-    load("./xml_files/Unrecognised_Element.xml", system);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Unrecognised_Element.xml", myfile, system);
+    myfile.close();
 
     EXPECT_TRUE(
             FileCompare("tests/inputTests/unrecognised_element.txt", "in_output/inputError.txt"));
@@ -107,7 +113,10 @@ TEST_F(PrinterIn_OutputTest, IncorrectValue) {
 
     System system;
 
-    load("./xml_files/Incorrect_Value.xml", system);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Incorrect_Value.xml", myfile, system);
+    myfile.close();
 
     EXPECT_TRUE(
             FileCompare("tests/inputTests/incorrect_value.txt", "in_output/inputError.txt"));
@@ -126,7 +135,10 @@ TEST_F(PrinterIn_OutputTest, Doomsday) {
 
     System system;
 
-    load("./xml_files/Doomsday.xml", system);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Doomsday.xml", myfile, system);
+    myfile.close();
 
     EXPECT_TRUE(
             FileCompare("tests/inputTests/doomsday.txt", "in_output/inputError.txt"));
@@ -144,12 +156,16 @@ TEST_F(PrinterIn_OutputTest, HappyDayOutput) {
     ASSERT_TRUE(DirectoryExists("./in_output"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system1;
+    System system;
 
-    load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system1);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", myfile, system);
+    myfile.close();
+
 
     ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system1);
+    writeDeviceInfo(system);
 
     EXPECT_TRUE(
             FileCompare("./tests/outputTests/happy_day_output.txt", "./in_output/output.txt")
@@ -162,12 +178,15 @@ TEST_F(PrinterIn_OutputTest, IncorrectValueOutput) {
     ASSERT_TRUE(DirectoryExists("./in_output"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system1;
+    System system;
 
-    load("./xml_files/Incorrect_Value.xml", system1);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Incorrect_Value.xml", myfile, system);
+    myfile.close();
 
     ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system1);
+    writeDeviceInfo(system);
 
     EXPECT_TRUE(
             FileCompare("./tests/outputTests/incorrect_value_output.txt", "./in_output/output.txt")
@@ -180,12 +199,15 @@ TEST_F(PrinterIn_OutputTest, UnrecognisedElementOutput) {
     ASSERT_TRUE(DirectoryExists("./in_output"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system1;
+    System system;
 
-    load("./xml_files/Unrecognised_Element.xml", system1);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Unrecognised_Element.xml", myfile, system);
+    myfile.close();
 
     ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system1);
+    writeDeviceInfo(system);
 
     EXPECT_TRUE(
             FileCompare("./tests/outputTests/unrecognised_element_output.txt", "./in_output/output.txt")
@@ -198,12 +220,15 @@ TEST_F(PrinterIn_OutputTest, DoomsdayOutput) {
     ASSERT_TRUE(DirectoryExists("./in_output"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system1;
+    System system;
 
-    load("./xml_files/Doomsday.xml", system1);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Doomsday.xml", myfile, system);
+    myfile.close();
 
     ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system1);
+    writeDeviceInfo(system);
 
     EXPECT_TRUE(
             FileCompare("./tests/outputTests/doomsday_output.txt", "./in_output/output.txt")
@@ -215,14 +240,17 @@ TEST_F(PrinterIn_OutputTest, ConsoleOutput) {
     ASSERT_TRUE(DirectoryExists("./in_output"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system1;
+    System system;
 
-    load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system1);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", myfile, system);
+    myfile.close();
 
     ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system1);
+    writeDeviceInfo(system);
 
-    system1.automatic_run(150);
+    system.automatic_run(150);
 
 
     EXPECT_TRUE(
@@ -236,14 +264,17 @@ TEST_F(PrinterIn_OutputTest, ConsoleDoomsdayOutput) {
     ASSERT_TRUE(DirectoryExists("./in_output"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system1;
+    System system;
 
-    load("./xml_files/Doomsday.xml", system1);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Doomsday.xml", myfile, system);
+    myfile.close();
 
     ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system1);
+    writeDeviceInfo(system);
 
-    system1.automatic_run(150);
+    system.automatic_run(150);
 
 
     EXPECT_TRUE(
@@ -257,14 +288,17 @@ TEST_F(PrinterIn_OutputTest, ConsoleIncorrectValueOutput) {
     ASSERT_TRUE(DirectoryExists("./in_output"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system1;
+    System system;
 
-    load("./xml_files/Incorrect_Value.xml", system1);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Incorrect_Value.xml", myfile, system);
+    myfile.close();
 
     ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system1);
+    writeDeviceInfo(system);
 
-    system1.automatic_run(150);
+    system.automatic_run(150);
 
 
     EXPECT_TRUE(
@@ -278,14 +312,17 @@ TEST_F(PrinterIn_OutputTest, ConsoleUnrecognisedElementOutput) {
     ASSERT_TRUE(DirectoryExists("./in_output"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system1;
+    System system;
 
-    load("./xml_files/Unrecognised_Element.xml", system1);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Unrecognised_Element.xml", myfile, system);
+    myfile.close();
 
     ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system1);
+    writeDeviceInfo(system);
 
-    system1.automatic_run(150);
+    system.automatic_run(150);
 
 
     EXPECT_TRUE(

@@ -4,8 +4,8 @@
 #include "contracts/DesignByContract.h"
 
 Device::Device(string name, int emissions, double speed): name(name), emissions(emissions), speed(speed) {
-    REQUIRE(speed > 0, "Constructor requires speed to be greater than 0");
-    REQUIRE(emissions > 0, "Emissions value must be greater than 0");
+    REQUIRE(speed >= 0, "Constructor requires speed to be greater or equal than 0");
+    REQUIRE(emissions >= 0, "Emissions value must be greater or equal than 0");
 
     _initCheck = this;
 
@@ -106,4 +106,16 @@ int Device::getEmissions() {
 bool Device::getBusy() {
     REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getBusy");
     return busy;
+}
+
+BlackWhitePrinter::BlackWhitePrinter(string &name, int emissions, double speed) : Device(name, emissions, speed) {
+
+}
+
+ColorPrinter::ColorPrinter(string &name, int emissions, double speed) : Device(name, emissions, speed) {
+
+}
+
+Scanner::Scanner(string &name, int emissions, double speed) : Device(name, emissions, speed) {
+
 }

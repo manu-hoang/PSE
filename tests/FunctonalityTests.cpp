@@ -106,7 +106,10 @@ TEST_F(FunctionalityTests, UseCase3_1_2Processing) {
 
     System system;
 
-    load("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", system);
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", myfile, system);
+    myfile.close();
 
     // First job should be the current job
     EXPECT_TRUE(system.getDevices()[0]->getCurrentJob() == system.getJobs()[0]);

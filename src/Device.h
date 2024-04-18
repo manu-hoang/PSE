@@ -91,8 +91,10 @@ private:
     Device* _initCheck; //!use pointer to myself to verify whether I am properly initialized
 
     string name;
+    // type? / subclass
     int emissions; // gram CO2 per page
     double speed; // pages per minute
+    double cost;
 
     bool busy;
 
@@ -102,3 +104,17 @@ private:
     double printing_time; // time to complete current job (seconds)
 };
 
+class BlackWhitePrinter : public Device {
+public:
+    BlackWhitePrinter(string &name, int emissions, double speed);
+};
+
+class ColorPrinter : public Device {
+public:
+    ColorPrinter(string &name, int emissions, double speed);
+};
+
+class Scanner : public Device {
+public:
+    Scanner(string &name, int emissions, double speed);
+};

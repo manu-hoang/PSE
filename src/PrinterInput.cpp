@@ -1,7 +1,31 @@
+//============================================================================
+// Name        : TicTacToeImporter.cpp
+// Author      : Serge Demeyer
+// Version     :
+// Copyright   : Project Software Engineering - BA1 Informatica - Serge Demeyer - University of Antwerp
+// Description : TicTactToe in C++, Ansi-style
+//============================================================================
+
+#include "contracts/DesignByContract.h"
 #include "PrinterInput.h"
-#include "contracts/DesignByContract.h."
+#include "../tinyxml/tinyxml.h"
+
 using namespace std;
 
+
+//Auxiliary function for internal use only
+
+const std::string fetch_text(TiXmlNode *pElement, std::ostream& errStream) {
+    if (pElement == NULL) return "";
+
+    TiXmlNode *elemNode = pElement->FirstChild();
+    if (elemNode == NULL) return "";
+    TiXmlText* text = elemNode->ToText();
+    if(text == NULL) return "";
+    return text->Value();
+}
+
+//Auxiliary function for internal use only
 
 bool isInteger(string &str) {
     if(str.empty()){
@@ -22,6 +46,8 @@ bool isInteger(string &str) {
     return true;
 }
 
+//Auxiliary function for internal use only
+
 bool isString(const std::string &str) {
     bool hasNonDigit = false;
 
@@ -37,171 +63,144 @@ bool isString(const std::string &str) {
     return hasNonDigit;
 }
 
-int load(const char* filename, System &system) {
-    REQUIRE(system.properlyInitialized(), "system wasn't initialized when passed to input load function");
+//Below is a static member function but one cannot repeat the static keyword in the implementation
 
-    // load input file
+SuccessEnum SystemImporter::importSystem(
+        const char * inputfilename, std::ostream& errStream, System& system) {
+
     TiXmlDocument doc;
-    if(!doc.LoadFile(filename)) {
-        std::cerr << doc.ErrorDesc() << std::endl;
-        return 1;
-    }
+    SuccessEnum endResult = Success;
 
-    // load error file
-    std::ofstream outputFile("in_output/inputError.txt"); // create a new output file or overwrite an existing one
-    std::ofstream consolefile("in_output/console_output.txt");
+    REQUIRE(system.properlyInitialized(), "system wasn't initialized when passed to SystemImporter::importSystem");
 
-    // check if the file was opened successfully
-    if (!outputFile.is_open()) {
-        std::cerr << "Error opening file"<<endl;
-    }
+    if(!doc.LoadFile(inputfilename)) {
+        errStream << "XML IMPORT ABORTED: " << doc.ErrorDesc() << endl;
+        return ImportAborted;
+    };
 
+    for(TiXmlElement* root = doc.FirstChildElement();
+        root != NULL; root = root->NextSiblingElement()) {
+        string rootName = root->Value();
+        if (rootName != "SYSTEM") {
+            errStream << "XML PARTIAL IMPORT: Expected <SYSTEM> ... </SYSTEM> and got <"
+                      << rootName <<  "> ... </" << rootName << ">." << endl;
+            endResult = PartialImport;
+        }
+        else {
+            TiXmlElement* elem = root->FirstChildElement();
+            while (elem != NULL) {
+                string element = elem->Value();
 
-    // check for root element
-    TiXmlElement* root = doc.FirstChildElement();
-    if(root == NULL) {
-        std::cerr << "Failed to load file: No root element." << std::endl;
-        doc.Clear();
-        return 1;
-    }
+                if (element == "DEVICE"){
 
-    // read file
-    TiXmlElement* elem = root->FirstChildElement();
-    while (elem != NULL) {
-        string element = elem->Value();
+                    string name = "";
+                    int emission = 0;
+                    int speed = 0;
+                    bool dont_add = false;
 
+                    for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
+                        string attrValue = attr->Value();
+                        string attrText = attr->GetText();
 
-        if (element == "DEVICE"){
-            // CHECK FOR ERRORS
+                        if (attrValue == "name"){
+                            name = attrText;
+                        }
+                        else if (attrValue == "emission" ){
+                            if(isInteger(attrText)){
+                                emission = stoi(attrText);
+                            }
+                            else{
+                                dont_add = true;
+                                errStream << "XML PARTIAL IMPORT: Invalid emission value,"
+                                             "got: " << attrText << endl;
+                                endResult = PartialImport;
+                            }
+                        }
+                        else if (attrValue == "speed"){
+                            if(isInteger(attrText)){
+                                speed = stoi(attrText);
+                            }
+                            else{
+                                dont_add = true;
+                                errStream << "XML PARTIAL IMPORT: Invalid speed value,"
+                                             "got: " << attrText << endl;
+                                endResult = PartialImport;
+                            }
+                        }
+                        else{
+                            errStream << "XML PARTIAL IMPORT: Invalid attribute,"
+                                         "got <" << attrValue <<  "> ... </" << attrValue << ">." << endl;
+                            endResult = PartialImport;
+                        }
 
-            string name = "";
-            int emission = 0;
-            int speed = 0;
-            bool dont_add = false;
+                    }
 
-            for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
-                string attrValue = attr->Value();
-                string attrText = attr->GetText();
-
-                if (attrValue == "name"){
-                    name = attrText;
+                    if (!dont_add){
+                        Device *device_to_add = new Device(name,emission,speed);
+                        system.addDevice(device_to_add);
+                    }
                 }
-                else if (attrValue == "emission" ){
-                    if(isInteger(attrText)){
-                        emission = stoi(attrText);
+
+                else if (element == "JOB"){
+
+                    int jobNumber = 0;
+                    int pageCount = 0;
+                    string userName = "";
+                    bool dont_add = false;
+
+                    for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
+                        string attrValue = attr->Value();
+                        string attrText = attr->GetText();
+
+                        if (attrValue == "jobNumber"){
+                            if(isInteger(attrText)){
+                                jobNumber = stoi(attrText);
+                            }
+                            else{
+                                dont_add = true;
+                                errStream << "XML PARTIAL IMPORT: Invalid jobNumber value,"
+                                             "got: " << attrText << endl;
+                            }
+                        }
+                        else if (attrValue == "pageCount"){
+                            if(isInteger(attrText)){
+                                pageCount = stoi(attrText);
+                            }
+                            else{
+                                dont_add = true;
+                                errStream << "XML PARTIAL IMPORT: Invalid pageCount value,"
+                                             "got: " << attrText << endl;
+                            }
+                        }
+                        else if (attrValue == "userName"){
+                            userName = attrText;
+                        }
+                        else{
+                            errStream << "XML PARTIAL IMPORT: Invalid attribute,"
+                                         "got <" << attrValue <<  "> ... </" << attrValue << ">." << endl;
+                            endResult = PartialImport;
+                        }
                     }
-                    else{
-                        dont_add = true;
 
-                        cerr<<"INCORRECT VALUE: "<<attrText<<endl;
-                        outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
-                        consolefile<<"INCORRECT VALUE: "<<attrText<<endl;
-
+                    if (!dont_add){
+                        Job *job_to_add = new Job(jobNumber,pageCount,userName);
+                        system.addJob(job_to_add);
                     }
                 }
-                else if (attrValue == "speed"){
-                    if(isInteger(attrText)){
-                        speed = stoi(attrText);
-                    }
-                    else{
-                        dont_add = true;
 
-                        cerr<<"INCORRECT VALUE: "<<attrText<<endl;
-                        outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
-                        consolefile<<"INCORRECT VALUE: "<<attrText<<endl;
-
-                    }
-                }
                 else{
-                    elem = elem->NextSiblingElement();
-
-                    cerr<<"UNRECOGNISED ATTRIBUTE: "<<attrValue<<endl;
-                    outputFile<<"UNRECOGNISED ATTRIBUTE: "<<attrValue<<endl;
-                    consolefile<<"UNRECOGNISED ATTRIBUTE: "<<attrValue<<endl;
-
+                    errStream << "XML PARTIAL IMPORT: Expected <DEVICE> ... </DEVICE> or <JOB> ... </JOB> "
+                                 "and got <" << element <<  "> ... </" << element << ">." << endl;
+                    endResult = PartialImport;
                 }
-
+                elem = elem->NextSiblingElement();
             }
-            if (!dont_add){
-                Device *device_to_add = new Device(name,emission,speed);
-                system.addDevice(device_to_add);
-            }
-            else {
-                cerr<<"DEVICE not added"<<endl;
-                outputFile<<"DEVICE not added"<<endl;
-                consolefile<<"DEVICE not added"<<endl;
-
-            }
-
         }
-
-        else if (element == "JOB"){
-            // CHECK FOR ERRORS
-
-            int jobNumber = 0;
-            int pageCount = 0;
-            string userName = "";
-            bool dont_add = false;
-
-            for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
-                string attrValue = attr->Value();
-                string attrText = attr->GetText();
-
-                if (attrValue == "jobNumber"){
-                    if(isInteger(attrText)){
-                        jobNumber = stoi(attrText);
-                    }
-                    else{
-                        dont_add = true;
-
-                        cerr<<"INCORRECT VALUE: "<<attrText<<endl;
-                        outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
-                        consolefile<<"INCORRECT VALUE: "<<attrText<<endl;
-                    }
-                }
-                else if (attrValue == "pageCount"){
-                    if(isInteger(attrText)){
-                        pageCount = stoi(attrText);
-                    }
-                    else{
-                        dont_add = true;
-
-                        cerr<<"INCORRECT VALUE: "<<attrText<<endl;
-                        outputFile<<"INCORRECT VALUE: "<<attrText<<endl;
-                        consolefile<<"INCORRECT VALUE: "<<attrText<<endl;
-                    }
-                }
-                else if (attrValue == "userName"){
-                    userName = attrText;
-                }
-
-            }
-
-            if (!dont_add){
-                Job *job_to_add = new Job(jobNumber,pageCount,userName);
-                system.addJob(job_to_add);
-            }
-            else {
-                cerr<<"DEVICE not added"<<endl;
-                outputFile<<"DEVICE not added"<<endl;
-                consolefile<<"DEVICE not added"<<endl;
-            }
-
-        }
-        else{
-            cerr<<"UNRECOGNISED ELEMENT: "<<element<<endl;
-            outputFile<<"UNRECOGNISED ELEMENT: "<<element<<endl;
-            consolefile<<"UNRECOGNISED ELEMENT: "<<element<<endl;
-
-        }
-        elem = elem->NextSiblingElement();
     }
 
     system.link_jobs();
 
-    consolefile.close();
-
-    // close input file
     doc.Clear();
-    return 0;
+
+    return endResult;
 }

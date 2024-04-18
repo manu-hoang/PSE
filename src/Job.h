@@ -73,11 +73,14 @@ private:
     Job* _initCheck; //!use pointer to myself to verify whether I am properly initialized
 
     int _jobNumber;
-    string _userName;
+    // type? / subclass
 
     double _totalPageCount;
     double _currentPageCount;
 
+    string _userName;
+
     double _start_time;
     bool _finished;
 };
+

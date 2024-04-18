@@ -52,7 +52,6 @@ void device_print_message(Device &device, Job *&job) {
     REQUIRE(job->properlyInitialized(), "Job wasn't initialized when calling device_print_message.");
 
     const string& printer_name = device.getName();
-    const string filename = "in_output/console_output.txt";
 
     int job_number = job->getJobNumber();
     const string& job_username = job->getUserName();
@@ -63,20 +62,14 @@ void device_print_message(Device &device, Job *&job) {
     cout << "\tSubmitted by: " << job_username << endl;
     cout << "\t" << job_pagecount << " pages" << endl << endl;
 
-    std::ifstream ifile(filename);
-    bool file_exists = ifile.good();
+/*    ofstream ConsoleOutputFile;
+    ConsoleOutputFile.open("in_output/console_output.txt");
 
-    ofstream file;
-    if (!file_exists) {
-        file.open(filename, ios::out);
-    } else {
-        file.open(filename, ios::app);
-    }
+    ConsoleOutputFile << "Printer " << printer_name << " finished job:" << endl;
+    ConsoleOutputFile << "\tNumber: " << job_number << endl;
+    ConsoleOutputFile << "\tSubmitted by: " << job_username << endl;
+    ConsoleOutputFile << "\t" << job_pagecount << " pages" << endl << endl;
 
-    file << "Printer " << printer_name << " finished job:" << endl;
-    file << "\tNumber: " << job_number << endl;
-    file << "\tSubmitted by: " << job_username << endl;
-    file << "\t" << job_pagecount << " pages" << endl << endl;
-
+    ConsoleOutputFile.close();*/
 }
 

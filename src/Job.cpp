@@ -2,7 +2,7 @@
 #include "contracts/DesignByContract.h"
 #include "iostream"
 
-Job::Job(int jobNumber, double totalPageCount, string userName) : _jobNumber(jobNumber), _userName(userName), _totalPageCount(totalPageCount){
+Job::Job(int jobNumber, double totalPageCount, string userName) : _jobNumber(jobNumber), _totalPageCount(totalPageCount), _userName(userName){
     REQUIRE(totalPageCount >= 0, "Job page count must be a positive integer");
     REQUIRE(jobNumber >= 0, "Job id number must be a positive integer");
     _initCheck = this;
