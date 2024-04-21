@@ -7,66 +7,63 @@ X: Niet werkend of niet geïmplementeerd
 
 
 | | Functionaliteit   | Works? | Extra column if something is wrong |
-|-|-------------------|--|------------------------------------|
-| 1 | **Tests**         |  |                                    |
-| | _Input_           |  |                                    |
-| | Use Case 1.1      |  |                                    |
-| | Use Case 1.2      |  |                                    |
-| | Use Case 1.3      |  |                                    |
-| | Use Case 1.4      |  |                                    |
-| | _Output_          |  |                                    |
-| | Use Case 2.2      |  |                                    |
-| | Use Case 2.3      |  |                                    |
-| | Use Case 2.4      |  |                                    |
-| | _Simulation_      |  |                                    |
-| | Use Case 3.3      |  |                                    |
-| | Use Case 3.4      |  |                                    |
-| | Use Case 3.5      |  |                                    |
-| | Use Case 3.6      |  |                                    |
-| | Use Case 3.7      |  |                                    |
-| | Use Case 3.8      |  |                                    |
-| | Use Case 3.9      |  |                                    |
-| | _User Interface_  |  |                                    |
-| | Use Case 4.1      |  |                                    |
-| | Use Case 4.2      |  |                                    |
-| | Use Case 4.3      |  |                                    |
+|-|-------------------|--------|------------------------------------|
+| 1 | **Tests**         |        |                                    |
+| | _Input_           |        |                                    |
+| | Use Case 1.1      |        |                                    |
+| | Use Case 1.2      |        |                                    |
+| | Use Case 1.3      |        |                                    |
+| | Use Case 1.4      |        |                                    |
+| | _Output_          |        |                                    |
+| | Use Case 2.2      |        |                                    |
+| | Use Case 2.3      |        |                                    |
+| | Use Case 2.4      |        |                                    |
+| | _Simulation_      |        |                                    |
+| | Use Case 3.3      |        |                                    |
+| | Use Case 3.4      |        |                                    |
+| | Use Case 3.5      |        |                                    |
+| | Use Case 3.6      |        |                                    |
+| | Use Case 3.7      |        |                                    |
+| | Use Case 3.8      |        |                                    |
+| | Use Case 3.9      |        |                                    |
+| | _User Interface_  |        |                                    |
+| | Use Case 4.1      |        |                                    |
+| | Use Case 4.2      |        |                                    |
+| | Use Case 4.3      |        |                                    |
 ||
-| 2 | **Contracts**     | TO DO |                                    |
-| | System.h          |  |                                    |
-| | Device.h          |  |                                    |
-| | Job.h             |  |                                    |
-| | PrinterInput.h    |  |                                    |
-| | PrinterOutput.h   |  |                                    |
+| 2 | **Contracts**     | TO DO  |                                    |
+| | System.h          |        |                                    |
+| | Device.h          |        |                                    |
+| | Job.h             |        |                                    |
+| | PrinterInput.h    |        |                                    |
+| | PrinterOutput.h   |        |                                    |
 ||
-| 3 | **Functionality** |  |                                    |
-| | _Input_           |  |                                    |
-| | Use Case 1.1      |  |                                    |
-| | Use Case 1.2      |  |                                    |
-| | Use Case 1.3      |  |                                    |
-| | Use Case 1.4      |  |                                    |
-| | _Output_          |  |                                    |
-| | Use Case 2.2      |  |                                    |
-| | Use Case 2.3      |  |                                    |
-| | Use Case 2.4      |  |                                    |
-| | _Simulation_      |  |                                    |
-| | Use Case 3.3      |  |                                    |
-| | Use Case 3.4      |  |                                    |
-| | Use Case 3.5      |  |                                    |
-| | Use Case 3.6      |  |                                    |
-| | Use Case 3.7      |  |                                    |
-| | Use Case 3.8      |  |                                    |
-| | Use Case 3.9      |  |                                    |
-| | _User Interface_  |  |                                    |
-| | Use Case 4.1      |  |                                    |
-| | Use Case 4.2      |  |                                    |
-| | Use Case 4.3      |  |                                    |
+| 3 | **Functionality** |        |                                    |
+| | _Input_           |        |                                    |
+| | Use Case 1.1      | V      |                                    |
+| | Use Case 1.2      | V      |                                    |
+| | Use Case 1.3      | V      |                                    |
+| | Use Case 1.4      | V      |                                    |
+| | _Output_          |        |                                    |
+| | Use Case 2.2      |        |                                    |
+| | Use Case 2.3      |        |                                    |
+| | Use Case 2.4      |        |                                    |
+| | _Simulation_      |        |                                    |
+| | Use Case 3.3      |        |                                    |
+| | Use Case 3.4      |        |                                    |
+| | Use Case 3.5      |        |                                    |
+| | Use Case 3.6      |        |                                    |
+| | Use Case 3.7      |        |                                    |
+| | Use Case 3.8      |        |                                    |
+| | Use Case 3.9      |        |                                    |
+| | _User Interface_  |        |                                    |
+| | Use Case 4.1      |        |                                    |
+| | Use Case 4.2      |        |                                    |
+| | Use Case 4.3      |        |                                    |
 
 Gekende problemen:
 
-Console output needs to be updated / changed (resets everytime it gets called)
 check input for invalid inputs
-fix exporter / idk how it works lol
-
 
 ...
 

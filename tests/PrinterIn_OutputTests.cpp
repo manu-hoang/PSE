@@ -77,7 +77,7 @@ TEST_F(PrinterIn_OutputTest, InputHappyDay) {
 
     ofstream myfile;
     myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", myfile, system);
+    SystemImporter::importSystem("./xml_files/Use_Case_1.2_Reading_printers_and_jobs_with_different types.xml", myfile, system);
     myfile.close();
 
     EXPECT_TRUE(
@@ -160,7 +160,7 @@ TEST_F(PrinterIn_OutputTest, HappyDayOutput) {
 
     ofstream myfile;
     myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", myfile, system);
+    SystemImporter::importSystem("./xml_files/Use_Case_1.2_Reading_printers_and_jobs_with_different types.xml", myfile, system);
     myfile.close();
 
 
@@ -244,7 +244,7 @@ TEST_F(PrinterIn_OutputTest, ConsoleOutput) {
 
     ofstream myfile;
     myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", myfile, system);
+    SystemImporter::importSystem("./xml_files/Use_Case_1.2_Reading_printers_and_jobs_with_different types.xml", myfile, system);
     myfile.close();
 
     ofstream output("./in_output/output.txt");

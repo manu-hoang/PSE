@@ -13,9 +13,6 @@ using namespace std;
     Scanner                     12g CO2 per page
 */
 
-enum DeviceEnum {printer, scanner};
-enum PrinterEnum {bw, color};
-
 class Device {
 public:
 
@@ -29,7 +26,7 @@ public:
      \n ENSURE(busy = false, "Device must not be busy after being initialized");
      \n ENSURE(current_job = nullptr, "Device must have no current job after being initialized");
     */
-    Device(string name, int emissions, double speed);
+    Device(string name, int emissions, double speed, int cost);
 
     bool properlyInitialized();
 
@@ -94,7 +91,6 @@ private:
     Device* _initCheck; //!use pointer to myself to verify whether I am properly initialized
 
     string name;
-    // type? / subclass
     int emissions; // gram CO2 per page
     double speed; // pages per minute
     double cost;
@@ -109,15 +105,15 @@ private:
 
 class BlackWhitePrinter : public Device {
 public:
-    BlackWhitePrinter(string &name, int emissions, double speed);
+    BlackWhitePrinter(string &name, int emissions, double speed, int cost);
 };
 
 class ColorPrinter : public Device {
 public:
-    ColorPrinter(string &name, int emissions, double speed);
+    ColorPrinter(string &name, int emissions, double speed, int cost);
 };
 
 class Scanner : public Device {
 public:
-    Scanner(string &name, int emissions, double speed);
+    Scanner(string &name, int emissions, double speed, int cost);
 };

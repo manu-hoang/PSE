@@ -25,6 +25,7 @@ const std::string fetch_text(TiXmlNode *pElement, std::ostream& errStream) {
     return text->Value();
 }
 
+
 //Auxiliary function for internal use only
 
 bool isInteger(string &str) {
@@ -46,6 +47,7 @@ bool isInteger(string &str) {
     return true;
 }
 
+
 //Auxiliary function for internal use only
 
 bool isString(const std::string &str) {
@@ -63,10 +65,44 @@ bool isString(const std::string &str) {
     return hasNonDigit;
 }
 
-//Below is a static member function but one cannot repeat the static keyword in the implementation
 
-SuccessEnum SystemImporter::importSystem(
-        const char * inputfilename, std::ostream& errStream, System& system) {
+//Auxiliary function for internal use only
+
+Device* new_device(string name, int emission, PrintingEnum type, int speed, int cost){
+
+    if(type == bw){return new BlackWhitePrinter(name,emission,speed,cost);}
+
+    else if (type == color){return new ColorPrinter(name,emission,speed,cost);}
+
+    else if (type == scan){return new Scanner(name,emission,speed,cost);}
+
+    return new Device("invalid", 1, 1, 1);
+}
+
+
+//Auxiliary function for internal use only
+
+Job* new_job(int jobNumber, int pageCount, PrintingEnum type, const string& userName){
+
+    if(type == bw){return new BlackWhiteJob(jobNumber,pageCount,userName);}
+
+    else if (type == color){return new ColorJob(jobNumber,pageCount,userName);}
+
+    else if (type == scan){return new ScanJob(jobNumber,pageCount,userName);}
+
+    return new Job(1, 1, "invalid");
+}
+
+
+
+
+
+
+
+
+
+
+SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostream& errStream, System& system) {
 
     TiXmlDocument doc;
     SuccessEnum endResult = Success;
@@ -88,16 +124,20 @@ SuccessEnum SystemImporter::importSystem(
         }
         else {
             TiXmlElement* elem = root->FirstChildElement();
+
             while (elem != NULL) {
                 string element = elem->Value();
 
                 if (element == "DEVICE"){
+                    bool dont_add = false;
+
 
                     string name = "";
                     int emission = 0;
-
+                    PrintingEnum type = invalid;
                     int speed = 0;
-                    bool dont_add = false;
+                    int cost = 0;
+
 
                     for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
                         string attrValue = attr->Value();
@@ -128,6 +168,31 @@ SuccessEnum SystemImporter::importSystem(
                                 endResult = PartialImport;
                             }
                         }
+                        else if (attrValue == "type" ){
+                            if(attrText == "bw"){
+                                type = bw;
+                            }
+                            else if (attrText == "color"){
+                                type = color;
+                            }
+                            else{
+                                dont_add = true;
+                                errStream << "XML PARTIAL IMPORT: Invalid type value,"
+                                             "got: " << attrText << endl;
+                                endResult = PartialImport;
+                            }
+                        }
+                        else if (attrValue == "cost"){
+                            if(isInteger(attrText)){
+                                cost = stoi(attrText);
+                            }
+                            else{
+                                dont_add = true;
+                                errStream << "XML PARTIAL IMPORT: Invalid cost value,"
+                                             "got: " << attrText << endl;
+                                endResult = PartialImport;
+                            }
+                        }
                         else{
                             errStream << "XML PARTIAL IMPORT: Invalid attribute,"
                                          "got <" << attrValue <<  "> ... </" << attrValue << ">." << endl;
@@ -137,17 +202,21 @@ SuccessEnum SystemImporter::importSystem(
                     }
 
                     if (!dont_add){
-                        Device *device_to_add = new Device(name,emission,speed);
-                        system.addDevice(device_to_add);
+                        Device* device = new_device(name, emission, type, speed,cost);
+                        system.addDevice(device);
                     }
+
                 }
 
                 else if (element == "JOB"){
+                    bool dont_add = false;
+
 
                     int jobNumber = 0;
                     int pageCount = 0;
+                    PrintingEnum type = invalid;
                     string userName = "";
-                    bool dont_add = false;
+
 
                     for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
                         string attrValue = attr->Value();
@@ -173,6 +242,20 @@ SuccessEnum SystemImporter::importSystem(
                                              "got: " << attrText << endl;
                             }
                         }
+                        else if (attrValue == "type" ){
+                            if(attrText == "bw"){
+                                type = bw;
+                            }
+                            else if (attrText == "color"){
+                                type = color;
+                            }
+                            else{
+                                dont_add = true;
+                                errStream << "XML PARTIAL IMPORT: Invalid type value,"
+                                             "got: " << attrText << endl;
+                                endResult = PartialImport;
+                            }
+                        }
                         else if (attrValue == "userName"){
                             userName = attrText;
                         }
@@ -184,8 +267,8 @@ SuccessEnum SystemImporter::importSystem(
                     }
 
                     if (!dont_add){
-                        Job *job_to_add = new Job(jobNumber,pageCount,userName);
-                        system.addJob(job_to_add);
+                        Job* job = new_job(jobNumber, pageCount, type, userName);
+                        system.addJob(job);
                     }
                 }
 

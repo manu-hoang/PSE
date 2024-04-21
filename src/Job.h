@@ -83,17 +83,20 @@ private:
     bool _finished;
 };
 
-class bw_print : public Job {
-
+class BlackWhiteJob : public Job {
+public:
+    BlackWhiteJob(int jobNumber, double pageCount, string userName);
 };
 
-class color_print : public Job {
-
+class ColorJob : public Job {
+public:
+    ColorJob(int jobNumber, double pageCount, string userName);
 };
 
 
-class scan : public Job {
-
+class ScanJob : public Job {
+public:
+    ScanJob(int jobNumber, double pageCount, string userName);
 };
 
 

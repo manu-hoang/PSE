@@ -73,3 +73,15 @@ string &Job::getUserName() {
     REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getUserName");
     return _userName;
 }
+
+BlackWhiteJob::BlackWhiteJob(int jobNumber, double pageCount, string userName) : Job(jobNumber, pageCount, userName) {
+
+}
+
+ColorJob::ColorJob(int jobNumber, double pageCount, string userName) : Job(jobNumber, pageCount, userName) {
+
+}
+
+ScanJob::ScanJob(int jobNumber, double pageCount, string userName) : Job(jobNumber, pageCount, userName) {
+
+}

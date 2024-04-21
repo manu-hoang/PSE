@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
 
     ofstream myfile;
     myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", myfile, system);
+    SystemImporter::importSystem("./xml_files/Use_Case_1.2_Reading_printers_and_jobs_with_different types.xml", myfile, system);
     myfile.close();
 
 /*    SystemExporter exporter;
@@ -23,13 +23,10 @@ int main(int argc, char **argv) {
 }
 
 /*
- * input check integer
  * tests dont work on labo pc
  * IF contracts
- * output tests quality
  * mock input / output
  * just google it
  *
  * Step 1.2 [No device exists for the specified job type] Print an error message that the job could not be printed.
-
  */

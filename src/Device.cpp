@@ -3,7 +3,7 @@
 #include "iostream"
 #include "contracts/DesignByContract.h"
 
-Device::Device(string name, int emissions, double speed): name(name), emissions(emissions), speed(speed) {
+Device::Device(string name, int emissions, double speed, int cost): name(name), emissions(emissions), speed(speed), cost(cost) {
     REQUIRE(speed >= 0, "Constructor requires speed to be greater or equal than 0");
     REQUIRE(emissions >= 0, "Emissions value must be greater or equal than 0");
 
@@ -119,14 +119,14 @@ bool Device::getBusy() {
     return busy;
 }
 
-BlackWhitePrinter::BlackWhitePrinter(string &name, int emissions, double speed) : Device(name, emissions, speed) {
+BlackWhitePrinter::BlackWhitePrinter(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {
 
 }
 
-ColorPrinter::ColorPrinter(string &name, int emissions, double speed) : Device(name, emissions, speed) {
+ColorPrinter::ColorPrinter(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {
 
 }
 
-Scanner::Scanner(string &name, int emissions, double speed) : Device(name, emissions, speed) {
+Scanner::Scanner(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {
 
 }

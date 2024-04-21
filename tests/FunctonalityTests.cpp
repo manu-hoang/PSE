@@ -108,7 +108,7 @@ TEST_F(FunctionalityTests, UseCase3_1_2Processing) {
 
     ofstream myfile;
     myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Use_Case_1.1_Reading_printers_and_jobs.xml", myfile, system);
+    SystemImporter::importSystem("./xml_files/Use_Case_1.2_Reading_printers_and_jobs_with_different types.xml", myfile, system);
     myfile.close();
 
     // First job should be the current job
