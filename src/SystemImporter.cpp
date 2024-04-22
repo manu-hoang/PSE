@@ -76,7 +76,7 @@ Device* new_device(string name, int emission, PrintingEnum type, int speed, int 
 
     else if (type == scan){return new Scanner(name,emission,speed,cost);}
 
-    return new Device("invalid", 1, 1, 1);
+    return nullptr;
 }
 
 
@@ -90,7 +90,7 @@ Job* new_job(int jobNumber, int pageCount, PrintingEnum type, const string& user
 
     else if (type == scan){return new ScanJob(jobNumber,pageCount,userName);}
 
-    return new Job(1, 1, "invalid");
+    return nullptr;
 }
 
 
@@ -203,7 +203,15 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
 
                     if (!dont_add){
                         Device* device = new_device(name, emission, type, speed,cost);
-                        system.addDevice(device);
+
+                        if(device != nullptr){
+                            system.addDevice(device);
+                        }
+                        else{
+                            errStream << "XML PARTIAL IMPORT: Invalid device" << endl;
+                            endResult = PartialImport;
+                        }
+
                     }
 
                 }
@@ -268,7 +276,14 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
 
                     if (!dont_add){
                         Job* job = new_job(jobNumber, pageCount, type, userName);
-                        system.addJob(job);
+
+                        if(job != nullptr){
+                            system.addJob(job);
+                        }
+                        else{
+                            errStream << "XML PARTIAL IMPORT: Invalid device" << endl;
+                            endResult = PartialImport;
+                        }
                     }
                 }
 
