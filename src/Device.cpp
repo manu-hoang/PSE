@@ -123,10 +123,22 @@ BlackWhitePrinter::BlackWhitePrinter(string &name, int emissions, double speed, 
 
 }
 
+DeviceEnum BlackWhitePrinter::get_type() {
+    return bw_device;
+}
+
 ColorPrinter::ColorPrinter(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {
 
 }
 
+DeviceEnum ColorPrinter::get_type() {
+    return color_device;
+}
+
 Scanner::Scanner(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {
 
+}
+
+DeviceEnum Scanner::get_type() {
+    return scan_device;
 }

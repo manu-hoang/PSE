@@ -4,6 +4,8 @@
 
 using namespace std;
 
+enum JobEnum {bw_job, color_job, scan_job, invalid_job};
+
 class Job {
 public:
     /**

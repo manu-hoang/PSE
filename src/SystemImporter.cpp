@@ -68,13 +68,13 @@ bool isString(const std::string &str) {
 
 //Auxiliary function for internal use only
 
-Device* new_device(string name, int emission, PrintingEnum type, int speed, int cost){
+Device* new_device(string name, int emission, DeviceEnum type, int speed, int cost){
 
-    if(type == bw){return new BlackWhitePrinter(name,emission,speed,cost);}
+    if(type == bw_device){return new BlackWhitePrinter(name,emission,speed,cost);}
 
-    else if (type == color){return new ColorPrinter(name,emission,speed,cost);}
+    else if (type == color_device){return new ColorPrinter(name,emission,speed,cost);}
 
-    else if (type == scan){return new Scanner(name,emission,speed,cost);}
+    else if (type == scan_device){return new Scanner(name,emission,speed,cost);}
 
     return nullptr;
 }
@@ -82,13 +82,13 @@ Device* new_device(string name, int emission, PrintingEnum type, int speed, int 
 
 //Auxiliary function for internal use only
 
-Job* new_job(int jobNumber, int pageCount, PrintingEnum type, const string& userName){
+Job* new_job(int jobNumber, int pageCount, JobEnum type, const string& userName){
 
-    if(type == bw){return new BlackWhiteJob(jobNumber,pageCount,userName);}
+    if(type == bw_job){return new BlackWhiteJob(jobNumber,pageCount,userName);}
 
-    else if (type == color){return new ColorJob(jobNumber,pageCount,userName);}
+    else if (type == color_job){return new ColorJob(jobNumber,pageCount,userName);}
 
-    else if (type == scan){return new ScanJob(jobNumber,pageCount,userName);}
+    else if (type == scan_job){return new ScanJob(jobNumber,pageCount,userName);}
 
     return nullptr;
 }
@@ -134,7 +134,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
 
                     string name = "";
                     int emission = 0;
-                    PrintingEnum type = invalid;
+                    DeviceEnum type = invalid_device;
                     int speed = 0;
                     int cost = 0;
 
@@ -170,10 +170,10 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                         }
                         else if (attrValue == "type" ){
                             if(attrText == "bw"){
-                                type = bw;
+                                type = bw_device;
                             }
                             else if (attrText == "color"){
-                                type = color;
+                                type = color_device;
                             }
                             else{
                                 dont_add = true;
@@ -222,7 +222,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
 
                     int jobNumber = 0;
                     int pageCount = 0;
-                    PrintingEnum type = invalid;
+                    JobEnum type = invalid_job;
                     string userName = "";
 
 
@@ -252,10 +252,13 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                         }
                         else if (attrValue == "type" ){
                             if(attrText == "bw"){
-                                type = bw;
+                                type = bw_job;
                             }
                             else if (attrText == "color"){
-                                type = color;
+                                type = color_job;
+                            }
+                            else if (attrText == "scan"){
+                                type = scan_job;
                             }
                             else{
                                 dont_add = true;
@@ -281,7 +284,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                             system.addJob(job);
                         }
                         else{
-                            errStream << "XML PARTIAL IMPORT: Invalid device" << endl;
+                            errStream << "XML PARTIAL IMPORT: Invalid job" << endl;
                             endResult = PartialImport;
                         }
                     }

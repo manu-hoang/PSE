@@ -13,6 +13,8 @@ using namespace std;
     Scanner                     12g CO2 per page
 */
 
+enum DeviceEnum {bw_device, color_device, scan_device, invalid_device};
+
 class Device {
 public:
 
@@ -27,6 +29,8 @@ public:
      \n ENSURE(current_job = nullptr, "Device must have no current job after being initialized");
     */
     Device(string name, int emissions, double speed, int cost);
+
+    virtual DeviceEnum get_type() = 0;
 
     bool properlyInitialized();
 
@@ -106,14 +110,20 @@ private:
 class BlackWhitePrinter : public Device {
 public:
     BlackWhitePrinter(string &name, int emissions, double speed, int cost);
+
+    DeviceEnum get_type() override;
 };
 
 class ColorPrinter : public Device {
 public:
     ColorPrinter(string &name, int emissions, double speed, int cost);
+
+    DeviceEnum get_type() override;
 };
 
 class Scanner : public Device {
 public:
     Scanner(string &name, int emissions, double speed, int cost);
+
+    DeviceEnum get_type() override;
 };

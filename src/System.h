@@ -5,8 +5,6 @@
 #include "Device.h"
 #include "Job.h"
 
-enum PrintingEnum {bw, color, scan, invalid};
-
 class System {
 public:
     /**
