@@ -20,6 +20,8 @@ public:
     */
     Job(int jobNumber, double pageCount, string userName);
 
+    virtual JobEnum get_type() = 0;
+
     bool properlyInitialized();
 
     /**
@@ -29,7 +31,10 @@ public:
      \n if page count <= 0:
      \n     ENSURE(_finished, "Job must be in finished state if no pages are left");
     */
-    void print_page();
+    virtual void print_page() = 0;
+
+    bool get_busy();
+    void set_busy(bool busy);
 
     /**
      \n REQUIRE(properlyInitialized(), "Job wasn't initialized when calling setStartTime");
@@ -71,7 +76,7 @@ public:
     */
     string &getUserName();
 
-private:
+protected:
     Job* _initCheck; //!use pointer to myself to verify whether I am properly initialized
 
     int _jobNumber;
@@ -81,6 +86,7 @@ private:
 
     string _userName;
 
+    bool busy;
     double _start_time;
     bool _finished;
 };
@@ -88,17 +94,29 @@ private:
 class BlackWhiteJob : public Job {
 public:
     BlackWhiteJob(int jobNumber, double pageCount, string userName);
+
+    JobEnum get_type() override;
+
+    void print_page() override;
 };
 
 class ColorJob : public Job {
 public:
     ColorJob(int jobNumber, double pageCount, string userName);
+
+    JobEnum get_type() override;
+
+    void print_page() override;
 };
 
 
 class ScanJob : public Job {
 public:
     ScanJob(int jobNumber, double pageCount, string userName);
+
+    JobEnum get_type() override;
+
+    void print_page() override;
 };
 
 

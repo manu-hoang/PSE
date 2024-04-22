@@ -1,5 +1,6 @@
 #include "System.h"
 #include "contracts/DesignByContract.h"
+#include <iostream>
 
 System::System() {
     _initCheck = this;
@@ -16,76 +17,6 @@ System::System() {
 
 bool System::properlyInitialized() {
     return _initCheck == this;
-}
-
-void System::automatic_run(int seconds) {
-    REQUIRE(properlyInitialized(), "System wasn't initialized when calling automatic_run");
-    REQUIRE(seconds >= 0, "Automatic run time must be a positive integer");
-
-    update_all_devices();
-
-    while (current_time <= seconds){
-
-        process_all_jobs();
-        update_all_devices();
-
-        current_time++;
-    }
-
-}
-
-void System::link_jobs() {
-    REQUIRE(properlyInitialized(), "System wasn't initialized when calling link_jobs");
-
-    if(_devices.empty()){
-        return;
-    }
-
-    REQUIRE(!_devices.empty(), "No device available to give jobs to");
-    Device* device = _devices[0]; // change this later
-
-    for(auto job : _jobs){
-        device->add_job(job);
-    }
-
-    REQUIRE(current_time >= 0, "Current time must be a positive integer");
-    device->update_current_job(current_time);
-}
-
-void System::update_all_devices() {
-    REQUIRE(properlyInitialized(), "System wasn't initialized when calling update_all_devices");
-
-    for(auto device : _devices) {
-        device->update_current_job(current_time);
-    }
-}
-
-
-void System::process_all_jobs() {
-    REQUIRE(properlyInitialized(), "System wasn't initialized when calling process_all_jobs");
-
-    for(auto device : _devices){
-
-        if(!device->getBusy()){
-            return;
-        }
-        ENSURE(device->getBusy(), "Device must have a current job to process");
-
-        auto current_job = device->getCurrentJob();
-        REQUIRE(current_job != nullptr, "Printing finish time must be greater than 0");
-
-        // job finish time
-        double finish_time = current_job->getStartTime() + device->get_printing_time();
-        REQUIRE(finish_time >= 0, "Printing finish time must be greater than 0");
-
-        if(current_time >= finish_time){
-            while(!current_job->getFinished()) {
-                device->print_page();
-            }
-            ENSURE(current_job->getFinished(), "current job must be finished after printing all pages");
-        }
-
-    }
 }
 
 void System::addDevice(Device* &device) {
@@ -110,4 +41,120 @@ std::vector<Device*> &System::getDevices() {
 vector<Job*> &System::getJobs() {
     REQUIRE(properlyInitialized(), "System wasn't initialized when calling getJobs");
     return _jobs;
+}
+
+// Auxiliary function for internal use only
+
+bool unfinished_jobs(System* system) {
+    bool unfinished = false;
+
+    for (auto job : system->getJobs()) {
+        if(!job->getFinished()){
+            unfinished = true;
+        }
+    }
+
+    return unfinished;
+}
+
+// Auxiliary function for internal use only
+
+Job* pick_job(System* system){
+
+    for(auto job : system->getJobs()){
+        if(!job->get_busy()){
+            job->set_busy(true);
+            return job;
+        }
+    }
+
+    return nullptr;
+}
+
+Device* pick_device(System* system, Job* job){
+    Device* return_device = nullptr;
+
+    JobEnum job_type = job->get_type();
+    DeviceEnum LF_device_type = invalid_device; // LF = Looking For
+
+    switch (job_type) {
+        case bw_job:
+            LF_device_type = bw_device;
+            break;
+
+        case color_job:
+            LF_device_type = color_device;
+            break;
+
+        case scan_job:
+            LF_device_type = scan_device;
+            break;
+
+        case invalid_job:
+            LF_device_type = invalid_device;
+            break;
+    }
+
+    // TODO: change this later
+    for(auto device : system->getDevices()){
+
+        if(device->get_type() == LF_device_type){
+            return_device = device;
+        }
+    }
+
+    ENSURE(return_device != nullptr ,"No device exists for the specified job type");
+
+    return return_device;
+}
+
+void System::automated_processing() {
+    /*
+    1. WHILE unfinished jobs left
+        1.1. Pick job
+        1.2. Choose device according to job type
+        1.3. Perform Use Case 3.3: Manual processing met type (new)
+    */
+
+    while(unfinished_jobs(this)){
+        // pick job
+        Job* job = pick_job(this);
+
+        // choose device
+        Device* appropiate_device = pick_device(this, job);
+
+        appropiate_device->add_job(job);
+
+        // perform manual processing
+        manual_processing(appropiate_device);
+    }
+
+}
+
+void System::manual_processing(Device* device) {
+
+    Job* job = device->getCurrentJob();
+
+    JobEnum type = job->get_type();
+
+    while(!job->getFinished()){
+        switch (type) {
+            case bw_job:
+                job->print_page();
+                break;
+
+            case color_job:
+                job->print_page();
+                break;
+
+            case scan_job:
+                job->print_page();
+                break;
+
+            case invalid_job:
+                return;
+        }
+    }
+
+    device->writeOn(cout);
 }

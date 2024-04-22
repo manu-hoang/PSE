@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <queue>
 #include "string"
 #include "Job.h"
 
@@ -34,57 +34,16 @@ public:
 
     bool properlyInitialized();
 
-    /**
-     \n Use Case 3.1: Manual processing
-     \n Prints exactly one page from current job
+    Job* getCurrentJob();
 
-     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling print_page");
-     \n REQUIRE(current_job != nullptr, "unable to print page of nullptr");
-    */
-    void print_page();
-
-    /**
-     Note: Also calculates total printing time for current job (if updated)
-
-     \n Updates the current job pointer to next in queue if finished.
-     \n Simply returns if current job is finished and there are no jobs in the queue
-
-     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling update_current_job");
-    */
-    void update_current_job(int current_time);
+    void writeOn(std::ostream& onStream);
 
     /**
     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling add_job");
     \n ENSURE(this->busy == true, "add_job post condition failure");
     \n ENSURE(queue.size() == copy.size() + 1, "add_job post condition failure");
     */
-    void add_job(Job *&job);
-
-    /**
-    \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getCurrentJob");
-    */
-    Job* getCurrentJob();
-
-    /**
-     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getJobs");
-    */
-    vector<Job*> getJobs();
-
-    /**
-     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling get_printing_time");
-    */
-    double get_printing_time();
-
-    /**
-     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getName");
-    */
-    string &getName();
-
-    /**
-     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getEmissions");
-     \n ENSURE(emissions > 0, "Emissions value must be greater than 0");
-    */
-    int getEmissions();
+    void add_job(Job *job);
 
     /**
      \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getBusy");
@@ -101,8 +60,7 @@ private:
 
     bool busy;
 
-    Job* current_job;
-    vector<Job*> queue; // excluding current job
+    queue<Job*> queue;
 
     double printing_time; // time to complete current job (seconds)
 };

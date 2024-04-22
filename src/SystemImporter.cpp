@@ -152,7 +152,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                             }
                             else{
                                 dont_add = true;
-                                errStream << "XML PARTIAL IMPORT: Invalid emission value,"
+                                errStream << "XML PARTIAL IMPORT: Invalid emission value, "
                                              "got: " << attrText << endl;
                                 endResult = PartialImport;
                             }
@@ -163,7 +163,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                             }
                             else{
                                 dont_add = true;
-                                errStream << "XML PARTIAL IMPORT: Invalid speed value,"
+                                errStream << "XML PARTIAL IMPORT: Invalid speed value, "
                                              "got: " << attrText << endl;
                                 endResult = PartialImport;
                             }
@@ -177,7 +177,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                             }
                             else{
                                 dont_add = true;
-                                errStream << "XML PARTIAL IMPORT: Invalid type value,"
+                                errStream << "XML PARTIAL IMPORT: Invalid type value, "
                                              "got: " << attrText << endl;
                                 endResult = PartialImport;
                             }
@@ -188,13 +188,13 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                             }
                             else{
                                 dont_add = true;
-                                errStream << "XML PARTIAL IMPORT: Invalid cost value,"
+                                errStream << "XML PARTIAL IMPORT: Invalid cost value, "
                                              "got: " << attrText << endl;
                                 endResult = PartialImport;
                             }
                         }
                         else{
-                            errStream << "XML PARTIAL IMPORT: Invalid attribute,"
+                            errStream << "XML PARTIAL IMPORT: Invalid attribute, "
                                          "got <" << attrValue <<  "> ... </" << attrValue << ">." << endl;
                             endResult = PartialImport;
                         }
@@ -236,7 +236,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                             }
                             else{
                                 dont_add = true;
-                                errStream << "XML PARTIAL IMPORT: Invalid jobNumber value,"
+                                errStream << "XML PARTIAL IMPORT: Invalid jobNumber value, "
                                              "got: " << attrText << endl;
                             }
                         }
@@ -246,7 +246,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                             }
                             else{
                                 dont_add = true;
-                                errStream << "XML PARTIAL IMPORT: Invalid pageCount value,"
+                                errStream << "XML PARTIAL IMPORT: Invalid pageCount value, "
                                              "got: " << attrText << endl;
                             }
                         }
@@ -262,7 +262,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                             }
                             else{
                                 dont_add = true;
-                                errStream << "XML PARTIAL IMPORT: Invalid type value,"
+                                errStream << "XML PARTIAL IMPORT: Invalid type value, "
                                              "got: " << attrText << endl;
                                 endResult = PartialImport;
                             }
@@ -271,7 +271,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                             userName = attrText;
                         }
                         else{
-                            errStream << "XML PARTIAL IMPORT: Invalid attribute,"
+                            errStream << "XML PARTIAL IMPORT: Invalid attribute, "
                                          "got <" << attrValue <<  "> ... </" << attrValue << ">." << endl;
                             endResult = PartialImport;
                         }
@@ -299,8 +299,6 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
             }
         }
     }
-
-    system.link_jobs();
 
     doc.Clear();
 

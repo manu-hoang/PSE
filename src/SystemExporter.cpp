@@ -30,7 +30,7 @@ bool SystemExporter::documentStarted() {
 
 
 void SystemExporter::exportOn (std::ostream& onStream, System &system) {
-/*    char col, row;
+ /*   char col, row;
 
     // section start
     if (game.nrOfMoves() == 1) {

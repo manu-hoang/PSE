@@ -7,6 +7,7 @@ Job::Job(int jobNumber, double totalPageCount, string userName) : _jobNumber(job
     REQUIRE(jobNumber >= 0, "Job id number must be a positive integer");
     _initCheck = this;
 
+    busy = false;
     _finished = false;
     _currentPageCount = totalPageCount;
 
@@ -17,20 +18,6 @@ Job::Job(int jobNumber, double totalPageCount, string userName) : _jobNumber(job
 
 bool Job::properlyInitialized() {
     return _initCheck == this;
-}
-
-
-void Job::print_page() {
-    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
-
-    double old_page_count = _currentPageCount;
-    _currentPageCount--;
-    ENSURE(_currentPageCount == old_page_count - 1, "Job did not print page correctly");
-
-    if(_currentPageCount <= 0){
-        _finished = true;
-        ENSURE(_finished, "Job must be in finished state if no pages are left");
-    }
 }
 
 void Job::setStartTime(int time) {
@@ -74,14 +61,65 @@ string &Job::getUserName() {
     return _userName;
 }
 
+void Job::set_busy(bool input) {
+    this->busy = input;
+}
+
+bool Job::get_busy() {
+    return busy;
+}
+
 BlackWhiteJob::BlackWhiteJob(int jobNumber, double pageCount, string userName) : Job(jobNumber, pageCount, userName) {
 
+}
+
+JobEnum BlackWhiteJob::get_type() {
+    return bw_job;
+}
+
+void BlackWhiteJob::print_page() {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
+
+    _currentPageCount--;
+
+    if(_currentPageCount <= 0){
+        _finished = true;
+        busy = false;
+    }
 }
 
 ColorJob::ColorJob(int jobNumber, double pageCount, string userName) : Job(jobNumber, pageCount, userName) {
 
 }
 
+JobEnum ColorJob::get_type() {
+    return color_job;
+}
+
+void ColorJob::print_page() {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
+
+    _currentPageCount--;
+
+    if(_currentPageCount <= 0){
+        _finished = true;
+    }
+}
+
 ScanJob::ScanJob(int jobNumber, double pageCount, string userName) : Job(jobNumber, pageCount, userName) {
 
+}
+
+JobEnum ScanJob::get_type() {
+    return scan_job;
+}
+
+void ScanJob::print_page() {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
+
+    _currentPageCount--;
+
+    if(_currentPageCount <= 0){
+        _finished = true;
+    }
 }
