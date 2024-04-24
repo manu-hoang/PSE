@@ -79,8 +79,21 @@ void Device::writeOn(ostream &onStream) {
     cout << "\t" << job->getTotalPageCount() << " pages" << endl << endl;
 }
 
-BlackWhitePrinter::BlackWhitePrinter(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {
+queue<Job *> Device::get_queue() {
+    return this->queue;
+}
 
+void Device::set_limit(int limit) {
+    this->CO2_limit = limit;
+}
+
+int Device::get_limit() {
+    return this->CO2_limit;
+}
+
+BlackWhitePrinter::BlackWhitePrinter(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {
+    // CO2 limit
+    this->set_limit(8);
 }
 
 DeviceEnum BlackWhitePrinter::get_type() {
@@ -88,7 +101,8 @@ DeviceEnum BlackWhitePrinter::get_type() {
 }
 
 ColorPrinter::ColorPrinter(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {
-
+    // CO2 limit
+    this->set_limit(23);
 }
 
 DeviceEnum ColorPrinter::get_type() {
@@ -96,7 +110,8 @@ DeviceEnum ColorPrinter::get_type() {
 }
 
 Scanner::Scanner(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {
-
+    // CO2 limit
+    this->set_limit(12);
 }
 
 DeviceEnum Scanner::get_type() {

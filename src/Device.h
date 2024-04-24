@@ -7,6 +7,8 @@
 using namespace std;
 
 /*
+    TOTAL EMISSIONS LIMITS:
+
     Device type                 CO2 limit
     Black-and-white printers    8g CO2 per page
     Color printers              23g CO2 per page
@@ -18,16 +20,6 @@ enum DeviceEnum {bw_device, color_device, scan_device, invalid_device};
 class Device {
 public:
 
-    /**
-     \n Device initializer
-
-     \n ENSURE(properlyInitialized(), "constructor must end in properlyInitialized state");
-     \n REQUIRE(speed > 0, "Constructor requires speed to be greater than 0");
-     \n REQUIRE(emissions > 0, "Constructor requires emissions to be greater than 0");
-
-     \n ENSURE(busy = false, "Device must not be busy after being initialized");
-     \n ENSURE(current_job = nullptr, "Device must have no current job after being initialized");
-    */
     Device(string name, int emissions, double speed, int cost);
 
     virtual DeviceEnum get_type() = 0;
@@ -36,25 +28,27 @@ public:
 
     Job* getCurrentJob();
 
-    void writeOn(std::ostream& onStream);
-
-    /**
-    \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling add_job");
-    \n ENSURE(this->busy == true, "add_job post condition failure");
-    \n ENSURE(queue.size() == copy.size() + 1, "add_job post condition failure");
-    */
     void add_job(Job *job);
 
-    /**
-     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getBusy");
-    */
+    void writeOn(std::ostream& onStream);
+
     bool getBusy();
+
+    queue<Job*> get_queue();
+
+    int get_limit();
+
+protected:
+    void set_limit(int limit);
 
 private:
     Device* _initCheck; //!use pointer to myself to verify whether I am properly initialized
 
     string name;
+
+    int CO2_limit;
     int emissions; // gram CO2 per page
+
     double speed; // pages per minute
     double cost;
 

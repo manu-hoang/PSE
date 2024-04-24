@@ -1,6 +1,7 @@
 #include "System.h"
 #include "contracts/DesignByContract.h"
 #include <iostream>
+#include <limits>
 
 System::System() {
     _initCheck = this;
@@ -68,8 +69,72 @@ Job* pick_job(System* system){
         }
     }
 
+    // no more jobs left to process
     return nullptr;
 }
+
+// Auxiliary function for internal use only
+
+int device_type_counter(System* system, DeviceEnum type){
+
+    int counter = 0;
+
+    for(auto device : system->getDevices()){
+        if(device->get_type() == type){
+            counter++;
+        }
+    }
+
+    return counter;
+}
+
+// Auxiliary function for internal use only
+
+int calculate_total_pages(Device* device){
+    int total_pages = 0;
+
+    queue<Job*> temp_queue = device->get_queue();
+
+    while (!temp_queue.empty()) {
+        Job* job = temp_queue.front();
+        total_pages += job->getCurrentPageCount();
+        temp_queue.pop();
+    }
+
+    return total_pages;
+}
+
+// Auxiliary function for internal use only
+
+Device* find_device(System* system, DeviceEnum type){
+
+    /*
+    [1.2.a.1] FOR each device dev that does not exceed the CO2-limit:
+        [1.2.a.1.a] value(dev) += pages left in active job + pages in queue
+        [1.2.a.1.b] value(dev) = value(dev) * CO2 per page
+        [1.2.a.2] Choose the device with minimal value(dev) and that does not exceed the CO2-limit.
+        [1.2.a.3] Perform Use Case 3.3: Manual processing met type (new)
+    */
+
+    Device* return_device = nullptr;
+    int least_pages = numeric_limits<int>::max();
+
+    for(auto device : system->getDevices()){
+
+        if(device->get_type() == type){
+            int pages = calculate_total_pages(device);
+
+            if(pages < least_pages){
+                least_pages = pages;
+                return_device = device;
+            }
+        }
+
+    }
+
+    return return_device;
+}
+
 
 Device* pick_device(System* system, Job* job){
     Device* return_device = nullptr;
@@ -95,12 +160,29 @@ Device* pick_device(System* system, Job* job){
             break;
     }
 
-    // TODO: change this later
-    for(auto device : system->getDevices()){
+/*
+    Note:   the code given below will always find the device with the least amount of pages
+                [1.2] IF there exists more than one device of the required type -> IF there exists any device of the required type
 
-        if(device->get_type() == LF_device_type){
-            return_device = device;
-        }
+        [1.2] IF more than one device of the required type:
+        [1.2.a] THEN:
+            [1.2.a.1] FOR each device dev that does not exceed the CO2-limit:
+                [1.2.a.1.a] value(dev) += pages left in active job + pages in queue
+                [1.2.a.1.b] value(dev) = value(dev) * CO2 per page
+            [1.2.a.2] Choose the device with minimal value(dev) and that does not exceed the CO2-limit.
+            [1.2.a.3] Perform Use Case 3.3: Manual processing met type (new)
+
+        [1.2.b] ELSE:
+            [1.2.b.1] Choose the unique device of the required type that does not exceed the CO2-limit.
+            [1.2.b.2] Perform Use Case 3.3: Manual processing met type (new)
+*/
+
+    // Iterate through the system and find how many devices match the given type
+    int counter = device_type_counter(system, LF_device_type);
+
+    if (counter == 0){return_device = nullptr;} // no device found
+    else{
+        return_device = find_device(system, LF_device_type);
     }
 
     ENSURE(return_device != nullptr ,"No device exists for the specified job type");
@@ -109,6 +191,7 @@ Device* pick_device(System* system, Job* job){
 }
 
 void System::automated_processing() {
+
     /*
     1. WHILE unfinished jobs left
         1.1. Pick job
