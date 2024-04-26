@@ -26,6 +26,10 @@ public:
 
     bool properlyInitialized();
 
+    void print(); // print for 1 second
+
+    void updateQueuePositions();
+
     Job* getCurrentJob();
 
     void add_job(Job *job);

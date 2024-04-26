@@ -20,7 +20,13 @@ public:
 
     bool properlyInitialized();
 
-    void process_for(int seconds);
+    void divideJobs();
+
+    void tick();
+
+    bool notDone();
+
+    void writeOn(ostream &onStream);
 
     void automated_processing();
 

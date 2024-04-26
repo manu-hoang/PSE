@@ -31,7 +31,7 @@ public:
      \n if page count <= 0:
      \n     ENSURE(_finished, "Job must be in finished state if no pages are left");
     */
-    void print_page();
+    void printFullPage();
 
     bool get_busy();
     void set_busy(bool busy);

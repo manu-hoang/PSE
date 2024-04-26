@@ -103,7 +103,7 @@ JobEnum ScanJob::get_type() {
     return scan_job;
 }
 
-void Job::print_page() {
+void Job::printFullPage() {
     REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
 
     _currentPageCount--;

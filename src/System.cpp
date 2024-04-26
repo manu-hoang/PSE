@@ -75,7 +75,7 @@ bool unfinished_jobs(System* system) {
 Job* pick_job(System* system){
 
     for(auto job : system->getJobs()){
-        if(!job->get_busy()){
+        if(!job->get_busy() && !job->getFinished()){
             job->set_busy(true);
             return job;
         }
@@ -170,7 +170,6 @@ Device* find_device(System* system, DeviceEnum type){
     return return_device;
 }
 
-
 Device* pick_device(System* system, Job* job){
     Device* return_device = nullptr;
 
@@ -259,15 +258,15 @@ void System::manual_processing(Device* device) {
     while(!job->getFinished()){
         switch (type) {
             case bw_job:
-                job->print_page();
+                job->printFullPage();
                 break;
 
             case color_job:
-                job->print_page();
+                job->printFullPage();
                 break;
 
             case scan_job:
-                job->print_page();
+                job->printFullPage();
                 break;
 
             case invalid_job:
@@ -275,10 +274,50 @@ void System::manual_processing(Device* device) {
         }
     }
 
-    cout << "YO THERE IS A BUG HERE" << endl;
     device->writeOn(cout);
 }
 
-void System::process_for(int seconds) {
+void System::divideJobs() {
 
+    for(auto job: _jobs){
+
+        // choose device
+        Device* appropiate_device = pick_device(this, job);
+
+        appropiate_device->add_job(job);
+    }
+
+}
+
+void System::tick() {
+    for (auto device : _devices) {
+        device->print();
+    }
+}
+
+bool System::notDone() {
+    for(auto job : this->_jobs){
+        if(!job->getFinished()){
+            return true;
+        }
+    }
+    return false;
+}
+
+void System::writeOn(ostream &onStream) {
+/*    char col, row;
+    REQUIRE(this->properlyInitialized(),
+            "TicTacToe wasn't initialized when calling displayGame");
+    onStream << "TicTacToe numberOfMoves = " << this->nrOfMoves()
+             << " - winner = '" << this->getWinner() << "'" <<std::endl;
+    onStream << "    a   b   c   " << std::endl;
+    onStream << "  ------------- " << std::endl;
+    for (row = minRow; row <= maxRow; row++) {
+        onStream << row;
+        for (col = minCol; col <= maxCol; col++) {
+            onStream << " | " << this->getMark(col, row);
+        }
+        onStream << " |" << std::endl;
+    };
+    onStream << "  ------------- " << std::endl;*/
 }

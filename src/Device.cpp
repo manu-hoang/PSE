@@ -1,6 +1,7 @@
 #include "Device.h"
 #include "SystemExporter.h"
 #include "iostream"
+#include <queue>
 #include "contracts/DesignByContract.h"
 
 Device::Device(string name, int emissions, double speed, int cost): name(name), emissions(emissions), speed(speed), cost(cost) {
@@ -11,6 +12,8 @@ Device::Device(string name, int emissions, double speed, int cost): name(name), 
 
     busy = false;
     queue = {};
+
+    CO2_value = 0;
 
     ENSURE(busy == false, "Device must not be busy after being initialized");
     ENSURE(properlyInitialized(),"Constructor must end in properlyInitialized state");
@@ -25,6 +28,9 @@ void Device::add_job(Job *job) {
 
     this->busy = true;
 
+    job->setDeviceName(this->name);
+
+    job->setQueuePosition(queue.size());
     this->queue.push(job);
 
     ENSURE(this->busy == true, "add_job post condition failure");
@@ -136,6 +142,31 @@ string Device::getType() {
 
 string Device::getCosts() {
     return to_string(cost);
+}
+
+void Device::updateQueuePositions() {
+
+    ::queue<Job*> temp = {};
+
+    for (long long unsigned int i = 0; i < queue.size(); ++i) {
+        queue.front()->setQueuePosition(i);
+        temp.push(queue.front());
+        queue.pop();
+    }
+
+    queue = temp;
+}
+
+void Device::print() {
+    if(queue.size() == 0){return;} // no job to print
+
+    this->getCurrentJob()->set_busy(true);
+    this->getCurrentJob()->printFullPage();
+
+    if(this->getCurrentJob()->getFinished()){
+        queue.pop();
+        updateQueuePositions();
+    }
 }
 
 BlackWhitePrinter::BlackWhitePrinter(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {

@@ -18,13 +18,12 @@ int main(int argc, char **argv) {
     myfile.close();
 
     // main loop
-
-    /*    while (ttt_.notDone()) {
-        ttt_.doMove(); REPLACE THIS WITH TIMESTEP
-        ttt_.writeOn(myfile);
-    }*/
-
-    system.automated_processing();
+    int seconds = 1; // total run time of the program
+    system.divideJobs(); // divide all jobs to respective devices queue before loop (prevents multiple unnecessary divisions)
+    for (int i = 0; i < seconds; ++i) {
+        system.tick();
+        system.writeOn(cout);
+    }
 
     // simple output
     myfile.open("in_output/simple_output.txt");
