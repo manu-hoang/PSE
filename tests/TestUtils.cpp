@@ -36,3 +36,22 @@ bool FileCompare(const std::string leftFileName, const std::string rightFileName
     rightFile.close();
     return result;
 }
+
+bool FileExists(const std::string filename) {
+    struct stat st;
+    if (stat(filename.c_str(), &st) != 0) return false;
+    ifstream f(filename);
+    if (f.good()) {
+        f.close();
+        return true;
+    } else {
+        f.close();
+        return false;
+    }
+}
+
+bool FileIsEmpty(const std::string filename) {
+    struct stat st;
+    if (stat(filename.c_str(), &st) != 0) return true; // File does not exist; thus it is empty
+    return st.st_size == 0;
+}

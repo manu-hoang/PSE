@@ -7,7 +7,7 @@
 #include "../src/SystemExporter.h"
 
 
-class PrinterIn_OutputTest: public ::testing::Test {
+class PrinterInputTest: public ::testing::Test {
 protected:
     // You should make the members protected s.t. they can be
     // accessed from sub-classes.
@@ -29,23 +29,27 @@ protected:
 };
 
 // Tests the input of the "happy day" scenario
-TEST_F(PrinterIn_OutputTest, InputHappyDay) {
+TEST_F(PrinterInputTest, InputHappyDay) {
     ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
+    ofstream myfile;
+    SuccessEnum importResult;
+
     System system;
 
-    ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Use_Case_1.2_Reading_printers_and_jobs_with_different types.xml", myfile, system);
+    myfile.open("tests/inputTests/happy_day.txt");
+    importResult = SystemImporter::importSystem("xml_files/CompleteInput.xml", myfile, system);
     myfile.close();
 
-    EXPECT_TRUE(
-            FileCompare("tests/inputTests/happy_day.txt", "in_output/inputError.txt"));
+    EXPECT_TRUE(importResult == Success);
+
+    EXPECT_TRUE(FileCompare("tests/inputTests/happy_day.txt", "in_output/inputError.txt"));
 }
 
+/*
 // Tests the error code given by an unrecognised element
-TEST_F(PrinterIn_OutputTest, UnrecognisedElement) {
+TEST_F(PrinterInputTest, UnrecognisedElement) {
     ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
@@ -67,7 +71,7 @@ TEST_F(PrinterIn_OutputTest, UnrecognisedElement) {
 }
 
 // Tests the error code given by an incorrect value
-TEST_F(PrinterIn_OutputTest, IncorrectValue) {
+TEST_F(PrinterInputTest, IncorrectValue) {
     ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
@@ -89,7 +93,7 @@ TEST_F(PrinterIn_OutputTest, IncorrectValue) {
 }
 
 // Tests the error code for a doomsday scenario
-TEST_F(PrinterIn_OutputTest, Doomsday) {
+TEST_F(PrinterInputTest, Doomsday) {
     ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
@@ -110,7 +114,6 @@ TEST_F(PrinterIn_OutputTest, Doomsday) {
     EXPECT_TRUE(system.getJobs().empty());
 }
 
-/*
 // Tests the output of the "happy day" scenario
 TEST_F(PrinterIn_OutputTest, HappyDayOutput) {
     ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
@@ -121,7 +124,7 @@ TEST_F(PrinterIn_OutputTest, HappyDayOutput) {
 
     ofstream myfile;
     myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Use_Case_1.2_Reading_printers_and_jobs_with_different types.xml", myfile, system);
+    SystemImporter::importSystem("./xml_files/CompleteInput.xml", myfile, system);
     myfile.close();
 
 
@@ -205,7 +208,7 @@ TEST_F(PrinterIn_OutputTest, ConsoleOutput) {
 
     ofstream myfile;
     myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Use_Case_1.2_Reading_printers_and_jobs_with_different types.xml", myfile, system);
+    SystemImporter::importSystem("./xml_files/CompleteInput.xml", myfile, system);
     myfile.close();
 
     ofstream output("./in_output/output.txt");

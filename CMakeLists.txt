@@ -28,13 +28,14 @@ set(DEBUG_SOURCE_FILES
         src/System.cpp
         src/SystemExporter.cpp
         tinyxml/tinyxml.cpp tinyxml/tinystr.cpp tinyxml/tinyxmlerror.cpp tinyxml/tinyxmlparser.cpp
-        tests/PrinterIn_OutputTests.cpp
+        tests/PrinterInputTests.cpp
         tests/FunctonalityTests.cpp
         src/contracts/DesignByContract.h
         src/Compensation.h
         src/Compensation.cpp
         tests/TestUtils.h
         tests/TestUtils.cpp
+        tests/PrinterOutputTests.cpp
 )
 
 # Create RELEASE target

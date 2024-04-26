@@ -31,7 +31,7 @@ public:
      \n if page count <= 0:
      \n     ENSURE(_finished, "Job must be in finished state if no pages are left");
     */
-    virtual void print_page() = 0;
+    void print_page();
 
     bool get_busy();
     void set_busy(bool busy);
@@ -71,12 +71,20 @@ public:
     string getTotalCO2();
     string getTotalCost();
 
+    void setDeviceName(string name);
+    void setCompensationName(string name);
+    void setQueuePosition(int position);
+
 protected:
-    double _totalPageCount;
-    double _currentPageCount;
+    string device_name;
+    string compensation_name;
+
+    int queue_position;
+
+    int _totalPageCount;
+    int _currentPageCount;
 
     bool busy;
-
     bool _finished;
 
 private:
@@ -91,8 +99,6 @@ public:
     BlackWhiteJob(int jobNumber, double pageCount, string userName);
 
     JobEnum get_type() override;
-
-    void print_page() override;
 };
 
 class ColorJob : public Job {
@@ -100,8 +106,6 @@ public:
     ColorJob(int jobNumber, double pageCount, string userName);
 
     JobEnum get_type() override;
-
-    void print_page() override;
 };
 
 
@@ -110,8 +114,6 @@ public:
     ScanJob(int jobNumber, double pageCount, string userName);
 
     JobEnum get_type() override;
-
-    void print_page() override;
 };
 
 

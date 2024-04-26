@@ -59,23 +59,32 @@ string Job::getOwner() {
     return _userName;
 }
 
+string Job::getDevice() {
+    return _userName;
+}
+
+string Job::getStatus() {
+    return _userName;
+}
+
+string Job::getTotalPages() {
+    return _userName;
+}
+
+string Job::getTotalCO2() {
+    return _userName;
+}
+
+string Job::getTotalCost() {
+    return _userName;
+}
+
 BlackWhiteJob::BlackWhiteJob(int jobNumber, double pageCount, string userName) : Job(jobNumber, pageCount, userName) {
 
 }
 
 JobEnum BlackWhiteJob::get_type() {
     return bw_job;
-}
-
-void BlackWhiteJob::print_page() {
-    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
-
-    _currentPageCount--;
-
-    if(_currentPageCount <= 0){
-        _finished = true;
-        busy = false;
-    }
 }
 
 ColorJob::ColorJob(int jobNumber, double pageCount, string userName) : Job(jobNumber, pageCount, userName) {
@@ -86,16 +95,6 @@ JobEnum ColorJob::get_type() {
     return color_job;
 }
 
-void ColorJob::print_page() {
-    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
-
-    _currentPageCount--;
-
-    if(_currentPageCount <= 0){
-        _finished = true;
-    }
-}
-
 ScanJob::ScanJob(int jobNumber, double pageCount, string userName) : Job(jobNumber, pageCount, userName) {
 
 }
@@ -104,12 +103,25 @@ JobEnum ScanJob::get_type() {
     return scan_job;
 }
 
-void ScanJob::print_page() {
+void Job::print_page() {
     REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
 
     _currentPageCount--;
 
     if(_currentPageCount <= 0){
         _finished = true;
+        busy = false;
     }
+}
+
+void Job::setDeviceName(string name) {
+    this->device_name = name;
+}
+
+void Job::setCompensationName(string name) {
+    this->compensation_name = name;
+}
+
+void Job::setQueuePosition(int position) {
+    this->queue_position = position;
 }

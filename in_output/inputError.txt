@@ -1,7 +1,0 @@
-XML PARTIAL IMPORT: Invalid emission value, got: 3sé
-XML PARTIAL IMPORT: Invalid speed value, got: ,jdjjd
-XML PARTIAL IMPORT: Invalid jobNumber value, got: 89751a
-XML PARTIAL IMPORT: Invalid pageCount value, got: 2cc
-XML PARTIAL IMPORT: Invalid jobNumber value, got: 218déddd9
-XML PARTIAL IMPORT: Invalid pageCount value, got: 3q
-XML PARTIAL IMPORT: Expected <DEVICE> ... </DEVICE> or <JOB> ... </JOB> and got <RANDOM> ... </RANDOM>.

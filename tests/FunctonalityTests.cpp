@@ -1,11 +1,6 @@
-#include <iostream>
 #include <gtest/gtest.h>
 #include <fstream>
 #include "../src/System.h"
-#include "../src/Device.h"
-#include "../src/Job.h"
-#include "../src/SystemImporter.h"
-#include "../src/SystemExporter.h"
 
 
 class FunctionalityTests: public ::testing::Test {
@@ -110,7 +105,7 @@ TEST_F(FunctionalityTests, UseCase3_1_2Processing) {
 
     ofstream myfile;
     myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Use_Case_1.2_Reading_printers_and_jobs_with_different types.xml", myfile, system);
+    SystemImporter::importSystem("./xml_files/CompleteInput.xml", myfile, system);
     myfile.close();
 
     // First job should be the current job
