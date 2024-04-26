@@ -275,6 +275,7 @@ void System::manual_processing(Device* device) {
         }
     }
 
+    cout << "YO THERE IS A BUG HERE" << endl;
     device->writeOn(cout);
 }
 

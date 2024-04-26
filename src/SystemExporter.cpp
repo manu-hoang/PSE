@@ -52,6 +52,7 @@ void SystemExporter::simple_output (std::ostream& onStream, System &system) {
     whitespace(onStream);
 
     for(auto job : system.getJobs()){
+        jobNumber(onStream, job);
         jobOwner(onStream, job);
         jobDevice(onStream, job);
         jobStatus(onStream, job);
@@ -105,28 +106,32 @@ void SystemExporter::jobsStart (std::ostream& onStream) {
     onStream << "--== Jobs ==--" << std::endl;
 }
 
-void SystemExporter::jobOwner(ostream &onStream, Job *job) {
+void SystemExporter::jobNumber(ostream &onStream, Job *job) {
+    onStream << "[Job #" << job->getOwner() << "]" << std::endl;
+}
 
+void SystemExporter::jobOwner(ostream &onStream, Job *job) {
+    onStream << "* Owner: " << job->getOwner() << std::endl;
 }
 
 void SystemExporter::jobDevice(ostream &onStream, Job *job) {
-
+    onStream << "* Device: " << job->getDevice() << std::endl;
 }
 
 void SystemExporter::jobStatus(ostream &onStream, Job *job) {
-
+    onStream << "* Status: " << job->getStatus() << std::endl;
 }
 
 void SystemExporter::jobTotalPages(ostream &onStream, Job *job) {
-
+    onStream << "* Total pages: " << job->getTotalPages() << std::endl;
 }
 
 void SystemExporter::jobTotalCO2(ostream &onStream, Job *job) {
-
+    onStream << "* Total CO2: " << job->getTotalCO2() << std::endl;
 }
 
 void SystemExporter::jobTotalCost(ostream &onStream, Job *job) {
-
+    onStream << "*  Total cost: " << job->getTotalCost()<< std::endl;
 }
 
 void SystemExporter::compensationStart (std::ostream& onStream) {

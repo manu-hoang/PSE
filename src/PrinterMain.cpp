@@ -11,9 +11,6 @@ int main(int argc, char **argv) {
 
     System system;
 
-    SystemExporter exporter;
-    exporter.documentStart(cout);
-
     // input parser
     ofstream myfile;
     myfile.open("in_output/InputError.txt");
@@ -21,8 +18,21 @@ int main(int argc, char **argv) {
     myfile.close();
 
     // main loop
+
+    /*    while (ttt_.notDone()) {
+        ttt_.doMove(); REPLACE THIS WITH TIMESTEP
+        ttt_.writeOn(myfile);
+    }*/
+
     system.automated_processing();
 
-    exporter.simple_output(cout, system);
-    exporter.documentEnd(cout);
+    // simple output
+    myfile.open("in_output/simple_output.txt");
+
+    SystemExporter exporter;
+    exporter.documentStart(myfile);
+    exporter.simple_output(myfile, system);
+    exporter.documentEnd(myfile);
+
+    myfile.close();
 }

@@ -49,6 +49,7 @@ protected:
 
     void jobsStart (std::ostream& onStream);
 
+    void jobNumber (std::ostream& onStream, Job* job);
     void jobOwner (std::ostream& onStream, Job* job);
     void jobDevice (std::ostream& onStream, Job* job);
     void jobStatus (std::ostream& onStream, Job* job);
