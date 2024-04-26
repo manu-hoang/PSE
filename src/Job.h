@@ -37,19 +37,6 @@ public:
     void set_busy(bool busy);
 
     /**
-     \n REQUIRE(properlyInitialized(), "Job wasn't initialized when calling setStartTime");
-     \n REQUIRE(time >= 0, "Job starting time must be a positive integer");
-     \n ENSURE(_start_time == time, "setStartTime post condition failure");
-    */
-    void setStartTime(int time);
-
-    /**
-     \n REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getStartTime");
-     \n ENSURE(_start_time >= 0, "Starting time must be a positive integer");
-    */
-    int getStartTime();
-
-    /**
      \n REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getFinished");
     */
     bool getFinished();
@@ -76,19 +63,27 @@ public:
     */
     string &getUserName();
 
+    // Use Case 2.2, Simple Output
+    string getOwner();
+    string getDevice();
+    string getStatus();
+    string getTotalPages();
+    string getTotalCO2();
+    string getTotalCost();
+
 protected:
-    Job* _initCheck; //!use pointer to myself to verify whether I am properly initialized
-
-    int _jobNumber;
-
     double _totalPageCount;
     double _currentPageCount;
 
-    string _userName;
-
     bool busy;
-    double _start_time;
+
     bool _finished;
+
+private:
+    Job* _initCheck; //!use pointer to myself to verify whether I am properly initialized
+
+    int _jobNumber;
+    string _userName;
 };
 
 class BlackWhiteJob : public Job {

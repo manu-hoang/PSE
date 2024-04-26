@@ -29,58 +29,114 @@ bool SystemExporter::documentStarted() {
 }
 
 
-void SystemExporter::exportOn (std::ostream& onStream, System &system) {
- /*   char col, row;
+void SystemExporter::simple_output (std::ostream& onStream, System &system) {
+    documentStart(onStream);
 
-    // section start
-    if (game.nrOfMoves() == 1) {
-        this->sectionStart(onStream, "TicTacToe (1 move)");
-    } else {
-        this->sectionStart(onStream, "TicTacToe (" + std::to_string(game.nrOfMoves()) + " moves)");
+    systemStart(onStream, "System Status");
+    whitespace(onStream);
+
+    devicesStart(onStream);
+    whitespace(onStream);
+
+    for(auto device : system.getDevices()){
+        deviceName(onStream, device);
+        deviceEmissions(onStream, device);
+        deviceSpeed(onStream, device);
+        deviceType(onStream, device);
+        deviceCosts(onStream, device);
+
+        whitespace(onStream);
     }
 
+    jobsStart(onStream);
+    whitespace(onStream);
 
-    if (game.getWinner() != ' ') {this->announceWinner(onStream, game.getWinner());}
+    for(auto job : system.getJobs()){
+        jobOwner(onStream, job);
+        jobDevice(onStream, job);
+        jobStatus(onStream, job);
+        jobTotalPages(onStream, job);
+        jobTotalCO2(onStream, job);
+        jobTotalCost(onStream, job);
 
-    this->boardStart(onStream);
-    for (row = minRow; row <= maxRow; row++) {
-        this->rowStart(onStream, row - minRow + 1);
-        for (col = minCol; col <= maxCol; col++) {
-            this->cell(onStream, game.getMark(col, row));
-        }
-        this->rowEnd(onStream);
-    };
-    this->boardEnd(onStream);
-    this->sectionEnd(onStream);*/
+        whitespace(onStream);
+    }
+
+    compensationStart(onStream);
+    whitespace(onStream);
+
+    systemEnd(onStream);
+
+    documentEnd(onStream);
 }
-
-
-// Following are the hook methods to be overridden in subclasses
 
 void SystemExporter::documentStart (std::ostream& onStream) {_documentStarted = true;}
 void SystemExporter::documentEnd (std::ostream& onStream) {_documentStarted = false;}
 
-void SystemExporter::sectionStart (std::ostream& onStream, const string sectionTitle) {
-    onStream << sectionTitle << std::endl;}
-void SystemExporter::sectionEnd (std::ostream& onStream) {}
-
-void SystemExporter::boardStart (std::ostream& onStream) {
-    onStream 	<< "    a   b   c   " << std::endl
-                << "  ------------- " << std::endl;
-}
-void SystemExporter::boardEnd (std::ostream& onStream) {
-    onStream << "  ------------- " << std::endl;
+void SystemExporter::systemStart (std::ostream& onStream, const string title) {
+    onStream << "# === [" << title << "] === #" << std::endl;
 }
 
-void SystemExporter::rowStart (std::ostream& onStream, const int row) {
-    onStream << row;
-}
-void SystemExporter::rowEnd (std::ostream& onStream) {
-    onStream << " |" << std::endl;
+void SystemExporter::devicesStart (std::ostream& onStream) {
+    onStream << "--== Devices ==--" << std::endl;
 }
 
-void SystemExporter::cell (std::ostream& onStream, char const cellMarker) {
-    onStream << " | " << cellMarker;}
+void SystemExporter::deviceName(ostream &onStream, Device *device) {
+    onStream << device->getName() << ":" << std::endl;
+}
 
-void SystemExporter::announceWinner (std::ostream& onStream, const char winnerMarker) {
-    onStream << "   And the winner is '" << winnerMarker << "'" <<std::endl;}
+void SystemExporter::deviceEmissions(ostream &onStream, Device *device) {
+    onStream << "* " << device->getEmissions() << "g/page" << std::endl;
+}
+
+void SystemExporter::deviceSpeed(ostream &onStream, Device *device) {
+    onStream << "* " << device->getSpeed() << " pages / minute" << std::endl;
+}
+
+void SystemExporter::deviceType(ostream &onStream, Device *device) {
+    onStream << "* " << device->getType() << std::endl;
+}
+
+void SystemExporter::deviceCosts(ostream &onStream, Device *device) {
+    onStream << "* " << device->getCosts() << " cents / page"<< std::endl;
+}
+
+void SystemExporter::jobsStart (std::ostream& onStream) {
+    onStream << "--== Jobs ==--" << std::endl;
+}
+
+void SystemExporter::jobOwner(ostream &onStream, Job *job) {
+
+}
+
+void SystemExporter::jobDevice(ostream &onStream, Job *job) {
+
+}
+
+void SystemExporter::jobStatus(ostream &onStream, Job *job) {
+
+}
+
+void SystemExporter::jobTotalPages(ostream &onStream, Job *job) {
+
+}
+
+void SystemExporter::jobTotalCO2(ostream &onStream, Job *job) {
+
+}
+
+void SystemExporter::jobTotalCost(ostream &onStream, Job *job) {
+
+}
+
+void SystemExporter::compensationStart (std::ostream& onStream) {
+    onStream << "--== Co2 Compensation initiatives ==--" << std::endl;
+}
+
+void SystemExporter::whitespace(ostream &onStream) {
+    onStream << endl;
+}
+
+void SystemExporter::systemEnd (std::ostream& onStream) {
+    onStream << "# ======================= #" << std::endl;
+}

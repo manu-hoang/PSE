@@ -102,3 +102,6 @@ Functionality:
     - Use Case 2.1 V
     - Use Case 3.1 V
     - Use case 3.2 V
+
+TODO:
+consistency check

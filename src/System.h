@@ -4,6 +4,7 @@
 
 #include "Device.h"
 #include "Job.h"
+#include "Compensation.h"
 
 class System {
 public:
@@ -19,6 +20,8 @@ public:
 
     bool properlyInitialized();
 
+    void process_for(int seconds);
+
     void automated_processing();
 
     void manual_processing(Device* device);
@@ -30,13 +33,13 @@ public:
     void addDevice(Device* &device);
 
     /**
- \n REQUIRE(properlyInitialized(), "System wasn't initialized when calling getDevices");
-*/
+     \n REQUIRE(properlyInitialized(), "System wasn't initialized when calling getDevices");
+    */
     std::vector<Device*>& getDevices();
 
     /**
      \n REQUIRE(properlyInitialized(), "System wasn't initialized when calling addJob");
-     \n REQUIRE(job != nullptr, "Cannot add nullptr as device to system");
+     \n REQUIRE(job != nullptr, "Cannot add nullptr as job to system");
     */
     void addJob(Job* &job);
 
@@ -45,11 +48,23 @@ public:
     */
     vector<Job *> &getJobs();
 
+    /**
+     \n REQUIRE(properlyInitialized(), "System wasn't initialized when calling addJob");
+     \n REQUIRE(job != nullptr, "Cannot add nullptr as device to system");
+    */
+    void addCompensation(Compensation* compensation);
+
+    /**
+     \n REQUIRE(properlyInitialized(), "System wasn't initialized when calling getCompensations");
+    */
+    vector<Compensation*> getCompensations();
+
 private:
     System* _initCheck; //!use pointer to myself to verify whether I am properly initialized
 
     vector<Device*> _devices;
     vector<Job*> _jobs;
+    vector<Compensation*> _compensations;
 
     int current_time;
 };

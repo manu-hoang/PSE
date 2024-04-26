@@ -23,15 +23,6 @@ int main(int argc, char **argv) {
     // main loop
     system.automated_processing();
 
-    exporter.exportOn(cout, system);
+    exporter.simple_output(cout, system);
     exporter.documentEnd(cout);
 }
-
-/*
- * tests dont work on labo pc
- * IF contracts
- * mock input / output
- * just google it
- *
- * Step 1.2 [No device exists for the specified job type] Print an error message that the job could not be printed.
- */

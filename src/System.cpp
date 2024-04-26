@@ -34,6 +34,13 @@ void System::addJob(Job* &job) {
     this->_jobs.push_back(job);
 }
 
+void System::addCompensation(Compensation *compensation) {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling addCompensation");
+    REQUIRE(compensation != nullptr, "Cannot add nullptr as compensation to system");
+
+    this->_compensations.push_back(compensation);
+}
+
 std::vector<Device*> &System::getDevices() {
     REQUIRE(properlyInitialized(), "System wasn't initialized when calling getDevices");
     return _devices;
@@ -42,6 +49,11 @@ std::vector<Device*> &System::getDevices() {
 vector<Job*> &System::getJobs() {
     REQUIRE(properlyInitialized(), "System wasn't initialized when calling getJobs");
     return _jobs;
+}
+
+vector<Compensation*> System::getCompensations() {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling getCompensations");
+    return _compensations;
 }
 
 // Auxiliary function for internal use only
@@ -106,20 +118,39 @@ int calculate_total_pages(Device* device){
 
 // Auxiliary function for internal use only
 
-Device* find_device(System* system, DeviceEnum type){
+bool exceeded_CO2_limit(Device* device, int value_dev){
+    int new_value = value_dev + device->get_CO2();
 
-    /*
-    [1.2.a.1] FOR each device dev that does not exceed the CO2-limit:
-        [1.2.a.1.a] value(dev) += pages left in active job + pages in queue
-        [1.2.a.1.b] value(dev) = value(dev) * CO2 per page
-        [1.2.a.2] Choose the device with minimal value(dev) and that does not exceed the CO2-limit.
-        [1.2.a.3] Perform Use Case 3.3: Manual processing met type (new)
-    */
+    if(new_value > device->get_limit()){
+        return true;
+    }
+    else{return false;}
+}
+
+// Auxiliary function for internal use only
+
+Device* find_device(System* system, DeviceEnum type){
 
     Device* return_device = nullptr;
     int least_pages = numeric_limits<int>::max();
 
     for(auto device : system->getDevices()){
+
+        /*if(device->get_type() == type){
+            int value_dev = 0;
+            value_dev += calculate_total_pages(device);
+            value_dev = value_dev * device->get_emissions();
+
+            cout << calculate_total_pages(device) << " " << value_dev << endl;
+
+            bool exceeded_limit = exceeded_CO2_limit(device, value_dev);
+
+            if(!exceeded_limit && value_dev <= minimal_CO2){
+                device->set_CO2(value_dev);
+                minimal_CO2 = value_dev;
+                return_device = device;
+            }
+        }*/
 
         if(device->get_type() == type){
             int pages = calculate_total_pages(device);
@@ -130,6 +161,10 @@ Device* find_device(System* system, DeviceEnum type){
             }
         }
 
+    }
+
+    if(return_device == nullptr){
+        cout << "all devices exceed limit" << endl;
     }
 
     return return_device;
@@ -200,6 +235,7 @@ void System::automated_processing() {
     */
 
     while(unfinished_jobs(this)){
+
         // pick job
         Job* job = pick_job(this);
 
@@ -240,4 +276,8 @@ void System::manual_processing(Device* device) {
     }
 
     device->writeOn(cout);
+}
+
+void System::process_for(int seconds) {
+
 }

@@ -36,7 +36,20 @@ public:
 
     queue<Job*> get_queue();
 
+    int get_CO2();
+
+    void set_CO2(int value);
+
+    int get_emissions();
+
     int get_limit();
+
+    // Use Case 2.2, Simple Output
+    string getName();
+    string getEmissions();
+    string getSpeed();
+    string getType();
+    string getCosts();
 
 protected:
     void set_limit(int limit);
@@ -46,17 +59,17 @@ private:
 
     string name;
 
-    int CO2_limit;
+    int CO2_value; // current device value
+    int CO2_limit; // limit
+
     int emissions; // gram CO2 per page
 
-    double speed; // pages per minute
-    double cost;
+    int speed; // pages per minute
+    int cost; // cents per page
 
     bool busy;
 
     queue<Job*> queue;
-
-    double printing_time; // time to complete current job (seconds)
 };
 
 class BlackWhitePrinter : public Device {

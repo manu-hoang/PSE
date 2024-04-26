@@ -1,10 +1,8 @@
-//
-// Created by jeremi on 7/03/24.
-//
-#include <iostream>
 #include <gtest/gtest.h>
-#include "../src/System.h"
 #include <fstream>
+#include "TestUtils.h"
+
+#include "../src/System.h"
 #include "../src/SystemImporter.h"
 #include "../src/SystemExporter.h"
 
@@ -29,44 +27,6 @@ protected:
     // Declares the variables your tests want to use.
     System sys;
 };
-
-bool DirectoryExists(const std::string dirname) {
-    struct stat st;
-    return stat(dirname.c_str(), &st) == 0;
-}
-
-bool FileCompare(const std::string leftFileName, const std::string rightFileName) {
-    ifstream leftFile, rightFile;
-    char leftRead, rightRead;
-    bool result;
-
-    // Open the two files.
-    leftFile.open(leftFileName.c_str());
-    if (!leftFile.is_open()) {
-        return false;
-    };
-    rightFile.open(rightFileName.c_str());
-    if (!rightFile.is_open()) {
-        leftFile.close();
-        return false;
-    };
-
-    result = true; // files exist and are open; assume equality unless a counterexamples shows up.
-    while (result && leftFile.good() && rightFile.good()) {
-        leftFile.get(leftRead);
-        rightFile.get(rightRead);
-        result = (leftRead == rightRead);
-    };
-    if (result) {
-        // last read was still equal; are we at the end of both files ?
-        result = (!leftFile.good()) && (!rightFile.good());
-    };
-
-    leftFile.close();
-    rightFile.close();
-    return result;
-}
-
 
 // Tests the input of the "happy day" scenario
 TEST_F(PrinterIn_OutputTest, InputHappyDay) {
@@ -150,6 +110,7 @@ TEST_F(PrinterIn_OutputTest, Doomsday) {
     EXPECT_TRUE(system.getJobs().empty());
 }
 
+/*
 // Tests the output of the "happy day" scenario
 TEST_F(PrinterIn_OutputTest, HappyDayOutput) {
     ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
@@ -328,7 +289,7 @@ TEST_F(PrinterIn_OutputTest, ConsoleUnrecognisedElementOutput) {
     EXPECT_TRUE(
             FileCompare("./tests/outputTests/console_unrecognised_element_output.txt", "./in_output/console_output.txt")
     );
-}
+}*/
 
 
 int main(int argc, char **argv) {

@@ -32,17 +32,33 @@ public:
 
     virtual void documentEnd (std::ostream& onStream);
 
-    void exportOn (std::ostream& onStream, System &system);
+    void simple_output (std::ostream& onStream, System &system);
 
 protected:
-    virtual void sectionStart (std::ostream& onStream, const std::string sectionTitle);
-    virtual void sectionEnd (std::ostream& onStream);
-    virtual void boardStart (std::ostream& onStream);
-    virtual void boardEnd (std::ostream& onStream);
-    virtual void rowStart (std::ostream& onStream, const int row);
-    virtual void rowEnd (std::ostream& onStream);
-    virtual void cell (std::ostream& onStream, const char cellMarker);
-    virtual void announceWinner (std::ostream& onStream, const char winnerMarker);
+    void systemStart (std::ostream& onStream, const std::string title);
+
+    void whitespace (std::ostream &onStream);
+
+    void devicesStart (std::ostream& onStream);
+
+    void deviceName (std::ostream& onStream, Device* device);
+    void deviceEmissions (std::ostream& onStream, Device* device);
+    void deviceSpeed (std::ostream& onStream, Device* device);
+    void deviceType (std::ostream& onStream, Device* device);
+    void deviceCosts (std::ostream& onStream, Device* device);
+
+    void jobsStart (std::ostream& onStream);
+
+    void jobOwner (std::ostream& onStream, Job* job);
+    void jobDevice (std::ostream& onStream, Job* job);
+    void jobStatus (std::ostream& onStream, Job* job);
+    void jobTotalPages (std::ostream& onStream, Job* job);
+    void jobTotalCO2 (std::ostream& onStream, Job* job);
+    void jobTotalCost (std::ostream& onStream, Job* job);
+
+    void compensationStart (std::ostream& onStream);
+
+    void systemEnd (std::ostream& onStream);
 
 private:
     SystemExporter * _initCheck; //! use pointer to myself to verify whether I am properly initialized

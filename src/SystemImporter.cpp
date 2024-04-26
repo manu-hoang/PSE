@@ -100,7 +100,8 @@ Job* new_job(int jobNumber, int pageCount, JobEnum type, const string& userName)
 
 
 
-
+void consistency_check(std::ostream& errStream, System& system){
+}
 
 SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostream& errStream, System& system) {
 
@@ -290,15 +291,56 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                     }
                 }
 
+                else if (element == "COMPENSATION"){
+                    bool dont_add = false;
+
+                    int compNumber = 0;
+                    string name = "";
+
+
+                    for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
+                        string attrValue = attr->Value();
+                        string attrText = attr->GetText();
+
+                        if (attrValue == "compNumber"){
+                            if(isInteger(attrText)){
+                                compNumber = stoi(attrText);
+                            }
+                            else{
+                                dont_add = true;
+                                errStream << "XML PARTIAL IMPORT: Invalid jobNumber value, "
+                                             "got: " << attrText << endl;
+                            }
+                        }
+                        else if (attrValue == "name"){
+                            name = attrText;
+                        }
+                        else{
+                            errStream << "XML PARTIAL IMPORT: Invalid attribute, "
+                                         "got <" << attrValue <<  "> ... </" << attrValue << ">." << endl;
+                            endResult = PartialImport;
+                        }
+                    }
+
+                    if (!dont_add){
+                        auto* compensation = new Compensation(compNumber, name);
+
+                        system.addCompensation(compensation);
+                    }
+                }
+
                 else{
                     errStream << "XML PARTIAL IMPORT: Expected <DEVICE> ... </DEVICE> or <JOB> ... </JOB> "
                                  "and got <" << element <<  "> ... </" << element << ">." << endl;
                     endResult = PartialImport;
                 }
+
                 elem = elem->NextSiblingElement();
             }
         }
     }
+
+    consistency_check(errStream, system);
 
     doc.Clear();
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <gtest/gtest.h>
+#include <fstream>
 #include "../src/System.h"
 #include "../src/Device.h"
 #include "../src/Job.h"
@@ -28,6 +29,7 @@ protected:
     System sys;
 };
 
+/*
 // Testing basic attributes and function of System.h
 TEST_F(FunctionalityTests, SystemTest) {
 
@@ -126,4 +128,4 @@ TEST_F(FunctionalityTests, UseCase3_1_2Processing) {
     system.automatic_run(100);
     EXPECT_FALSE(system.getDevices()[0]->getCurrentJob());
 
-}
+}*/

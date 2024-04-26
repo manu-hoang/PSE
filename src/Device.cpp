@@ -87,8 +87,55 @@ void Device::set_limit(int limit) {
     this->CO2_limit = limit;
 }
 
+int Device::get_emissions() {
+    return this->emissions;
+}
+
+int Device::get_CO2() {
+    return CO2_value;
+}
+
+void Device::set_CO2(int value) {
+    CO2_value = value;
+}
+
 int Device::get_limit() {
-    return this->CO2_limit;
+    return CO2_limit;
+}
+
+string Device::getName() {
+    return name;
+}
+
+string Device::getEmissions() {
+    return to_string(emissions);
+}
+
+string Device::getSpeed() {
+    return to_string(speed);
+}
+
+string Device::getType() {
+
+    switch (this->get_type()) {
+        case bw_device:
+            return "Black-and-white printer";
+
+        case color_device:
+            return "Color printer";
+
+        case scan_device:
+            return "Scanner";
+
+        case invalid_device:
+            return "Unsupported device";
+    }
+
+    return "";
+}
+
+string Device::getCosts() {
+    return to_string(cost);
 }
 
 BlackWhitePrinter::BlackWhitePrinter(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {
