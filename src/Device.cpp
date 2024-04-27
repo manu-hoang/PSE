@@ -73,18 +73,6 @@ string get_type(Job* job){
     return type;
 }
 
-void Device::writeOn(ostream &onStream) {
-
-    Job* job = queue.front();
-
-    string job_type = ::get_type(job);
-
-    cout << "Printer \"" << this->name << "\" finished " << job_type << " job:" << endl;
-    cout << "\tNumber " << job->getJobNumber() << endl;
-    cout << "\tSubmitted by \"" << job->getUserName() << "\"" << endl;
-    cout << "\t" << job->getTotalPageCount() << " pages" << endl << endl;
-}
-
 queue<Job *> Device::get_queue() {
     return this->queue;
 }
@@ -144,12 +132,14 @@ string Device::getCosts() {
     return to_string(cost);
 }
 
-void Device::updateQueuePositions() {
+void Device::updateQueue(int totalRunTime) {
 
     ::queue<Job*> temp = {};
 
     for (long long unsigned int i = 0; i < queue.size(); ++i) {
         queue.front()->setQueuePosition(i);
+        queue.front()->setStartTime(totalRunTime);
+        queue.front()->set_busy(true);
         temp.push(queue.front());
         queue.pop();
     }
@@ -157,15 +147,23 @@ void Device::updateQueuePositions() {
     queue = temp;
 }
 
-void Device::print() {
-    if(queue.size() == 0){return;} // no job to print
+void Device::print(int totalRunTime) {
+    if(queue.size() == 0){
+        this->busy = false;
+        return;
+    } // no job to print
 
     this->getCurrentJob()->set_busy(true);
-    this->getCurrentJob()->printFullPage();
+
+    double interval = this->getCurrentJob()->calculatePrintingTimePage(speed);
+
+    if(totalRunTime >= interval){
+        this->getCurrentJob()->printFullPage();
+    }
 
     if(this->getCurrentJob()->getFinished()){
         queue.pop();
-        updateQueuePositions();
+        updateQueue(totalRunTime);
     }
 }
 

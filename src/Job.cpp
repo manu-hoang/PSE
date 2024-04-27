@@ -9,6 +9,8 @@ Job::Job(int jobNumber, double totalPageCount, string userName) : _totalPageCoun
 
     busy = false;
     _finished = false;
+
+    start_time = 0;
     _currentPageCount = totalPageCount;
 
     ENSURE(properlyInitialized(),"Constructor must end in properlyInitialized state");
@@ -124,4 +126,21 @@ void Job::setCompensationName(string name) {
 
 void Job::setQueuePosition(int position) {
     this->queue_position = position;
+}
+
+void Job::setCurrentPageCount(int count) {
+    this->_currentPageCount = count;
+}
+
+double Job::calculatePrintingTimePage(int speed) {
+    double pagesPerMinute = speed * 1.0;
+    double pagesPerSecond = pagesPerMinute/60;
+
+    int pagesPrinted = _totalPageCount - _currentPageCount;
+
+    return start_time + (pagesPrinted + 1) * pagesPerSecond;
+}
+
+void Job::setStartTime(int time) {
+    this->start_time = time;
 }

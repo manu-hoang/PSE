@@ -24,8 +24,6 @@ public:
 
     void tick();
 
-    bool notDone();
-
     void writeOn(ostream &onStream);
 
     void automated_processing();

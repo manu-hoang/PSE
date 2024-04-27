@@ -26,15 +26,13 @@ public:
 
     bool properlyInitialized();
 
-    void print(); // print for 1 second
+    void print(int totalRunTime); // print for 1 second
 
-    void updateQueuePositions();
+    void updateQueue(int totalRunTime);
 
     Job* getCurrentJob();
 
     void add_job(Job *job);
-
-    void writeOn(std::ostream& onStream);
 
     bool getBusy();
 

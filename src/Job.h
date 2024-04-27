@@ -58,6 +58,12 @@ public:
     */
     int getCurrentPageCount();
 
+    void setCurrentPageCount(int count);
+
+    double calculatePrintingTimePage(int speed); // input in pages per minute
+
+    void setStartTime(int time);
+
     /**
      \n REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getUserName");
     */
@@ -84,6 +90,7 @@ protected:
     int _totalPageCount;
     int _currentPageCount;
 
+    int start_time;
     bool busy;
     bool _finished;
 

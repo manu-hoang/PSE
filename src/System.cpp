@@ -274,7 +274,6 @@ void System::manual_processing(Device* device) {
         }
     }
 
-    device->writeOn(cout);
 }
 
 void System::divideJobs() {
@@ -291,20 +290,14 @@ void System::divideJobs() {
 
 void System::tick() {
     for (auto device : _devices) {
-        device->print();
+        device->print(current_time);
     }
-}
 
-bool System::notDone() {
-    for(auto job : this->_jobs){
-        if(!job->getFinished()){
-            return true;
-        }
-    }
-    return false;
+    current_time++;
 }
 
 void System::writeOn(ostream &onStream) {
+    onStream << "tick" << std::endl;
 /*    char col, row;
     REQUIRE(this->properlyInitialized(),
             "TicTacToe wasn't initialized when calling displayGame");
