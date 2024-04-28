@@ -9,3 +9,11 @@ Compensation::Compensation(int compNumber, string name) : compNumber(compNumber)
 bool Compensation::properlyInitialized() {
     return _initCheck == this;
 }
+
+int Compensation::getCompNumber() {
+    return compNumber;
+}
+
+string Compensation::getName() {
+    return name;
+}

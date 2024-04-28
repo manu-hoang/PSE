@@ -24,10 +24,6 @@ public:
 
     void tick();
 
-    bool notDone();
-
-    void writeOn(ostream &onStream);
-
     void automated_processing();
 
     void manual_processing(Device* device);
@@ -65,6 +61,8 @@ public:
     */
     vector<Compensation*> getCompensations();
 
+    void calculateStatistics();
+
 private:
     System* _initCheck; //!use pointer to myself to verify whether I am properly initialized
 
@@ -73,4 +71,11 @@ private:
     vector<Compensation*> _compensations;
 
     int current_time;
+
+    // Statistics
+    int totalOperatingCosts;
+    Device* mostUsedDevice;
+    int totalCO2emission;
+    double averageCO2perPage;
+    Compensation* mostUsedCompensation;
 };

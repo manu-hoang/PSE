@@ -26,23 +26,23 @@ public:
 
     bool properlyInitialized();
 
-    void print(); // print for 1 second
+    void print(int totalRunTime); // print for 1 second
 
-    void updateQueuePositions();
+     void popQueue();
+
+    void updatePositions(int totalRunTime);
 
     Job* getCurrentJob();
 
     void add_job(Job *job);
-
-    void writeOn(std::ostream& onStream);
-
-    bool getBusy();
 
     queue<Job*> get_queue();
 
     int get_CO2();
 
     void set_CO2(int value);
+
+    bool exceeds_CO2_limit(int value);
 
     int get_emissions();
 

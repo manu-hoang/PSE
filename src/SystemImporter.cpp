@@ -226,6 +226,8 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                     JobEnum type = invalid_job;
                     string userName = "";
 
+                    int compNumber = 0;
+
 
                     for (TiXmlElement* attr = elem->FirstChildElement(); attr != NULL; attr = attr->NextSiblingElement()) {
                         string attrValue = attr->Value();
@@ -271,6 +273,16 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                         else if (attrValue == "userName"){
                             userName = attrText;
                         }
+                        else if (attrValue == "compNumber"){
+                            if(isInteger(attrText)){
+                                compNumber = stoi(attrText);
+                            }
+                            else{
+                                dont_add = true;
+                                errStream << "XML PARTIAL IMPORT: Invalid jobNumber value, "
+                                             "got: " << attrText << endl;
+                            }
+                        }
                         else{
                             errStream << "XML PARTIAL IMPORT: Invalid attribute, "
                                          "got <" << attrValue <<  "> ... </" << attrValue << ">." << endl;
@@ -280,6 +292,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
 
                     if (!dont_add){
                         Job* job = new_job(jobNumber, pageCount, type, userName);
+                        job->setCompNumber(compNumber);
 
                         if(job != nullptr){
                             system.addJob(job);

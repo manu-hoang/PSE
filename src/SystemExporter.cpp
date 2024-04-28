@@ -71,6 +71,34 @@ void SystemExporter::simple_output (std::ostream& onStream, System &system) {
     documentEnd(onStream);
 }
 
+string display(Job* job){
+    return "[" + to_string(job->getCurrentPageCount()) + "/" + to_string(job->getTotalPageCount()) + "]";
+}
+
+void SystemExporter::advanced_textual_output(ostream &onStream, System &system) {
+    for(auto device : system.getDevices()){
+        onStream << device->getName() << endl;
+        auto queue = device->get_queue();
+
+        int counter = 0;
+
+        onStream << "   ";
+        for (long long unsigned int i = 0; i <= queue.size(); ++i) {
+
+            onStream << display(queue.front()) << " ";
+            queue.pop();
+            counter++;
+
+            if(counter == 1){
+                onStream << " | ";
+                counter++;
+            }
+        }
+
+        onStream << endl;
+    }
+}
+
 void SystemExporter::documentStart (std::ostream& onStream) {_documentStarted = true;}
 void SystemExporter::documentEnd (std::ostream& onStream) {_documentStarted = false;}
 
@@ -131,7 +159,7 @@ void SystemExporter::jobTotalCO2(ostream &onStream, Job *job) {
 }
 
 void SystemExporter::jobTotalCost(ostream &onStream, Job *job) {
-    onStream << "*  Total cost: " << job->getTotalCost()<< std::endl;
+    onStream << "* Total cost: " << job->getTotalCost()<< std::endl;
 }
 
 void SystemExporter::compensationStart (std::ostream& onStream) {

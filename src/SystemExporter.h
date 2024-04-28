@@ -32,7 +32,11 @@ public:
 
     virtual void documentEnd (std::ostream& onStream);
 
+    // Use Case 2.2: Simple output (new)
     void simple_output (std::ostream& onStream, System &system);
+
+    // Use Case 2.3: Advanced textual output
+    void advanced_textual_output (std::ostream& onStream, System &system);
 
 protected:
     void systemStart (std::ostream& onStream, const std::string title);

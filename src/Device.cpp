@@ -11,7 +11,7 @@ Device::Device(string name, int emissions, double speed, int cost): name(name), 
     _initCheck = this;
 
     busy = false;
-    queue1 = {};
+    queue = {};
 
     CO2_value = 0;
 
@@ -30,63 +30,18 @@ void Device::add_job(Job *job) {
 
     job->setDeviceName(this->name);
 
-    job->setQueuePosition(queue1.size());
-    this->queue1.push(job);
+    job->setQueuePosition(queue.size());
+    this->queue.push(job);
 
     ENSURE(this->busy == true, "add_job post condition failure");
 }
 
-bool Device::getBusy() {
-    REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getBusy");
-    return busy;
-}
-
 Job *Device::getCurrentJob() {
-    return queue1.front();
-}
-
-// Auxiliary function for internal use only
-
-string get_type(Job* job){
-    string type;
-
-    JobEnum type_enum = job->get_type();
-
-    switch(type_enum){
-        case bw_job:
-            type = "black-and-white";
-            break;
-
-        case color_job:
-            type = "color-printing";
-            break;
-
-        case scan_job:
-            type = "scanning";
-            break;
-
-        case invalid_job: // should never be invalid
-            type = "invalid";
-            break;
-    }
-
-    return type;
-}
-
-void Device::writeOn(ostream &onStream) {
-
-    Job* job = queue1.front();
-
-    string job_type = ::get_type(job);
-
-    cout << "Printer \"" << this->name << "\" finished " << job_type << " job:" << endl;
-    cout << "\tNumber " << job->getJobNumber() << endl;
-    cout << "\tSubmitted by \"" << job->getUserName() << "\"" << endl;
-    cout << "\t" << job->getTotalPageCount() << " pages" << endl << endl;
+    return queue.front();
 }
 
 queue<Job *> Device::get_queue() {
-    return this->queue1;
+    return this->queue;
 }
 
 void Device::set_limit(int limit) {
@@ -144,29 +99,49 @@ string Device::getCosts() {
     return to_string(cost);
 }
 
-void Device::updateQueuePositions() {
+void Device::updatePositions(int totalRunTime) {
 
     ::queue<Job*> temp = {};
 
-    for (long long unsigned int i = 0; i < queue1.size(); ++i) {
-        queue1.front()->setQueuePosition(i);
-        temp.push(queue1.front());
-        queue1.pop();
+    for (long long unsigned int i = 0; i < queue.size(); ++i) {
+        queue.front()->setQueuePosition(i);
+        queue.front()->setStartTime(totalRunTime);
+        queue.front()->set_busy(true);
+        temp.push(queue.front());
+        queue.pop();
     }
 
-    queue1 = temp;
+    queue = temp;
 }
 
-void Device::print() {
-    if(queue1.size() == 0){return;} // no job to print
+void Device::print(int totalRunTime) {
+    if(queue.size() == 0){
+        // no job to print
+        this->busy = false;
+        return;
+    }
 
     this->getCurrentJob()->set_busy(true);
-    this->getCurrentJob()->printFullPage();
+
+    double interval = this->getCurrentJob()->calculatePrintingTimePage(speed);
+
+    if(totalRunTime >= interval){
+        this->getCurrentJob()->printFullPage();
+    }
 
     if(this->getCurrentJob()->getFinished()){
-        queue1.pop();
-        updateQueuePositions();
+        popQueue();
+        updatePositions(totalRunTime);
     }
+}
+
+void Device::popQueue() {
+    this->queue.pop();
+}
+
+bool Device::exceeds_CO2_limit(int value) {
+    if(value > this->CO2_limit){return true;}
+    return false;
 }
 
 BlackWhitePrinter::BlackWhitePrinter(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {

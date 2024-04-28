@@ -2,13 +2,18 @@
 #include "contracts/DesignByContract.h"
 #include "iostream"
 
-Job::Job(int jobNumber, double totalPageCount, string userName) : _totalPageCount(totalPageCount), _jobNumber(jobNumber), _userName(userName){
+Job::Job(int jobNumber, double totalPageCount, string userName) : _jobNumber(jobNumber), _userName(userName), _totalPageCount(totalPageCount){
     REQUIRE(totalPageCount >= 0, "Job page count must be a positive integer");
     REQUIRE(jobNumber >= 0, "Job id number must be a positive integer");
     _initCheck = this;
 
     busy = false;
     _finished = false;
+
+    compensated = false;
+    compNumber = 0;
+
+    start_time = 0;
     _currentPageCount = totalPageCount;
 
     ENSURE(properlyInitialized(),"Constructor must end in properlyInitialized state");
@@ -68,7 +73,7 @@ string Job::getStatus() {
 }
 
 string Job::getTotalPages() {
-    return to_string(_totalPageCount);
+    return _userName;
 }
 
 string Job::getTotalCO2() {
@@ -103,25 +108,6 @@ JobEnum ScanJob::get_type() {
     return scan_job;
 }
 
-string Job::getType() {
-
-    switch (this->get_type()) {
-        case bw_job:
-            return "Black-and-white printer";
-
-        case color_job:
-            return "Color printer";
-
-        case scan_job:
-            return "Scanner";
-
-        case invalid_job:
-            return "Unsupported device";
-    }
-
-    return "";
-}
-
 void Job::printFullPage() {
     REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
 
@@ -145,3 +131,56 @@ void Job::setQueuePosition(int position) {
     this->queue_position = position;
 }
 
+void Job::setCurrentPageCount(int count) {
+    this->_currentPageCount = count;
+}
+
+double Job::calculatePrintingTimePage(int speed) {
+    double pagesPerMinute = speed * 1.0;
+    double pagesPerSecond = pagesPerMinute/60;
+
+    int pagesPrinted = _totalPageCount - _currentPageCount;
+
+    return start_time + (pagesPrinted + 1) * pagesPerSecond;
+}
+
+void Job::setStartTime(int time) {
+    this->start_time = time;
+}
+
+string Job::getType() {
+    switch (this->get_type()) {
+        case bw_job:
+            return "black-and-white";
+
+        case color_job:
+            return "color-printing";
+
+        case scan_job:
+            return "scanning";
+
+        case invalid_job:
+            return "invalid";
+    }
+    return "";
+}
+
+bool Job::getCompensated() {
+    return this->compensated;
+}
+
+void Job::setCompNumber(int value) {
+    this->compNumber = value;
+}
+
+int Job::getCompNumber() {
+    return compNumber;
+}
+
+void Job::setCompensated(bool value) {
+    compensated = value;
+}
+
+string Job::getCompensationName() {
+    return this->compensation_name;
+}
