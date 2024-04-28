@@ -78,7 +78,6 @@ public:
     string getTotalPages();
     string getTotalCO2();
     string getTotalCost();
-    string getType();
 
     string &getUserName();
 
