@@ -11,7 +11,7 @@ Device::Device(string name, int emissions, double speed, int cost): name(name), 
     _initCheck = this;
 
     busy = false;
-    queue = {};
+    queue1 = {};
 
     CO2_value = 0;
 
@@ -30,18 +30,18 @@ void Device::add_job(Job *job) {
 
     job->setDeviceName(this->name);
 
-    job->setQueuePosition(queue.size());
-    this->queue.push(job);
+    job->setQueuePosition(queue1.size());
+    this->queue1.push(job);
 
     ENSURE(this->busy == true, "add_job post condition failure");
 }
 
 Job *Device::getCurrentJob() {
-    return queue.front();
+    return queue1.front();
 }
 
 queue<Job *> Device::get_queue() {
-    return this->queue;
+    return this->queue1;
 }
 
 void Device::set_limit(int limit) {
@@ -103,19 +103,19 @@ void Device::updatePositions(int totalRunTime) {
 
     ::queue<Job*> temp = {};
 
-    for (long long unsigned int i = 0; i < queue.size(); ++i) {
-        queue.front()->setQueuePosition(i);
-        queue.front()->setStartTime(totalRunTime);
-        queue.front()->set_busy(true);
-        temp.push(queue.front());
-        queue.pop();
+    for (long long unsigned int i = 0; i < queue1.size(); ++i) {
+        queue1.front()->setQueuePosition(i);
+        queue1.front()->setStartTime(totalRunTime);
+        queue1.front()->set_busy(true);
+        temp.push(queue1.front());
+        queue1.pop();
     }
 
-    queue = temp;
+    queue1 = temp;
 }
 
 void Device::print(int totalRunTime) {
-    if(queue.size() == 0){
+    if(queue1.size() == 0){
         // no job to print
         this->busy = false;
         return;
@@ -136,7 +136,7 @@ void Device::print(int totalRunTime) {
 }
 
 void Device::popQueue() {
-    this->queue.pop();
+    this->queue1.pop();
 }
 
 bool Device::exceeds_CO2_limit(int value) {
