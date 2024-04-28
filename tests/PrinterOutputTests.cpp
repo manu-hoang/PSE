@@ -3,6 +3,8 @@
 #include "TestUtils.h"
 
 #include "../src/System.h"
+#include "../src/SystemImporter.h"
+#include "../src/SystemExporter.h"
 
 
 class PrinterOutputTest: public ::testing::Test {
@@ -93,15 +95,106 @@ TEST_F(PrinterOutputTest, OutputHappyDay) {
     ASSERT_TRUE(DirectoryExists("tests/outputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    sys.automated_processing();
-
+    // input parser
     ofstream myfile;
-    myfile.open("testOutput/happyDayOut.txt");
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("tests/outputTests/happyDay.xml", myfile, sys);
+    myfile.close();
 
-/*    while (ttt_.notDone()) {
-        ttt_.doMove();
-        ttt_.writeOn(myfile);
-    }*/
 
+    myfile.open("tests/outputTests/happyDayOutput.txt");
+    sys.automated_processing(myfile);
+    myfile.close();
+
+    EXPECT_TRUE(FileCompare("tests/outputTests/happyDayOutput.txt", "tests/outputTests/happyDayExpected.txt"));
+    EXPECT_TRUE(FileIsEmpty("in_output/InputError.txt"));
+}
+
+// Use Case 2.2: Simple output (new)
+TEST_F(PrinterOutputTest, SimpleOutput) {
+    ASSERT_TRUE(DirectoryExists("tests/outputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    // input parser
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("tests/outputTests/SimpleOutput.xml", myfile, sys);
+    myfile.close();
+
+
+
+    SystemExporter exporter;
+
+    myfile.open("tests/outputTests/SimpleOutput.txt");
+
+    int seconds = 1; // total run time of the program
+    sys.divideJobs();
+    for (int i = 0; i <= seconds; ++i) {
+        sys.tick();
+    }
+
+    exporter.documentStart(myfile);
+    exporter.simple_output(myfile, sys);
+    exporter.documentEnd(myfile);
+
+    myfile.close();
+
+
+    EXPECT_TRUE(FileCompare("tests/outputTests/SimpleOutput.txt", "tests/outputTests/SimpleOutputExpected.txt"));
+}
+
+// Use Case 2.3: Advanced textual output
+TEST_F(PrinterOutputTest, AdvancedTextualOutput) {
+    ASSERT_TRUE(DirectoryExists("tests/outputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    // input parser
+    ofstream myfile;
+    myfile.open("in_output/InputError.txt");
+    SystemImporter::importSystem("tests/outputTests/AdvancedTextualOutput.xml", myfile, sys);
+    myfile.close();
+
+
+
+    SystemExporter exporter;
+
+    myfile.open("tests/outputTests/AdvancedTextualOutput.txt");
+
+    int seconds = 1; // total run time of the program
+    sys.divideJobs();
+    for (int i = 0; i <= seconds; ++i) {
+        sys.tick();
+    }
+
+    exporter.documentStart(myfile);
+    exporter.advanced_textual_output(myfile, sys);
+    exporter.documentEnd(myfile);
+
+    myfile.close();
+
+
+    EXPECT_TRUE(FileCompare("tests/outputTests/AdvancedTextualOutput.txt", "tests/outputTests/AdvancedTextualOutputExpected.txt"));
+}
+
+
+// Test whether the contracts for the exporter throw exceptions.
+TEST_F(PrinterOutputTest, ExporterTestsContractViolations) {
+    ASSERT_TRUE(DirectoryExists("tests/outputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    SystemExporter exporter;
+    ofstream myfile;
+
+    myfile.open("tests/OutputTests/ExporterTestsContractViolations.txt");
+    EXPECT_TRUE(exporter.properlyInitialized());
+    EXPECT_FALSE(exporter.documentStarted());
+    EXPECT_DEATH(exporter.simple_output(myfile, sys), "Document was not started when calling simple_output");
+
+    exporter.documentStart(myfile);
+    EXPECT_TRUE(exporter.documentStarted());
+    exporter.simple_output(myfile, sys);
+    exporter.documentEnd(myfile);
+    EXPECT_FALSE(exporter.documentStarted());
+    EXPECT_DEATH(exporter.simple_output(myfile, sys), "Document was not started when calling simple_output");
     myfile.close();
 }

@@ -22,21 +22,48 @@
 
 class SystemExporter {
 public:
+
+    /**
+     \n SystemExporter initializer
+    */
     SystemExporter ();
 
     bool properlyInitialized();
 
+    /**
+     \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling documentStarted");
+    */
     bool documentStarted();
 
+    /**
+     \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling documentStart");
+     \n ENSURE(documentStarted(), "Failed post condition documentStart");
+    */
     virtual void documentStart (std::ostream& onStream);
 
+    /**
+     \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling documentEnd");
+     \n ENSURE(documentStarted(), "Failed post condition documentEnd");
+    */
     virtual void documentEnd (std::ostream& onStream);
 
-    // Use Case 2.2: Simple output (new)
+    /**
+     *  Use Case 2.2: Simple output (new)
+     \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling simple_output");
+    */
     void simple_output (std::ostream& onStream, System &system);
 
-    // Use Case 2.3: Advanced textual output
+    /**
+     *  Use Case 2.3: Advanced textual output
+     \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling advanced_textual_output");
+    */
     void advanced_textual_output (std::ostream& onStream, System &system);
+
+    /**
+     *  Use Case 3.9: Statistical calculations
+     \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling statistics_output");
+    */
+    void statistics_output (std::ostream& onStream, System &system);
 
 protected:
     void systemStart (std::ostream& onStream, const std::string title);

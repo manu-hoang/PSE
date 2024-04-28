@@ -1,0 +1,20 @@
+Printer "Device 2" finished black-and-white job:
+   Number: 1
+   Submitted by "Small Job"
+   1 pages
+
+Printer "Device 2" finished black-and-white job:
+   Number: 2
+   Submitted by "Small Job"
+   1 pages
+
+Printer "Device 2" finished black-and-white job:
+   Number: 3
+   Submitted by "Small Job"
+   1 pages
+
+Printer "Device 2" finished black-and-white job:
+   Number: 4
+   Submitted by "Small Job"
+   1 pages
+

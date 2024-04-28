@@ -1,0 +1,47 @@
+# === [System Status] === #
+
+--== Devices ==--
+
+Office_Printer5:
+* 3g/page
+* 40 pages / minute
+* Black-and-white printer
+* 20 cents / page
+
+ColorPrinter:
+* 6g/page
+* 32 pages / minute
+* Color printer
+* 30 cents / page
+
+--== Jobs ==--
+
+[Job #89751]
+* Owner: SergeDemeyer
+* Device: ColorPrinter
+* Status: 1 pages done
+* Total pages: 2 pages
+* Total CO2: 12g CO2
+* Total cost: 60 cents
+* Compensation: Students 4 Climate
+
+[Job #2189]
+* Owner: anonymous_user
+* Device: Office_Printer5
+* Status: 1 pages done
+* Total pages: 3 pages
+* Total CO2: 9g CO2
+* Total cost: 60 cents
+
+[Job #111]
+* Owner: another_user
+* Device: ColorPrinter
+* Status: WAITING #1
+* Total pages: 1 pages
+* Total CO2: 6g CO2
+* Total cost: 30 cents
+
+--== Co2 Compensation initiatives ==--
+Students 4 Climate [#545684]
+
+# ======================= #

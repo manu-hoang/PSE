@@ -1,6 +1,0 @@
-UNRECOGNISED ELEMENT: RANDOM
-Printer Office_Printer5 finished job:
-	Number: 89751
-	Submitted by: SergeDemeyer
-	2 pages
-

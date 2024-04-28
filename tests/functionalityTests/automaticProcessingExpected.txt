@@ -1,0 +1,15 @@
+Printer "Library Printer 5" finished color-printing job:
+   Number: 13989
+   Submitted by "John Doe"
+   3 pages
+
+Printer "Library Printer 5" finished black-and-white job:
+   Number: 132
+   Submitted by "New User"
+   60 pages
+
+Printer "Brand new scanner" finished scanning job:
+   Number: 368
+   Submitted by "Serge Demeyer"
+   5 pages
+

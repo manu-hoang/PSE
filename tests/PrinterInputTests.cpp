@@ -36,264 +36,363 @@ TEST_F(PrinterInputTest, InputHappyDay) {
     ofstream myfile;
     SuccessEnum importResult;
 
-    System system;
-
-    myfile.open("tests/inputTests/happy_day.txt");
-    importResult = SystemImporter::importSystem("xml_files/CompleteInput.xml", myfile, system);
+    myfile.open("tests/inputTests/HappyDayOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/HappyDay.xml", myfile, sys);
     myfile.close();
 
     EXPECT_TRUE(importResult == Success);
 
-    EXPECT_TRUE(FileCompare("tests/inputTests/happy_day.txt", "in_output/inputError.txt"));
+    EXPECT_TRUE(sys.properlyInitialized());
+
+    EXPECT_FALSE(sys.getDevices().empty());
+    EXPECT_FALSE(sys.getJobs().empty());
+    EXPECT_FALSE(sys.getCompensations().empty());
+
+    EXPECT_TRUE(FileIsEmpty("tests/inputTests/SingleDeviceOutput.txt"));
 }
 
-/*
-// Tests the error code given by an unrecognised element
-TEST_F(PrinterInputTest, UnrecognisedElement) {
+// Tests the input of a singular device
+TEST_F(PrinterInputTest, SingleDevice) {
     ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system;
-
     ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Unrecognised_Element.xml", myfile, system);
+    SuccessEnum importResult;
+
+    myfile.open("tests/inputTests/SingleDeviceOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/SingleDevice.xml", myfile, sys);
     myfile.close();
 
-    EXPECT_TRUE(
-            FileCompare("tests/inputTests/unrecognised_element.txt", "in_output/inputError.txt"));
+    EXPECT_TRUE(importResult == Success);
 
-    // Device should still get added as the unrecognised doesnt impact it
-    EXPECT_TRUE(system.getDevices().size() == 1);
+    EXPECT_TRUE(sys.properlyInitialized());
 
-    // Job should still get added as the unrecognised doesnt impact it
-    EXPECT_TRUE(system.getJobs().size() == 1);
+    EXPECT_FALSE(sys.getDevices().empty());
+    EXPECT_TRUE(sys.getJobs().empty());
+    EXPECT_TRUE(sys.getCompensations().empty());
+
+    EXPECT_TRUE(FileIsEmpty("tests/inputTests/SingleDeviceOutput.txt"));
 }
 
-// Tests the error code given by an incorrect value
-TEST_F(PrinterInputTest, IncorrectValue) {
+// Tests the input of a singular job
+TEST_F(PrinterInputTest, SingleJob) {
     ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system;
-
     ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Incorrect_Value.xml", myfile, system);
+    SuccessEnum importResult;
+
+    myfile.open("tests/inputTests/SingleJobOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/SingleJob.xml", myfile, sys);
     myfile.close();
 
-    EXPECT_TRUE(
-            FileCompare("tests/inputTests/incorrect_value.txt", "in_output/inputError.txt"));
+    EXPECT_TRUE(importResult == Success);
 
-    // Device has an incorrect value, so should not get added
-    EXPECT_TRUE(system.getDevices().empty());
+    EXPECT_TRUE(sys.properlyInitialized());
 
-    // Job has an incorrect value, so should not get added
-    EXPECT_TRUE(system.getJobs().empty());
+    EXPECT_TRUE(sys.getDevices().empty());
+    EXPECT_FALSE(sys.getJobs().empty());
+    EXPECT_TRUE(sys.getCompensations().empty());
+
+    EXPECT_TRUE(FileIsEmpty("tests/inputTests/SingleJobOutput.txt"));
 }
 
-// Tests the error code for a doomsday scenario
-TEST_F(PrinterInputTest, Doomsday) {
+// Tests the input of a singular device
+TEST_F(PrinterInputTest, SingleCompensation) {
     ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system;
-
     ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Doomsday.xml", myfile, system);
+    SuccessEnum importResult;
+
+    myfile.open("tests/inputTests/SingleCompensationOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/SingleCompensation.xml", myfile, sys);
     myfile.close();
 
-    EXPECT_TRUE(
-            FileCompare("tests/inputTests/doomsday.txt", "in_output/inputError.txt"));
+    EXPECT_TRUE(importResult == Success);
 
-    // Device has an incorrect value, so should not get added
-    EXPECT_TRUE(system.getDevices().empty());
+    EXPECT_TRUE(sys.properlyInitialized());
 
-    // Job has an incorrect value, so should not get added
-    EXPECT_TRUE(system.getJobs().empty());
+    EXPECT_TRUE(sys.getDevices().empty());
+    EXPECT_TRUE(sys.getJobs().empty());
+    EXPECT_FALSE(sys.getCompensations().empty());
+
+    EXPECT_TRUE(FileIsEmpty("tests/inputTests/SingleDeviceOutput.txt"));
 }
 
-// Tests the output of the "happy day" scenario
-TEST_F(PrinterIn_OutputTest, HappyDayOutput) {
-    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
-    ASSERT_TRUE(DirectoryExists("./in_output"));
+// Tests the input of multiple devices (Also tests for all three device types)
+TEST_F(PrinterInputTest, MultipleDevices) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system;
-
     ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/CompleteInput.xml", myfile, system);
+    SuccessEnum importResult;
+
+    myfile.open("tests/inputTests/MultipleDevicesOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/MultipleDevices.xml", myfile, sys);
     myfile.close();
 
+    EXPECT_TRUE(importResult == Success);
 
-    ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system);
+    EXPECT_TRUE(sys.properlyInitialized());
 
-    EXPECT_TRUE(
-            FileCompare("./tests/outputTests/happy_day_output.txt", "./in_output/output.txt")
-            );
+    EXPECT_FALSE(sys.getDevices().empty());
+    EXPECT_TRUE(sys.getJobs().empty());
+    EXPECT_TRUE(sys.getCompensations().empty());
+
+    EXPECT_TRUE(FileIsEmpty("tests/inputTests/MultipleDevicesOutput.txt"));
 }
 
-// Tests the output of the "incorrect value" scenario
-TEST_F(PrinterIn_OutputTest, IncorrectValueOutput) {
-    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
-    ASSERT_TRUE(DirectoryExists("./in_output"));
+// Tests the input of multiple jobs (Also tests for all three job types)
+TEST_F(PrinterInputTest, MultipleJobs) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system;
-
     ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Incorrect_Value.xml", myfile, system);
+    SuccessEnum importResult;
+
+    myfile.open("tests/inputTests/MultipleJobsOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/MultipleJobs.xml", myfile, sys);
     myfile.close();
 
-    ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system);
+    EXPECT_TRUE(importResult == Success);
 
-    EXPECT_TRUE(
-            FileCompare("./tests/outputTests/incorrect_value_output.txt", "./in_output/output.txt")
-    );
+    EXPECT_TRUE(sys.properlyInitialized());
+
+    EXPECT_TRUE(sys.getDevices().empty());
+    EXPECT_FALSE(sys.getJobs().empty());
+    EXPECT_TRUE(sys.getCompensations().empty());
+
+    EXPECT_TRUE(FileIsEmpty("tests/inputTests/MultipleJobsOutput.txt"));
 }
 
-// Tests the output of the "unrecognised element" scenario
-TEST_F(PrinterIn_OutputTest, UnrecognisedElementOutput) {
-    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
-    ASSERT_TRUE(DirectoryExists("./in_output"));
+// Tests the input of multiple compensations
+TEST_F(PrinterInputTest, MultipleCompensations) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system;
-
     ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Unrecognised_Element.xml", myfile, system);
+    SuccessEnum importResult;
+
+    myfile.open("tests/inputTests/MultipleCompensationsOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/MultipleCompensations.xml", myfile, sys);
     myfile.close();
 
-    ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system);
+    EXPECT_TRUE(importResult == Success);
 
-    EXPECT_TRUE(
-            FileCompare("./tests/outputTests/unrecognised_element_output.txt", "./in_output/output.txt")
-    );
+    EXPECT_TRUE(sys.properlyInitialized());
+
+    EXPECT_TRUE(sys.getDevices().empty());
+    EXPECT_TRUE(sys.getJobs().empty());
+    EXPECT_FALSE(sys.getCompensations().empty());
+
+    EXPECT_TRUE(FileIsEmpty("tests/inputTests/MultipleCompensations.txt"));
 }
 
-// Tests the output of the "doomsday" scenario
-TEST_F(PrinterIn_OutputTest, DoomsdayOutput) {
-    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
-    ASSERT_TRUE(DirectoryExists("./in_output"));
+// Use Case 1.4: Reading printing costs
+TEST_F(PrinterInputTest, ReadingPrintingCosts) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system;
-
     ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Doomsday.xml", myfile, system);
+    SuccessEnum importResult;
+
+    myfile.open("tests/inputTests/ReadingPrintingCostsOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/ReadingPrintingCosts.xml", myfile, sys);
     myfile.close();
 
-    ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system);
+    EXPECT_TRUE(importResult == Success);
 
-    EXPECT_TRUE(
-            FileCompare("./tests/outputTests/doomsday_output.txt", "./in_output/output.txt")
-    );
-}
+    int cost = sys.getDevices().front()->getCosts();
+    EXPECT_EQ(cost, 20);
 
-TEST_F(PrinterIn_OutputTest, ConsoleOutput) {
-    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
-    ASSERT_TRUE(DirectoryExists("./in_output"));
-    //if directory doesn't exist then no need in proceeding with the test
-
-    System system;
-
-    ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/CompleteInput.xml", myfile, system);
-    myfile.close();
-
-    ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system);
-
-    system.automatic_run(150);
-
-
-    EXPECT_TRUE(
-            FileCompare("./tests/outputTests/console_test_output.txt", "./in_output/console_output.txt")
-    );
+    EXPECT_TRUE(FileIsEmpty("tests/inputTests/ReadingPrintingCostsOutput.txt"));
 }
 
 
-TEST_F(PrinterIn_OutputTest, ConsoleDoomsdayOutput) {
-    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
-    ASSERT_TRUE(DirectoryExists("./in_output"));
+
+#pragma region Input XML syntax errors
+
+// The opening tag is missing a '>'
+TEST_F(PrinterInputTest, XMLSyntaxError1) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system;
-
     ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Doomsday.xml", myfile, system);
+    SuccessEnum importResult;
+
+    myfile.open("tests/inputTests/XMLSyntaxErrorOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/XMLSyntaxError1.xml", myfile, sys);
     myfile.close();
 
-    ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system);
+    EXPECT_TRUE(importResult == ImportAborted);
 
-    system.automatic_run(150);
-
-
-    EXPECT_TRUE(
-            FileCompare("./tests/outputTests/console_doomsday_output.txt", "./in_output/console_output.txt")
-    );
+    EXPECT_TRUE(FileCompare("tests/inputTests/XMLSyntaxErrorOutput.txt", "tests/inputTests/XMLSyntaxError1.txt"));
 }
 
-
-TEST_F(PrinterIn_OutputTest, ConsoleIncorrectValueOutput) {
-    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
-    ASSERT_TRUE(DirectoryExists("./in_output"));
+// The closing tag is missing a '/'
+TEST_F(PrinterInputTest, XMLSyntaxError2) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system;
-
     ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Incorrect_Value.xml", myfile, system);
+    SuccessEnum importResult;
+
+    myfile.open("tests/inputTests/XMLSyntaxErrorOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/XMLSyntaxError2.xml", myfile, sys);
     myfile.close();
 
-    ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system);
+    EXPECT_TRUE(importResult == ImportAborted);
 
-    system.automatic_run(150);
-
-
-    EXPECT_TRUE(
-            FileCompare("./tests/outputTests/console_incorrect_value_output.txt", "./in_output/console_output.txt")
-    );
+    EXPECT_TRUE(FileCompare("tests/inputTests/XMLSyntaxErrorOutput.txt", "tests/inputTests/XMLSyntaxError2.txt"));
 }
 
-
-TEST_F(PrinterIn_OutputTest, ConsoleUnrecognisedElementOutput) {
-    ASSERT_TRUE(DirectoryExists("./tests/outputTests"));
-    ASSERT_TRUE(DirectoryExists("./in_output"));
+// The opening tag is starting with a '/'
+TEST_F(PrinterInputTest, XMLSyntaxError3) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    System system;
-
     ofstream myfile;
-    myfile.open("in_output/InputError.txt");
-    SystemImporter::importSystem("./xml_files/Unrecognised_Element.xml", myfile, system);
+    SuccessEnum importResult;
+
+    myfile.open("tests/inputTests/XMLSyntaxErrorOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/XMLSyntaxError3.xml", myfile, sys);
     myfile.close();
 
-    ofstream output("./in_output/output.txt");
-    writeDeviceInfo(system);
+    EXPECT_TRUE(importResult == ImportAborted);
 
-    system.automatic_run(150);
+    EXPECT_TRUE(FileCompare("tests/inputTests/XMLSyntaxErrorOutput.txt", "tests/inputTests/XMLSyntaxError3.txt"));
+}
+
+// The opening tag and closing tag do not match
+TEST_F(PrinterInputTest, XMLSyntaxError4) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    ofstream myfile;
+    SuccessEnum importResult;
+
+    myfile.open("tests/inputTests/XMLSyntaxErrorOutput.txt");
+    importResult = SystemImporter::importSystem("tests/inputTests/XMLSyntaxError4.xml", myfile, sys);
+    myfile.close();
+
+    EXPECT_TRUE(importResult == ImportAborted);
+
+    EXPECT_TRUE(FileCompare("tests/inputTests/XMLSyntaxErrorOutput.txt", "tests/inputTests/XMLSyntaxError4.txt"));
+}
+
+#pragma endregion
 
 
-    EXPECT_TRUE(
-            FileCompare("./tests/outputTests/console_unrecognised_element_output.txt", "./in_output/console_output.txt")
-    );
-}*/
 
+#pragma region Invalid Inputs
+
+// Negative Emission value
+TEST_F(PrinterInputTest, InvalidInput1) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    ofstream myfile;
+
+    myfile.open("tests/inputTests/InvalidInputOutput.txt");
+
+    EXPECT_DEATH(SystemImporter::importSystem("tests/inputTests/InvalidInput1.xml", myfile, sys),
+                 "Emissions value must be greater or equal than 0");
+
+    myfile.close();
+}
+
+// Negative Speed value
+TEST_F(PrinterInputTest, InvalidInput2) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    ofstream myfile;
+
+    myfile.open("tests/inputTests/InvalidInputOutput.txt");
+
+    EXPECT_DEATH(SystemImporter::importSystem("tests/inputTests/InvalidInput2.xml", myfile, sys),
+                 "Speed value must be greater or equal than 0");
+
+    myfile.close();
+}
+
+// Negative Cost value
+TEST_F(PrinterInputTest, InvalidInput3) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    ofstream myfile;
+
+    myfile.open("tests/inputTests/InvalidInputOutput.txt");
+
+    EXPECT_DEATH(SystemImporter::importSystem("tests/inputTests/InvalidInput3.xml", myfile, sys),
+                 "Cost value must be greater or equal than 0");
+
+    myfile.close();
+}
+
+// Negative Job number
+TEST_F(PrinterInputTest, InvalidInput4) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    ofstream myfile;
+
+    myfile.open("tests/inputTests/InvalidInputOutput.txt");
+
+    EXPECT_DEATH(SystemImporter::importSystem("tests/inputTests/InvalidInput4.xml", myfile, sys),
+                 "Job id number must be a positive integer");
+
+    myfile.close();
+}
+
+// Negative page count
+TEST_F(PrinterInputTest, InvalidInput5) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    ofstream myfile;
+
+    myfile.open("tests/inputTests/InvalidInputOutput.txt");
+
+    EXPECT_DEATH(SystemImporter::importSystem("tests/inputTests/InvalidInput5.xml", myfile, sys),
+                 "Page count must be a positive integer");
+
+    myfile.close();
+}
+
+// Negative Compensation number (job)
+TEST_F(PrinterInputTest, InvalidInput6) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    ofstream myfile;
+
+    myfile.open("tests/inputTests/InvalidInputOutput.txt");
+
+    EXPECT_DEATH(SystemImporter::importSystem("tests/inputTests/InvalidInput6.xml", myfile, sys),
+                 "Compensation number must be a positive integer");
+
+    myfile.close();
+}
+
+// Negative Compensation number (Compensation)
+TEST_F(PrinterInputTest, InvalidInput7) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
+
+    ofstream myfile;
+
+    myfile.open("tests/inputTests/InvalidInputOutput.txt");
+
+    EXPECT_DEATH(SystemImporter::importSystem("tests/inputTests/InvalidInput7.xml", myfile, sys),
+                 "Compensation number must be a positive integer");
+
+    myfile.close();
+}
+
+#pragma endregion
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

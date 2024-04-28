@@ -11,6 +11,11 @@ System::System() {
     current_time = 0;
 
     totalCO2emission = 0;
+    totalOperatingCosts = 0;
+    averageCO2perPage = 0;
+
+    mostUsedCompensation = nullptr;
+    mostUsedDevice = nullptr;
 
     ENSURE(properlyInitialized(),"Constructor must end in properlyInitialized state");
     ENSURE(_devices.empty(), "Devices vector must be empty after initialization");
@@ -22,14 +27,14 @@ bool System::properlyInitialized() {
     return _initCheck == this;
 }
 
-void System::addDevice(Device* &device) {
+void System::addDevice(Device* device) {
     REQUIRE(properlyInitialized(), "System wasn't initialized when calling addDevice");
     REQUIRE(device != nullptr, "Cannot add nullptr as device to system");
 
     this->_devices.push_back(device);
 }
 
-void System::addJob(Job* &job) {
+void System::addJob(Job* job) {
     REQUIRE(properlyInitialized(), "System wasn't initialized when calling addJob");
     REQUIRE(job != nullptr, "Cannot add nullptr as job to system");
 
@@ -48,7 +53,7 @@ std::vector<Device*> &System::getDevices() {
     return _devices;
 }
 
-vector<Job*> &System::getJobs() {
+vector<Job*> System::getJobs() {
     REQUIRE(properlyInitialized(), "System wasn't initialized when calling getJobs");
     return _jobs;
 }
@@ -159,7 +164,7 @@ Device* find_device(System* system, DeviceEnum type){
     }
 
     if(return_device == nullptr){
-        cout << "all devices exceed limit" << endl;
+        // all devices exceed limit
     }
 
     return return_device;
@@ -193,23 +198,28 @@ Device* pick_device(System* system, Job* job){
 
     ENSURE(return_device != nullptr ,"No device exists for the specified job type");
 
+    job->setTotalCO2(job->getTotalPageCount() * return_device->get_emissions());
+    job->setTotalCost(job->getTotalPageCount() * return_device->getCosts());
+
     return return_device;
 }
 
-// Auxiliary function for internal use only
+bool System::find_compensation(Job *job) {
 
-bool find_compensation(System* system, Job* job){
-    for(auto compensation : system->getCompensations()){
+    for(auto compensation : this->getCompensations()){
         if(job->getCompNumber() == compensation->getCompNumber()){
             job->setCompensationName(compensation->getName());
             job->setCompensated(true);
+            compensation->increaseCount();
             return true;
         }
     }
     return false;
 }
 
-void System::automated_processing() {
+void System::automated_processing(std::ostream& onStream) {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling automated_processing");
+
 
     /*
     1. WHILE unfinished jobs left
@@ -228,15 +238,16 @@ void System::automated_processing() {
 
         appropiate_device->add_job(job);
 
-        find_compensation(this, job);
+        find_compensation(job);
 
         // perform manual processing
-        manual_processing(appropiate_device);
+        manual_processing(onStream, appropiate_device);
     }
 
 }
 
-void System::manual_processing(Device* device) {
+void System::manual_processing(std::ostream& onStream, Device* device) {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling manual_processing");
 
     Job* job = device->getCurrentJob();
 
@@ -266,32 +277,38 @@ void System::manual_processing(Device* device) {
     device->popQueue();
     device->updatePositions(0);
 
-    cout << "Printer \"" << device->getName() << "\" finished " << job->getType() << " job:" << endl;
-    cout << "   Number: " << job->getJobNumber() << endl;
-    cout << "   Submitted by \"" << job->getUserName() << "\"" << endl;
-    cout << "   " << job->getTotalPageCount() << " pages" << endl;
+    onStream << "Printer \"" << device->getName() << "\" finished " << job->getType() << " job:" << endl;
+    onStream << "   Number: " << job->getJobNumber() << endl;
+    onStream << "   Submitted by \"" << job->getUserName() << "\"" << endl;
+    onStream << "   " << job->getTotalPageCount() << " pages" << endl;
 
     if(job->getCompensated()){
-        cout << "Job " << job->getJobNumber() << " was made CO2 neutral with the support of \"" << job->getCompensationName() << "\"." << endl;
+        onStream << "Job " << job->getJobNumber() << " was made CO2 neutral with the support of \"" << job->getCompensationName() << "\"." << endl;
     }
 
-    cout << endl;
+    onStream << endl;
 }
 
 void System::divideJobs() {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling divideJobs");
     for(auto job: _jobs){
         // choose device
         Device* appropiate_device = pick_device(this, job);
 
         appropiate_device->add_job(job);
 
-        find_compensation(this, job);
+        find_compensation(job);
     }
 }
 
 void System::tick() {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling tick");
     for (auto device : _devices) {
-        device->print(current_time);
+        if(device->print(current_time)){
+            if(!device->getCurrentJob()->getCompensated()){
+                this->totalCO2emission += device->get_emissions();
+            }
+        }
     }
 
     current_time++;
@@ -299,4 +316,76 @@ void System::tick() {
 
 void System::calculateStatistics() {
 
+    int totalCosts = 0;
+    for(auto device : _devices){
+        totalCosts += device->get_total_pages() * device->getCosts();
+    }
+    totalOperatingCosts = totalCosts;
+
+
+
+
+    Device* most_used_dev = nullptr;
+    long long unsigned int queue_size = 0;
+    for(auto device : _devices){
+        if(device->get_queue().size() > queue_size){
+            queue_size = device->get_queue().size();
+            most_used_dev = device;
+        }
+    }
+    mostUsedDevice = most_used_dev;
+
+
+
+
+    double average = 0; // CO2 per page
+    double counter = 0;
+    for(auto device : _devices){
+        average += device->get_emissions();
+        counter ++;
+    }
+
+    average = average / counter;
+    averageCO2perPage = average;
+
+
+
+    Compensation* compensation = nullptr;
+    counter = 0;
+    for(auto comp : _compensations){
+        if(counter < comp->getCounter()){
+            counter = comp->getCounter();
+            compensation = comp;
+        }
+    }
+    mostUsedCompensation = compensation;
+}
+
+int System::getTotalEmissions() {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling getTotalEmissions");
+    ENSURE(totalCO2emission >= 0, "totalCO2emission value must be greater or equal than 0");
+    return totalCO2emission;
+}
+
+int System::getTotalOperatingCosts() {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling getTotalOperatingCosts");
+    ENSURE(totalOperatingCosts >= 0, "totalOperatingCosts value must be greater or equal than 0");
+    return totalOperatingCosts;
+}
+
+Device *System::getMostUsedDevice() {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling getMostUsedDevice");
+
+    return mostUsedDevice;
+}
+
+double System::getAverageCO2perPage() {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling getAverageCO2perPage");
+    ENSURE(averageCO2perPage >= 0, "Average CO2 per page must be greater or equal than 0");
+    return averageCO2perPage;
+}
+
+Compensation *System::getMostUsedCompensation() {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling getMostUsedCompensation");
+    return mostUsedCompensation;
 }

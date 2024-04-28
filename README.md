@@ -39,27 +39,27 @@ X: Niet werkend of niet geïmplementeerd
 | | PrinterOutput.h   |        |                                    |
 ||
 | 3 | **Functionality** |        |                                    |
-| | _Input_           |        |                                    |
+| | _Input_           | V      |                                    |
 | | Use Case 1.1      | V      |                                    |
 | | Use Case 1.2      | V      |                                    |
 | | Use Case 1.3      | V      |                                    |
 | | Use Case 1.4      | V      |                                    |
 | | _Output_          |        |                                    |
-| | Use Case 2.2      |        |                                    |
-| | Use Case 2.3      |        |                                    |
+| | Use Case 2.2      | V      |                                    |
+| | Use Case 2.3      | V      |                                    |
 | | Use Case 2.4      |        |                                    |
-| | _Simulation_      |        |                                    |
-| | Use Case 3.3      |        |                                    |
-| | Use Case 3.4      |        |                                    |
-| | Use Case 3.5      |        |                                    |
-| | Use Case 3.6      |        |                                    |
-| | Use Case 3.7      |        |                                    |
-| | Use Case 3.8      |        |                                    |
-| | Use Case 3.9      |        |                                    |
-| | _User Interface_  |        |                                    |
-| | Use Case 4.1      |        |                                    |
-| | Use Case 4.2      |        |                                    |
-| | Use Case 4.3      |        |                                    |
+| | _Simulation_      | V      |                                    |
+| | Use Case 3.3      | V      |                                    |
+| | Use Case 3.4      | V      |                                    |
+| | Use Case 3.5      | V      |                                    |
+| | Use Case 3.6      | V      |                                    |
+| | Use Case 3.7      | V      |                                    |
+| | Use Case 3.8      | V      |                                    |
+| | Use Case 3.9      | V      |                                    |
+| | _User Interface_  | V      |                                    |
+| | Use Case 4.1      | V      |                                    |
+| | Use Case 4.2      | V      |                                    |
+| | Use Case 4.3      | V      |                                    |
 
 Gekende problemen:
 
@@ -104,4 +104,3 @@ Functionality:
     - Use case 3.2 V
 
 TODO:
-consistency check

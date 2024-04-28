@@ -82,26 +82,59 @@ Device* new_device(string name, int emission, DeviceEnum type, int speed, int co
 
 //Auxiliary function for internal use only
 
-Job* new_job(int jobNumber, int pageCount, JobEnum type, const string& userName){
+Job* new_job(int jobNumber, int pageCount, JobEnum type, const string& userName, int compNumber){
 
-    if(type == bw_job){return new BlackWhiteJob(jobNumber,pageCount,userName);}
+    if(type == bw_job){return new BlackWhiteJob(jobNumber,pageCount,userName,compNumber);}
 
-    else if (type == color_job){return new ColorJob(jobNumber,pageCount,userName);}
+    else if (type == color_job){return new ColorJob(jobNumber,pageCount,userName,compNumber);}
 
-    else if (type == scan_job){return new ScanJob(jobNumber,pageCount,userName);}
+    else if (type == scan_job){return new ScanJob(jobNumber,pageCount,userName,compNumber);}
 
     return nullptr;
 }
 
 
+//Auxiliary function for internal use only
+
+bool consistency_check(std::ostream& errStream, System& system){
+    bool consistent = true;
+
+    // Consistency check devices
+    for(auto device : system.getDevices()){
+        if(device->get_emissions() < 0 || device->get_type() == invalid_device || device->get_speed() < 0 || device->getCosts() < 0){
+            errStream << "Device did not pass consistency check" << endl;
+            consistent = false;
+        }
+    }
 
 
+    // Consistency check jobs
+    for(auto job : system.getJobs()){
+        if(job->getJobNumber() < 0 || job->getTotalPageCount() < 0 || job->get_type() == invalid_job || job->getCompNumber() < 0){
+            errStream << "Job did not pass consistency check" << endl;
+            consistent = false;
+        }
+    }
 
 
+    // Consistency check compensations
+    for(auto compensation : system.getCompensations()){
+        if(compensation->getCompNumber() < 0){
+            errStream << "Compensation did not pass consistency check" << endl;
+            consistent = false;
+        }
+    }
 
 
-void consistency_check(std::ostream& errStream, System& system){
+    return consistent;
 }
+
+
+
+
+
+
+
 
 SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostream& errStream, System& system) {
 
@@ -174,6 +207,9 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                                 type = bw_device;
                             }
                             else if (attrText == "color"){
+                                type = color_device;
+                            }
+                            else if (attrText == "scan"){
                                 type = color_device;
                             }
                             else{
@@ -291,8 +327,7 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
                     }
 
                     if (!dont_add){
-                        Job* job = new_job(jobNumber, pageCount, type, userName);
-                        job->setCompNumber(compNumber);
+                        Job* job = new_job(jobNumber, pageCount, type, userName, compNumber);
 
                         if(job != nullptr){
                             system.addJob(job);
@@ -353,7 +388,12 @@ SuccessEnum SystemImporter::importSystem(const char * inputfilename, std::ostrea
         }
     }
 
-    consistency_check(errStream, system);
+    bool consistent = consistency_check(errStream, system);
+
+    if(!consistent){
+        errStream << "Consistency check failed" << endl;
+        endResult = PartialImport;
+    }
 
     doc.Clear();
 

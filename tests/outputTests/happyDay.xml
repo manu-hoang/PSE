@@ -1,0 +1,33 @@
+<SYSTEM>
+    <DEVICE>
+        <name>Office_Printer5</name>
+        <emission>3</emission>
+        <type>bw</type>
+        <speed>40</speed>
+        <cost>20</cost>
+    </DEVICE>
+    <DEVICE>
+        <name>ColorPrinter</name>
+        <emission>6</emission>
+        <type>color</type>
+        <speed>32</speed>
+        <cost>30</cost>
+    </DEVICE>
+    <JOB>
+        <jobNumber>89751</jobNumber>
+        <pageCount>2</pageCount>
+        <type>color</type>
+        <userName>SergeDemeyer</userName>
+        <compNumber>545684</compNumber>
+    </JOB>
+    <JOB>
+        <jobNumber>2189</jobNumber>
+        <pageCount>3</pageCount>
+        <type>bw</type>
+        <userName>anonymous_user</userName>
+    </JOB>
+    <COMPENSATION>
+        <compNumber>545684</compNumber>
+        <name>Students 4 Climate</name>
+    </COMPENSATION>
+</SYSTEM>

@@ -1,0 +1,10 @@
+<SYSTEM>
+    <!-- The opening tag Job is missing a '>' -->
+    <JOB
+        <jobNumber>89751</jobNumber>
+        <pageCount>2</pageCount>
+        <type>color</type>
+        <userName>SergeDemeyer</userName>
+        <compNumber>545684</compNumber>
+    </JOB>
+</SYSTEM>

@@ -1,0 +1,23 @@
+<SYSTEM>
+    <DEVICE>
+        <name>Printer</name>
+        <emission>3</emission>
+        <type>bw</type>
+        <speed>40</speed>
+        <cost>20</cost>
+    </DEVICE>
+    <DEVICE>
+        <name>Printer</name>
+        <emission>3</emission>
+        <type>color</type>
+        <speed>40</speed>
+        <cost>20</cost>
+    </DEVICE>
+    <DEVICE>
+        <name>Printer</name>
+        <emission>3</emission>
+        <type>scan</type>
+        <speed>40</speed>
+        <cost>20</cost>
+    </DEVICE>
+</SYSTEM>

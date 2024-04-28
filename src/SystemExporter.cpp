@@ -25,11 +25,15 @@ bool SystemExporter::properlyInitialized() {
 }
 
 bool SystemExporter::documentStarted() {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling documentStarted");
     return _documentStarted;
 }
 
 
 void SystemExporter::simple_output (std::ostream& onStream, System &system) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling simple_output");
+    REQUIRE(documentStarted(), "Document was not started when calling simple_output");
+
     documentStart(onStream);
 
     systemStart(onStream, "System Status");
@@ -60,10 +64,17 @@ void SystemExporter::simple_output (std::ostream& onStream, System &system) {
         jobTotalCO2(onStream, job);
         jobTotalCost(onStream, job);
 
+        if(job->getCompensated()){
+            onStream << "* Compensation: " << job->getCompensationName() << std::endl;
+        }
+
         whitespace(onStream);
     }
 
     compensationStart(onStream);
+    for(auto compensation : system.getCompensations()){
+        onStream << compensation->getName() << " [#" << compensation->getCompNumber() << "]" << endl;
+    }
     whitespace(onStream);
 
     systemEnd(onStream);
@@ -76,6 +87,9 @@ string display(Job* job){
 }
 
 void SystemExporter::advanced_textual_output(ostream &onStream, System &system) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling advanced_textual_output");
+    REQUIRE(documentStarted(), "Document was not started when calling simple_output");
+
     for(auto device : system.getDevices()){
         onStream << device->getName() << endl;
         auto queue = device->get_queue();
@@ -83,8 +97,8 @@ void SystemExporter::advanced_textual_output(ostream &onStream, System &system) 
         int counter = 0;
 
         onStream << "   ";
-        for (long long unsigned int i = 0; i <= queue.size(); ++i) {
 
+        while(!queue.empty()){
             onStream << display(queue.front()) << " ";
             queue.pop();
             counter++;
@@ -97,10 +111,20 @@ void SystemExporter::advanced_textual_output(ostream &onStream, System &system) 
 
         onStream << endl;
     }
+    onStream << endl;
 }
 
-void SystemExporter::documentStart (std::ostream& onStream) {_documentStarted = true;}
-void SystemExporter::documentEnd (std::ostream& onStream) {_documentStarted = false;}
+void SystemExporter::documentStart (std::ostream& onStream) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling documentStart");
+    _documentStarted = true;
+    ENSURE(documentStarted(), "Failed post condition documentStart");
+}
+
+void SystemExporter::documentEnd (std::ostream& onStream) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling documentEnd");
+    _documentStarted = false;
+    ENSURE(!documentStarted(), "Failed post condition documentEnd");
+}
 
 void SystemExporter::systemStart (std::ostream& onStream, const string title) {
     onStream << "# === [" << title << "] === #" << std::endl;
@@ -135,7 +159,7 @@ void SystemExporter::jobsStart (std::ostream& onStream) {
 }
 
 void SystemExporter::jobNumber(ostream &onStream, Job *job) {
-    onStream << "[Job #" << job->getOwner() << "]" << std::endl;
+    onStream << "[Job #" << job->getJobNumber() << "]" << std::endl;
 }
 
 void SystemExporter::jobOwner(ostream &onStream, Job *job) {
@@ -151,15 +175,15 @@ void SystemExporter::jobStatus(ostream &onStream, Job *job) {
 }
 
 void SystemExporter::jobTotalPages(ostream &onStream, Job *job) {
-    onStream << "* Total pages: " << job->getTotalPages() << std::endl;
+    onStream << "* Total pages: " << job->getTotalPages() << " pages" << std::endl;
 }
 
 void SystemExporter::jobTotalCO2(ostream &onStream, Job *job) {
-    onStream << "* Total CO2: " << job->getTotalCO2() << std::endl;
+    onStream << "* Total CO2: " << job->getTotalCO2() << "g CO2"<< std::endl;
 }
 
 void SystemExporter::jobTotalCost(ostream &onStream, Job *job) {
-    onStream << "* Total cost: " << job->getTotalCost()<< std::endl;
+    onStream << "* Total cost: " << job->getTotalCost() << " cents" << std::endl;
 }
 
 void SystemExporter::compensationStart (std::ostream& onStream) {
@@ -172,4 +196,21 @@ void SystemExporter::whitespace(ostream &onStream) {
 
 void SystemExporter::systemEnd (std::ostream& onStream) {
     onStream << "# ======================= #" << std::endl;
+}
+
+void SystemExporter::statistics_output(ostream &onStream, System &system) {
+    system.calculateStatistics();
+
+    onStream << "Interesting Statistics: " << endl << endl;
+
+    onStream << "Total operating costs: " << system.getTotalOperatingCosts() << endl;
+    onStream << "Total CO2 emission: " << system.getTotalEmissions() << endl;
+    onStream << "Average CO2 per page: " << system.getTotalOperatingCosts() << endl;
+    if(system.getMostUsedDevice() != nullptr){
+        onStream << "Most used device currently: " << system.getMostUsedDevice()->getName() << endl;
+    } else{ onStream << "Most used device currently: No active devices" << endl;}
+
+    if(system.getMostUsedCompensation() != nullptr) {
+        onStream << "Most used compensation: " << system.getMostUsedCompensation()->getName() << endl;
+    } else{ onStream << "Most used compensation: No compensations" << endl;}
 }

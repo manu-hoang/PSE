@@ -1,0 +1,5 @@
+Office_Printer5
+   [2/3]  | 
+ColorPrinter
+   [1/2]  | [1/1] 
+

@@ -1,0 +1,5 @@
+Printer "name" finished black-and-white job:
+   Number: 0
+   Submitted by "name"
+   1 pages
+

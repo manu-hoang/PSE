@@ -18,19 +18,12 @@ public:
      \n ENSURE(!finished,"Job cannot be in a finished state after initialization");
      \n ENSURE(currentPageCount == totalPageCount, "current page count must be equal to total page count after initialization");
     */
-    Job(int jobNumber, double pageCount, string userName);
+    Job(int jobNumber, double pageCount, string userName, int compNumber);
 
     virtual JobEnum get_type() = 0;
 
     bool properlyInitialized();
 
-    /**
-     \n REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
-     \n ENSURE(_currentPageCount == old_page_count - 1, "Job did not print page correctly");
-
-     \n if page count <= 0:
-     \n     ENSURE(_finished, "Job must be in finished state if no pages are left");
-    */
     void printFullPage();
 
     bool get_busy();
@@ -87,6 +80,9 @@ public:
     void setCompensationName(string name);
     string getCompensationName();
 
+    void setTotalCO2(int value);
+    void setTotalCost(int value);
+
 private:
     Job* _initCheck; //!use pointer to myself to verify whether I am properly initialized
 
@@ -107,18 +103,21 @@ private:
     int start_time;
     bool busy;
     bool _finished;
+
+    int totalCO2;
+    int totalCost;
 };
 
 class BlackWhiteJob : public Job {
 public:
-    BlackWhiteJob(int jobNumber, double pageCount, string userName);
+    BlackWhiteJob(int jobNumber, double pageCount, string userName, int compNumber);
 
     JobEnum get_type() override;
 };
 
 class ColorJob : public Job {
 public:
-    ColorJob(int jobNumber, double pageCount, string userName);
+    ColorJob(int jobNumber, double pageCount, string userName, int compNumber);
 
     JobEnum get_type() override;
 };
@@ -126,7 +125,7 @@ public:
 
 class ScanJob : public Job {
 public:
-    ScanJob(int jobNumber, double pageCount, string userName);
+    ScanJob(int jobNumber, double pageCount, string userName, int compNumber);
 
     JobEnum get_type() override;
 };
