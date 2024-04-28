@@ -68,7 +68,7 @@ string Job::getStatus() {
 }
 
 string Job::getTotalPages() {
-    return _userName;
+    return to_string(_totalPageCount);
 }
 
 string Job::getTotalCO2() {
@@ -103,6 +103,25 @@ JobEnum ScanJob::get_type() {
     return scan_job;
 }
 
+string Job::getType() {
+
+    switch (this->get_type()) {
+        case bw_job:
+            return "Black-and-white printer";
+
+        case color_job:
+            return "Color printer";
+
+        case scan_job:
+            return "Scanner";
+
+        case invalid_job:
+            return "Unsupported device";
+    }
+
+    return "";
+}
+
 void Job::printFullPage() {
     REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
 
@@ -125,3 +144,4 @@ void Job::setCompensationName(string name) {
 void Job::setQueuePosition(int position) {
     this->queue_position = position;
 }
+

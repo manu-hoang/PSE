@@ -11,7 +11,7 @@ Device::Device(string name, int emissions, double speed, int cost): name(name), 
     _initCheck = this;
 
     busy = false;
-    queue = {};
+    queue1 = {};
 
     CO2_value = 0;
 
@@ -30,8 +30,8 @@ void Device::add_job(Job *job) {
 
     job->setDeviceName(this->name);
 
-    job->setQueuePosition(queue.size());
-    this->queue.push(job);
+    job->setQueuePosition(queue1.size());
+    this->queue1.push(job);
 
     ENSURE(this->busy == true, "add_job post condition failure");
 }
@@ -42,7 +42,7 @@ bool Device::getBusy() {
 }
 
 Job *Device::getCurrentJob() {
-    return queue.front();
+    return queue1.front();
 }
 
 // Auxiliary function for internal use only
@@ -75,7 +75,7 @@ string get_type(Job* job){
 
 void Device::writeOn(ostream &onStream) {
 
-    Job* job = queue.front();
+    Job* job = queue1.front();
 
     string job_type = ::get_type(job);
 
@@ -86,7 +86,7 @@ void Device::writeOn(ostream &onStream) {
 }
 
 queue<Job *> Device::get_queue() {
-    return this->queue;
+    return this->queue1;
 }
 
 void Device::set_limit(int limit) {
@@ -148,23 +148,23 @@ void Device::updateQueuePositions() {
 
     ::queue<Job*> temp = {};
 
-    for (long long unsigned int i = 0; i < queue.size(); ++i) {
-        queue.front()->setQueuePosition(i);
-        temp.push(queue.front());
-        queue.pop();
+    for (long long unsigned int i = 0; i < queue1.size(); ++i) {
+        queue1.front()->setQueuePosition(i);
+        temp.push(queue1.front());
+        queue1.pop();
     }
 
-    queue = temp;
+    queue1 = temp;
 }
 
 void Device::print() {
-    if(queue.size() == 0){return;} // no job to print
+    if(queue1.size() == 0){return;} // no job to print
 
     this->getCurrentJob()->set_busy(true);
     this->getCurrentJob()->printFullPage();
 
     if(this->getCurrentJob()->getFinished()){
-        queue.pop();
+        queue1.pop();
         updateQueuePositions();
     }
 }

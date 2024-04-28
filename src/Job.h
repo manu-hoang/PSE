@@ -70,6 +70,7 @@ public:
     string getTotalPages();
     string getTotalCO2();
     string getTotalCost();
+    string getType();
 
     void setDeviceName(string name);
     void setCompensationName(string name);

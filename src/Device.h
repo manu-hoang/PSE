@@ -73,7 +73,7 @@ private:
 
     bool busy;
 
-    queue<Job*> queue;
+    queue<Job*> queue1;
 };
 
 class BlackWhitePrinter : public Device {
