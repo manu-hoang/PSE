@@ -36,41 +36,8 @@ void Device::add_job(Job *job) {
     ENSURE(this->busy == true, "add_job post condition failure");
 }
 
-bool Device::getBusy() {
-    REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getBusy");
-    return busy;
-}
-
 Job *Device::getCurrentJob() {
     return queue.front();
-}
-
-// Auxiliary function for internal use only
-
-string get_type(Job* job){
-    string type;
-
-    JobEnum type_enum = job->get_type();
-
-    switch(type_enum){
-        case bw_job:
-            type = "black-and-white";
-            break;
-
-        case color_job:
-            type = "color-printing";
-            break;
-
-        case scan_job:
-            type = "scanning";
-            break;
-
-        case invalid_job: // should never be invalid
-            type = "invalid";
-            break;
-    }
-
-    return type;
 }
 
 queue<Job *> Device::get_queue() {
@@ -132,7 +99,7 @@ string Device::getCosts() {
     return to_string(cost);
 }
 
-void Device::updateQueue(int totalRunTime) {
+void Device::updatePositions(int totalRunTime) {
 
     ::queue<Job*> temp = {};
 
@@ -149,9 +116,10 @@ void Device::updateQueue(int totalRunTime) {
 
 void Device::print(int totalRunTime) {
     if(queue.size() == 0){
+        // no job to print
         this->busy = false;
         return;
-    } // no job to print
+    }
 
     this->getCurrentJob()->set_busy(true);
 
@@ -162,9 +130,18 @@ void Device::print(int totalRunTime) {
     }
 
     if(this->getCurrentJob()->getFinished()){
-        queue.pop();
-        updateQueue(totalRunTime);
+        popQueue();
+        updatePositions(totalRunTime);
     }
+}
+
+void Device::popQueue() {
+    this->queue.pop();
+}
+
+bool Device::exceeds_CO2_limit(int value) {
+    if(value > this->CO2_limit){return true;}
+    return false;
 }
 
 BlackWhitePrinter::BlackWhitePrinter(string &name, int emissions, double speed, int cost) : Device(name, emissions, speed, cost) {

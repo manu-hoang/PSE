@@ -64,12 +64,14 @@ public:
 
     void setStartTime(int time);
 
-    /**
-     \n REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getUserName");
-    */
-    string &getUserName();
+    void setCompNumber(int compNumber);
+    int getCompNumber();
+
+    void setCompensated(bool compensated);
+    bool getCompensated();
 
     // Use Case 2.2, Simple Output
+    string getType();
     string getOwner();
     string getDevice();
     string getStatus();
@@ -77,11 +79,23 @@ public:
     string getTotalCO2();
     string getTotalCost();
 
+    string &getUserName();
+
     void setDeviceName(string name);
-    void setCompensationName(string name);
     void setQueuePosition(int position);
 
-protected:
+    void setCompensationName(string name);
+    string getCompensationName();
+
+private:
+    Job* _initCheck; //!use pointer to myself to verify whether I am properly initialized
+
+    int _jobNumber;
+    string _userName;
+
+    int compNumber;
+    bool compensated;
+
     string device_name;
     string compensation_name;
 
@@ -93,12 +107,6 @@ protected:
     int start_time;
     bool busy;
     bool _finished;
-
-private:
-    Job* _initCheck; //!use pointer to myself to verify whether I am properly initialized
-
-    int _jobNumber;
-    string _userName;
 };
 
 class BlackWhiteJob : public Job {

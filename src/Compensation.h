@@ -11,6 +11,9 @@ public:
 
     bool properlyInitialized();
 
+    int getCompNumber();
+
+    string getName();
 
 private:
     Compensation *_initCheck; //!use pointer to myself to verify whether I am properly initialized

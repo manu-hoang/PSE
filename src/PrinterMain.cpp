@@ -10,6 +10,7 @@ using namespace std;
 int main(int argc, char **argv) {
 
     System system;
+    SystemExporter exporter;
 
     // input parser
     ofstream myfile;
@@ -17,18 +18,25 @@ int main(int argc, char **argv) {
     SystemImporter::importSystem("./xml_files/CompleteInput.xml", myfile, system);
     myfile.close();
 
+    myfile.open("in_output/advanced_textual_output.txt");
+    exporter.documentStart(myfile);
+
     // main loop
-    int seconds = 2; // total run time of the program
+    int seconds = 1; // total run time of the program
     system.divideJobs(); // divide all jobs to respective devices queue before loop (prevents multiple unnecessary divisions)
     for (int i = 0; i <= seconds; ++i) {
         system.tick();
-        system.writeOn(cout);
+        exporter.advanced_textual_output(myfile, system);
     }
+
+    exporter.documentEnd(myfile);
+    myfile.close();
+
+/*    system.automated_processing();*/
 
     // simple output
     myfile.open("in_output/simple_output.txt");
 
-    SystemExporter exporter;
     exporter.documentStart(myfile);
     exporter.simple_output(myfile, system);
     exporter.documentEnd(myfile);

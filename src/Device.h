@@ -28,19 +28,21 @@ public:
 
     void print(int totalRunTime); // print for 1 second
 
-    void updateQueue(int totalRunTime);
+     void popQueue();
+
+    void updatePositions(int totalRunTime);
 
     Job* getCurrentJob();
 
     void add_job(Job *job);
-
-    bool getBusy();
 
     queue<Job*> get_queue();
 
     int get_CO2();
 
     void set_CO2(int value);
+
+    bool exceeds_CO2_limit(int value);
 
     int get_emissions();
 
