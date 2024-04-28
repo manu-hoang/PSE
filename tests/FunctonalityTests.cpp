@@ -4,6 +4,7 @@
 #include "TestUtils.h"
 #include "../src/SystemImporter.h"
 #include "../src/SystemExporter.h"
+#include "climits"
 
 
 class FunctionalityTests: public ::testing::Test {
@@ -44,13 +45,13 @@ TEST_F(FunctionalityTests, SystemConstructor) {
 
     // System contract violations
     Job* mock_job = nullptr;
-    EXPECT_DEATH(system.addJob(mock_job), "Assertion failed: Cannot add nullptr as job to system");
+    EXPECT_DEATH(system.addJob(mock_job), "Cannot add nullptr as job to system");
 
     Device* mock_dev = nullptr;
-    EXPECT_DEATH(system.addDevice(mock_dev), "Assertion failed: Cannot add nullptr as device to system");
+    EXPECT_DEATH(system.addDevice(mock_dev), "Cannot add nullptr as device to system");
 
     Compensation* mock_comp = nullptr;
-    EXPECT_DEATH(system.addCompensation(mock_comp), "Assertion failed: Cannot add nullptr as compensation to system");
+    EXPECT_DEATH(system.addCompensation(mock_comp), "Cannot add nullptr as compensation to system");
 }
 
 // Testing basic attributes and function of System.h

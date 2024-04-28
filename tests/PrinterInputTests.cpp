@@ -211,7 +211,6 @@ TEST_F(PrinterInputTest, ReadingPrintingCosts) {
 
 
 
-#pragma region Input XML syntax errors
 
 // The opening tag is missing a '>'
 TEST_F(PrinterInputTest, XMLSyntaxError1) {
@@ -281,11 +280,7 @@ TEST_F(PrinterInputTest, XMLSyntaxError4) {
     EXPECT_TRUE(FileCompare("tests/inputTests/XMLSyntaxErrorOutput.txt", "tests/inputTests/XMLSyntaxError4.txt"));
 }
 
-#pragma endregion
 
-
-
-#pragma region Invalid Inputs
 
 // Negative Emission value
 TEST_F(PrinterInputTest, InvalidInput1) {
@@ -392,7 +387,6 @@ TEST_F(PrinterInputTest, InvalidInput7) {
     myfile.close();
 }
 
-#pragma endregion
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
