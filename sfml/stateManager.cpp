@@ -1,7 +1,8 @@
 #include <iostream>
 #include "stateManager.h"
 
-stateManager::stateManager(sf::RenderWindow& window, System &mainSystem) : window(window), mainSystem(mainSystem) {
+stateManager::stateManager(sf::RenderWindow& window, System &mainSystem, SystemExporter &mainExporter )
+: window(window), mainSystem(mainSystem), mainExporter(mainExporter) {
     pushState(new MenuState(window, *this, false));
 }
 

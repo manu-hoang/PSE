@@ -305,8 +305,10 @@ void System::tick() {
     REQUIRE(properlyInitialized(), "System wasn't initialized when calling tick");
     for (auto device : _devices) {
         if(device->print(current_time)){
-            if(!device->getCurrentJob()->getCompensated()){
-                this->totalCO2emission += device->get_emissions();
+            if(device->getCurrentJob() != nullptr){
+                if(!device->getCurrentJob()->getCompensated()){
+                    this->totalCO2emission += device->get_emissions();
+                }
             }
         }
     }

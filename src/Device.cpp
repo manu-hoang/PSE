@@ -102,6 +102,26 @@ string Device::getType() {
     return "";
 }
 
+string Device::getTypeJob() {
+    REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getType");
+
+    switch (this->get_type()) {
+        case bw_device:
+            return "black-and-white";
+
+        case color_device:
+            return "color";
+
+        case scan_device:
+            return "scanner";
+
+        case invalid_device:
+            return "unsupported device";
+    }
+
+    return "";
+}
+
 int Device::getCosts() {
     REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getCosts");
     ENSURE(cost >= 0, "cost value must be greater or equal than 0");

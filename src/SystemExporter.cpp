@@ -114,6 +114,36 @@ void SystemExporter::advanced_textual_output(ostream &onStream, System &system) 
     onStream << endl;
 }
 
+string SystemExporter::advanced_textual_output_string(System &system) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling advanced_textual_output");
+
+    string toPrint;
+
+    for(auto device : system.getDevices()){
+        toPrint += device->getName() + '\n';
+        auto queue = device->get_queue();
+
+        int counter = 0;
+
+        toPrint += "   ";
+
+        while(!queue.empty()){
+            toPrint += display(queue.front()) + " ";
+            queue.pop();
+            counter++;
+
+            if(counter == 1){
+                toPrint += " | ";
+                counter++;
+            }
+        }
+
+        toPrint += '\n';
+    }
+    toPrint += '\n';
+    return toPrint;
+}
+
 void SystemExporter::documentStart (std::ostream& onStream) {
     REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling documentStart");
     _documentStarted = true;

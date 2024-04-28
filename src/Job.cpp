@@ -177,7 +177,7 @@ string Job::getType() {
             return "black-and-white";
 
         case color_job:
-            return "color-printing";
+            return "color";
 
         case scan_job:
             return "scanning";

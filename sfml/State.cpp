@@ -4,6 +4,8 @@
 #include "stateManager.h"
 #include "cctype"
 #include "random"
+#include "../src/SystemImporter.h"
+#include "../src/SystemExporter.h"
 
 MenuState::MenuState(sf::RenderWindow& window, stateManager& manager, bool isAdmin) : State(manager) {
 
@@ -15,7 +17,6 @@ MenuState::MenuState(sf::RenderWindow& window, stateManager& manager, bool isAdm
     menuBg.setTexture(menuTexture);
 }
 void MenuState::enter(sf::RenderWindow& window, System &sys) {
-
 }
 void MenuState::update(sf::RenderWindow& window, std::string &input, sf::Text toPrint) {
 
@@ -107,7 +108,6 @@ void LoginState::enter(sf::RenderWindow& window, System &sys) {
     viewBg.setTexture(viewTexture);
 }
 void LoginState::update(sf::RenderWindow& window, std::string &input, sf::Text toPrint) {
-
     if(enterCount == 0 or admin){
         window.draw(loginBg);
         window.draw(toPrint);
@@ -208,11 +208,11 @@ int getRandomNumber(int min, int max) {
 }
 Job* addNewJob(int jobNumber, int pageCount, JobEnum type, const string& userName){
 
-    if(type == bw_job){return new BlackWhiteJob(jobNumber,pageCount,userName);}
+    if(type == bw_job){return new BlackWhiteJob(jobNumber,pageCount,userName,getRandomNumber(1,1000));}
 
-    else if (type == color_job){return new ColorJob(jobNumber,pageCount,userName);}
+    else if (type == color_job){return new ColorJob(jobNumber,pageCount,userName,getRandomNumber(1,1000));}
 
-    else if (type == scan_job){return new ScanJob(jobNumber,pageCount,userName);}
+    else if (type == scan_job){return new ScanJob(jobNumber,pageCount,userName,getRandomNumber(1,1000));}
 
     return nullptr;
 }
@@ -244,12 +244,10 @@ bool checkIfTypeExists(string type, System &sys){
     return false; // String not found in the vector
 }
 
-
 ViewState::ViewState(sf::RenderWindow &window, stateManager &manager, bool isAdmin)  : State(manager){
     admin = isAdmin;
 }
 void ViewState::enter(sf::RenderWindow& window, System &sys) {
-    std::cout<<"entered"<<std::endl;
 
     // Admin screen
     if(admin){
@@ -270,34 +268,15 @@ void ViewState::enter(sf::RenderWindow& window, System &sys) {
         if (!font.loadFromFile("./fonts/coolvetica_rg.otf")) {
             std::cerr << "Failed to load default font!" << std::endl;
         }
-
-        // Create a type text object
-        typeText.setFont(font);
-        typeText.setString("Type : ");
-        typeText.setCharacterSize(24);
-        typeText.setFillColor(sf::Color{0,46,101});
-        typeText.setPosition(100.f, 250.f);
-
-        // Create a number text object
-        numberText.setFont(font);
-        numberText.setString("Number : ");
-        numberText.setCharacterSize(24);
-        numberText.setFillColor(sf::Color{0,46,101});
-        numberText.setPosition(100.f, 350.f);
-
-        // Create a pages text object
-        pagesText.setFont(font);
-        pagesText.setString("Pages : ");
-        pagesText.setCharacterSize(24);
-        pagesText.setFillColor(sf::Color{0,46,101});
-        pagesText.setPosition(100.f, 450.f);
     }
     // Set background of main menu
     viewBg.setTexture(viewTexture);
+
 }
 void ViewState::update(sf::RenderWindow& window, std::string &input, sf::Text toPrint) {
-    window.draw(viewBg);
 
+    window.draw(viewBg);
+    timer ++;
     // Get mouse position
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     if(admin) {
@@ -309,55 +288,47 @@ void ViewState::update(sf::RenderWindow& window, std::string &input, sf::Text to
             and mousePos.y >= 451 and mousePos.y < +493
             and sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             manager.pushState(new JobState(window, manager, true));
+        } else if (mousePos.x >= 100 and mousePos.x <= 242
+            and mousePos.y >= 562 and mousePos.y < +616
+            and sf::Mouse::isButtonPressed(sf::Mouse::Left)
+            and click == 0) {
+            click = 1;
+        } else if (mousePos.x >= 257 and mousePos.x <= 400
+            and mousePos.y >= 562 and mousePos.y < +616
+            and sf::Mouse::isButtonPressed(sf::Mouse::Left)
+            and click == 1) {
+            click = 0;
+            if (!queueEmpty(this->manager.getMainSystem())){
+            }
         }
     }
-    else{
-
-        toPrint.setOrigin(0,0);
-        if (enterCount == 0){
-            toPrint.setPosition(172.f,typeText.getPosition().y);
-        }
-        else if (enterCount == 1){
-            toPrint.setPosition(200.f,numberText.getPosition().y);
-        }
-        else if (enterCount == 2){
-            toPrint.setPosition(180.f,pagesText.getPosition().y);
-        }
-
-        std::cout<<"input: "<<input<<" / enterCount: "<<enterCount<<std::endl;
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
-            if (enterCount == 0 and (input == "bw" or input == "color" or input == "scan")){
-                typeText.setString(typeText.getString()+input);
-                typeString = input;
-                enterCount ++;
-
-            }
-            else if (enterCount == 1 and input == "b"){
-                numberText.setString(numberText.getString()+input);
-                numberString = input;
-                enterCount ++;
-
-            }
-            else if (enterCount == 2 and input == "c"){
-                pagesText.setString(pagesText.getString()+input);
-                pagesString = input;
-                manager.pushState(new DeviceState(window, manager, false));
-            }
-            else{
-                input = "";
-            }
-        }
-        window.draw(typeText);
-        window.draw(numberText);
-        window.draw(pagesText);
-        if (!input.empty()){
-            window.draw(toPrint);
-        }
+    if (click == 1 and timer%60 == 0){
+        this->manager.getMainSystem().tick();
+        toOutput += this->manager.getMainExporter().advanced_textual_output_string(this->manager.getMainSystem());
+        myFile.open("in_output/advanced_textual_output.txt");
+        this->manager.getMainExporter().documentStart(myFile);
+        myFile << toOutput;
+        this->manager.getMainExporter().documentEnd(myFile);
+        myFile.close();
     }
 
 }
 void ViewState::exit(sf::RenderWindow& window) {}
+
+bool queueEmpty(System &sys){
+    int deviceSize = sys.getDevices().size();
+    int empty = 0;
+
+    for (int i = 0; i < deviceSize; ++i) {
+        if (sys.getDevices()[i]->get_queue().empty()){
+            empty ++;
+        }
+    }
+    if (empty == deviceSize){
+        return true;
+    }
+    return false;
+}
 
 JobState::JobState(sf::RenderWindow &window, stateManager &manager, bool isAdmin)  : State(manager) {admin = isAdmin;}
 void JobState::enter(sf::RenderWindow& window, System &sys){
@@ -470,6 +441,7 @@ void DeviceState::enter(sf::RenderWindow& window, System &sys){
         type.setFillColor(sf::Color::Black);
         type.setPosition(80, 212 + 18 + i * 100);
         deviceToAdd.emplace_back(type);
+
         sf::Text emission("emission : "+sys.getDevices()[i]->getEmissions(), font, 18);
         emission.setFillColor(sf::Color::Black);
         emission.setPosition(80, 212 + 36 + i * 100);
@@ -480,11 +452,20 @@ void DeviceState::enter(sf::RenderWindow& window, System &sys){
         speed.setPosition(80, 212 + 54 + i * 100);
         deviceToAdd.emplace_back(speed);
 
-        sf::Text cost("cost : "+sys.getDevices()[i]->getCosts(), font, 18);
+        sf::Text cost("cost : "+to_string(sys.getDevices()[i]->getCosts()), font, 18);
         cost.setFillColor(sf::Color::Black);
         cost.setPosition(80, 212 + 72 + i * 100);
         deviceToAdd.emplace_back(cost);
 
+        sf::Text co2("CO2 : "+to_string(sys.getDevices()[i]->get_CO2()), font, 18);
+        if (sys.getDevices()[i]->exceeds_CO2_limit(sys.getDevices()[i]->get_CO2())){
+            co2.setFillColor(sf::Color{171,7,7});
+        }
+        else{
+            co2.setFillColor(sf::Color{52,200,51});
+        }
+        co2.setPosition(350, 212 + 72 + i * 100);
+        deviceToAdd.emplace_back(co2);
 
         textsDevice.emplace_back(deviceToAdd);
     }
@@ -498,10 +479,26 @@ void DeviceState::update(sf::RenderWindow& window, std::string &input, sf::Text 
         if (squaresDevice[i].getGlobalBounds().contains(sf::Mouse::getPosition(window).x,
                                                         sf::Mouse::getPosition(window).y)) {
             squaresDevice[i].setFillColor(sf::Color{255, 255, 0, 80});
-            if (!admin and this->manager.getMainSystem().getDevices()[i]->getType() ==
+
+            // debugging
+
+            cout<<this->manager.getMainSystem().getDevices()[i]->getTypeJob()<< " "
+            <<this->manager.getMainSystem().getJobs()[this->manager.getMainSystem().getJobs().size()-1]->getType()<<endl;
+
+
+            if (!admin and this->manager.getMainSystem().getDevices()[i]->getTypeJob() ==
             this->manager.getMainSystem().getJobs()[this->manager.getMainSystem().getJobs().size()-1]->getType()
             and sf::Mouse::isButtonPressed(::sf::Mouse::Left)) {
-            this->manager.getMainSystem().getDevices()[i]->add_job(this->manager.getMainSystem().getJobs()[this->manager.getMainSystem().getJobs().size()-1]);
+                // CO2 gets compensated
+
+                int compNumber = getRandomNumber(1,1000);
+                auto* compensation = new Compensation(compNumber, "compensation"+ to_string(compNumber));
+                this->manager.getMainSystem().addCompensation(compensation);
+
+                this->manager.getMainSystem().getJobs()[this->manager.getMainSystem().getJobs().size()-1]->setCompNumber(compNumber);
+                this->manager.getMainSystem().getJobs()[this->manager.getMainSystem().getJobs().size()-1]->getCompensated();
+
+                this->manager.getMainSystem().getDevices()[i]->add_job(this->manager.getMainSystem().getJobs()[this->manager.getMainSystem().getJobs().size()-1]);
                 int stackSize = this->manager.getStates().size();
                 for (int j = 0; j < stackSize-1; ++j) {
                     this->manager.previousState();

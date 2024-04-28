@@ -6,6 +6,8 @@
 #include "../src/Device.h"
 #include "../src/System.h"
 #include "../src/Job.h"
+#include "../src/SystemExporter.h"
+#include "fstream"
 
 class stateManager {
 private:
@@ -13,14 +15,19 @@ private:
     sf::RenderWindow& window;
 
     System &mainSystem;
+    SystemExporter &mainExporter;
+
 public:
-    stateManager(sf::RenderWindow& window, System& mainSystem); // Constructor
+    stateManager(sf::RenderWindow& window, System& mainSystem, SystemExporter &mainExporter); // Constructor
 
     void pushState(State *state);
     void previousState();
 
     void setMainSystem(System &mainSystem1) {stateManager::mainSystem = mainSystem1;}
     System &getMainSystem() const {return mainSystem;}
+
+    SystemExporter &getMainExporter() const {return mainExporter;}
+    void setMainExporter(SystemExporter &mainExporter1) {stateManager::mainExporter = mainExporter1;}
 
     const stack<State *> &getStates() const {return states;}
 

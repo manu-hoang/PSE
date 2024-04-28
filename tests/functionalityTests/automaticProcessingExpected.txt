@@ -1,4 +1,4 @@
-Printer "Library Printer 5" finished color-printing job:
+Printer "Library Printer 5" finished color job:
    Number: 13989
    Submitted by "John Doe"
    3 pages

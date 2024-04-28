@@ -6,6 +6,7 @@
 #include "../src/Device.h"
 #include "../src/System.h"
 #include "../src/Job.h"
+#include "fstream"
 
 #include "memory"
 #include <random>
@@ -77,16 +78,12 @@ private:
     sf::Texture viewTexture;
     sf::Sprite viewBg;
 
-    sf::Text typeText;
-    std::string typeString;
+    ofstream myFile;
+    int click = 0;
+    int timer = 0;
 
-    sf::Text numberText;
-    std::string numberString;
+    string toOutput;
 
-    sf::Text pagesText;
-    std::string pagesString;
-
-    int enterCount = 0;
 public:
     ViewState(sf::RenderWindow& window, stateManager& manager, bool isAdmin);
     void enter(sf::RenderWindow& window, System &sys) override;
@@ -127,6 +124,7 @@ bool isNumeric(const std::string& str);
 int getRandomNumber(int min, int max);
 Job* addNewJob(int jobNumber, int pageCount, JobEnum type, const string& userName);
 bool checkIfTypeExists(string type, System &sys);
+bool queueEmpty(System &sys);
 
 
 #endif //PACMAN_STATE_H

@@ -130,6 +130,11 @@ public:
     string getType();
 
     /**
+    \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getType");
+    */
+    string getTypeJob();
+
+    /**
      \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling getCosts");
      \n ENSURE(cost >= 0, "cost value must be greater or equal than 0");
     */

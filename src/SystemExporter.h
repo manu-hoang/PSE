@@ -65,6 +65,11 @@ public:
     */
     void statistics_output (std::ostream& onStream, System &system);
 
+    /**
+    \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling statistics_output");
+    */
+    string advanced_textual_output_string(System &system);
+
 protected:
     void systemStart (std::ostream& onStream, const std::string title);
 
