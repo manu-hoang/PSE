@@ -288,6 +288,10 @@ void ViewState::update(sf::RenderWindow& window, std::string &input, sf::Text to
             and mousePos.y >= 451 and mousePos.y < +493
             and sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             manager.pushState(new JobState(window, manager, true));
+        } else if(mousePos.x >= 441 and mousePos.x <= 484
+            and mousePos.y >= 12 and mousePos.y < +55
+            and sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+            manager.pushState(new CO2State(window, manager, true));
         } else if (mousePos.x >= 100 and mousePos.x <= 242
             and mousePos.y >= 562 and mousePos.y < +616
             and sf::Mouse::isButtonPressed(sf::Mouse::Left)
@@ -482,8 +486,8 @@ void DeviceState::update(sf::RenderWindow& window, std::string &input, sf::Text 
 
             // debugging
 
-            cout<<this->manager.getMainSystem().getDevices()[i]->getTypeJob()<< " "
-            <<this->manager.getMainSystem().getJobs()[this->manager.getMainSystem().getJobs().size()-1]->getType()<<endl;
+            //cout<<this->manager.getMainSystem().getDevices()[i]->getTypeJob()<< " "
+            //<<this->manager.getMainSystem().getJobs()[this->manager.getMainSystem().getJobs().size()-1]->getType()<<endl;
 
 
             if (!admin and this->manager.getMainSystem().getDevices()[i]->getTypeJob() ==
@@ -522,3 +526,51 @@ void DeviceState::update(sf::RenderWindow& window, std::string &input, sf::Text 
 
 }
 void DeviceState::exit(sf::RenderWindow& window){}
+
+CO2State::CO2State(sf::RenderWindow& window, stateManager& manager, bool isAdmin) : State(manager){admin = isAdmin;}
+void CO2State::enter(sf::RenderWindow &window, System &sys) {
+    sys.calculateStatistics();
+    // Load all textures (and give an error in case failure)
+    if (!viewTexture.loadFromFile("./assets/empty.png")) {
+        std::cerr << "Error loading texture file!" << std::endl;
+    }
+
+    viewBg.setTexture(viewTexture);
+
+    if (!font.loadFromFile("./fonts/coolvetica_rg.otf")) {
+        std::cerr << "Failed to load default font!" << std::endl;
+    }
+
+    cost += sys.getTotalOperatingCosts();
+    sf::Text totalOperatingCost("Total Operating Costs : "+to_string(sys.getTotalOperatingCosts()), font, 18);
+    totalOperatingCost.setFillColor(sf::Color::Black);
+    totalOperatingCost.setPosition(50, 260);
+    neededText.emplace_back(totalOperatingCost);
+
+    sf::Text mostUsedDevice("Most Used Device : "+sys.getMostUsedDevice()->getName(), font, 18);
+    mostUsedDevice.setFillColor(sf::Color::Black);
+    mostUsedDevice.setPosition(50, 320);
+    neededText.emplace_back(mostUsedDevice);
+
+    sf::Text totalCO2Emission("Total CO2 Emission : "+to_string(sys.getTotalEmissions()), font, 18);
+    totalCO2Emission.setFillColor(sf::Color::Black);
+    totalCO2Emission.setPosition(50, 380);
+    neededText.emplace_back(totalCO2Emission);
+
+    sf::Text averageCO2PerPage("Average CO2 Per Page : "+to_string(sys.getAverageCO2perPage()), font, 18);
+    averageCO2PerPage.setFillColor(sf::Color::Black);
+    averageCO2PerPage.setPosition(50, 440);
+    neededText.emplace_back(averageCO2PerPage);
+
+    sf::Text mostUsedCompensation("Most Used Compensation : "+sys.getMostUsedCompensation()->getName(), font, 18);
+    mostUsedCompensation.setFillColor(sf::Color::Black);
+    mostUsedCompensation.setPosition(50, 500);
+    neededText.emplace_back(mostUsedCompensation);
+}
+void CO2State::update(sf::RenderWindow &window, std::string &input, sf::Text toPrint) {
+    window.draw(viewBg);
+    for (auto &text : neededText) {
+        window.draw(text);
+    }
+}
+void CO2State::exit(sf::RenderWindow &window) {}

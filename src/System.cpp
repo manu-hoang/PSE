@@ -328,7 +328,7 @@ void System::calculateStatistics() {
     for(auto device : _devices){
         totalCosts += device->get_total_pages() * device->getCosts();
     }
-    totalOperatingCosts = totalCosts;
+    totalOperatingCosts += totalCosts;
 
     Device* most_used_dev = nullptr;
     long long unsigned int queue_size = 0;

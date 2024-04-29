@@ -120,6 +120,21 @@ public:
     void exit(sf::RenderWindow& window) override;
 };
 
+class CO2State : public State {
+private:
+    sf::Texture viewTexture;
+    sf::Sprite viewBg;
+
+    int cost = 0;
+    std::vector<sf::Text> neededText;
+
+public:
+    CO2State(sf::RenderWindow& window, stateManager& manager, bool isAdmin);
+    void enter(sf::RenderWindow& window, System &sys) override;
+    void update(sf::RenderWindow& window, std::string &input, sf::Text toPrint) override;
+    void exit(sf::RenderWindow& window) override;
+};
+
 bool isNumeric(const std::string& str);
 int getRandomNumber(int min, int max);
 Job* addNewJob(int jobNumber, int pageCount, JobEnum type, const string& userName);
