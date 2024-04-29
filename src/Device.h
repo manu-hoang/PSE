@@ -21,10 +21,13 @@ class Device {
 public:
 
     /**
-     \n REQUIRE(emissions >= 0, "Emissions must be non-negative");
-     \n REQUIRE(speed >= 0, "Speed must be non-negative");
-     \n REQUIRE(cost >= 0, "Cost must be non-negative");
-     \n ENSURE(properlyInitialized(), "Constructor must end in properlyInitialized state");
+    \n REQUIRE(emissions >= 0, "Emissions must be non-negative");
+    \n REQUIRE(speed >= 0, "Speed must be non-negative");
+    \n REQUIRE(cost >= 0, "Cost must be non-negative");
+    \n ENSURE(busy == false, "Device must not be busy after being initialized");
+    \n ENSURE(properlyInitialized(),"Constructor must end in properlyInitialized state");
+    \n ENSURE(_queue.empty(), "queue must be empty when initialized");
+    \n ENSURE(CO2_value == 0, "CO2_value must be 0 when initialized");
     */
     Device(string name, int emissions, double speed, int cost);
 
@@ -34,6 +37,7 @@ public:
 
     /**
     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling print");
+    \n REQUIRE(totalRunTime >= 0, "totalRunTime value must be equal or higher then 0");
     \n ENSURE(busy == true, "Device must be busy after print is called");
     */
     bool print(int totalRunTime); // print for 1 second
@@ -44,7 +48,8 @@ public:
     void popQueue();
 
     /**
-     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling popQueue");
+     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling updatePositions");
+     \n REQUIRE(totalRunTime >= 0, "totalRunTime value must be equal or higher then 0");
     */
     void updatePositions(int totalRunTime);
 
@@ -79,7 +84,6 @@ public:
 
     /**
     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling exceeds_CO2_limit");
-    \n REQUIRE(value >= 0, "value must be non-negative");
     */
     bool exceeds_CO2_limit(int value);
 
@@ -91,19 +95,19 @@ public:
 
     /**
     \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling get_speed");
-    \n ENSURE(this->speed >= 0, "this->emissions value must be greater or equal than 0");
+    \n ENSURE(this->speed >= 0, "this->speed value must be greater or equal than 0");
     */
     int get_speed();
 
     /**
      \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling get_total_pages");
-     \n ENSURE(total >= 0, "this->emissions value must be greater or equal than 0");
+     \n ENSURE(total >= 0, "total value must be greater or equal than 0");
     */
     int get_total_pages();
 
     /**
      \n REQUIRE(properlyInitialized(), "Device wasn't initialized when calling get_limit");
-     \n ENSURE(CO2_limit >= 0, "this->emissions value must be greater or equal than 0");
+     \n ENSURE(CO2_limit >= 0, "CO2_limit value must be greater or equal than 0");
     */
     int get_limit();
 

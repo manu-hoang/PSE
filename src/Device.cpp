@@ -18,6 +18,8 @@ Device::Device(string name, int emissions, double speed, int cost): name(name), 
 
     ENSURE(busy == false, "Device must not be busy after being initialized");
     ENSURE(properlyInitialized(),"Constructor must end in properlyInitialized state");
+    ENSURE(_queue.empty(), "queue must be empty when initialized");
+    ENSURE(CO2_value == 0, "CO2_value must be 0 when initialized");
 }
 
 bool Device::properlyInitialized() {
@@ -130,7 +132,7 @@ int Device::getCosts() {
 
 void Device::updatePositions(int totalRunTime) {
     REQUIRE(properlyInitialized(), "Device wasn't initialized when calling popQueue");
-
+    REQUIRE(totalRunTime >= 0, "totalRunTime value must be equal or higher then 0");
     ::queue<Job*> temp = {};
 
     for (long long unsigned int i = 0; i < _queue.size(); ++i) {
@@ -146,6 +148,7 @@ void Device::updatePositions(int totalRunTime) {
 
 bool Device::print(int totalRunTime) {
     REQUIRE(properlyInitialized(), "Device wasn't initialized when calling print");
+    REQUIRE(totalRunTime >= 0, "totalRunTime value must be equal or higher then 0");
     if(_queue.size() == 0){
         // no job to print
         this->busy = false;
@@ -177,7 +180,6 @@ void Device::popQueue() {
 
 bool Device::exceeds_CO2_limit(int value) {
     REQUIRE(properlyInitialized(), "Device wasn't initialized when calling exceeds_CO2_limit");
-    REQUIRE(value >= 0, "value must be non-negative");
     if(value > this->CO2_limit){return true;}
     return false;
 }
@@ -226,6 +228,7 @@ BlackWhitePrinter::BlackWhitePrinter(string name, int emissions, double speed, i
 }
 
 DeviceEnum BlackWhitePrinter::get_type() {
+    REQUIRE(properlyInitialized(), "Device wasn't initialized when calling get_type");
     return bw_device;
 }
 
@@ -239,6 +242,7 @@ ColorPrinter::ColorPrinter(string name, int emissions, double speed, int cost) :
 }
 
 DeviceEnum ColorPrinter::get_type() {
+    REQUIRE(properlyInitialized(), "Device wasn't initialized when calling get_type");
     return color_device;
 }
 
@@ -252,5 +256,6 @@ Scanner::Scanner(string name, int emissions, double speed, int cost) : Device(na
 }
 
 DeviceEnum Scanner::get_type() {
+    REQUIRE(properlyInitialized(), "Device wasn't initialized when calling get_type");
     return scan_device;
 }

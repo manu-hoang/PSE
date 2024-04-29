@@ -22,6 +22,12 @@ Job::Job(int jobNumber, double totalPageCount, string userName, int compNumber) 
     ENSURE(properlyInitialized(),"Constructor must end in properlyInitialized state");
     ENSURE(!_finished,"Job cannot be in a finished state after initialization");
     ENSURE(_currentPageCount == totalPageCount, "current page count must be equal to total page count after initialization");
+    ENSURE(!busy, "job must not be busy when initialized");
+    ENSURE(!compensated, "job must not be compensated when initialized");
+    ENSURE(start_time == 0, "start_time value must be 0 when initialized");
+    ENSURE(totalCO2 == 0, "totalCO2 value must be 0 when initialized");
+    ENSURE(totalCost == 0, "totalCO2 value must be 0 when initialized");
+
 }
 
 bool Job::properlyInitialized() {
@@ -112,6 +118,7 @@ BlackWhiteJob::BlackWhiteJob(int jobNumber, double pageCount, string userName, i
 }
 
 JobEnum BlackWhiteJob::get_type() {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getType");
     return bw_job;
 }
 
@@ -120,6 +127,7 @@ ColorJob::ColorJob(int jobNumber, double pageCount, string userName, int compNum
 }
 
 JobEnum ColorJob::get_type() {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getType");
     return color_job;
 }
 
@@ -128,6 +136,7 @@ ScanJob::ScanJob(int jobNumber, double pageCount, string userName, int compNumbe
 }
 
 JobEnum ScanJob::get_type() {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getType");
     return scan_job;
 }
 
@@ -143,35 +152,48 @@ void Job::printFullPage() {
 }
 
 void Job::setDeviceName(string name) {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling setDeviceName");
+
     this->device_name = name;
 }
 
 void Job::setCompensationName(string name) {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling setCompensationName");
     this->compensation_name = name;
 }
 
 void Job::setQueuePosition(int position) {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling setQueuePosition");
+    REQUIRE(position >= 0, "position value should be greather then or equal to 0");
     this->queue_position = position;
 }
 
 void Job::setCurrentPageCount(int count) {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling setCurrentPageCount");
+    REQUIRE(count >= 0, "count value must be equal or greater then 0");
     this->_currentPageCount = count;
 }
 
 double Job::calculatePrintingTimePage(int speed) {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling calculatePrintingTimePage");
+    REQUIRE(speed >= 0, "speed value must be equal or greater then 0");
     double pagesPerMinute = speed * 1.0;
     double pagesPerSecond = pagesPerMinute/60;
 
     int pagesPrinted = _totalPageCount - _currentPageCount;
-
+    ENSURE(start_time + (pagesPrinted + 1) * pagesPerSecond >= 0, "PrintingTimePage must be equal or greater then 0");
     return start_time + (pagesPrinted + 1) * pagesPerSecond;
 }
 
 void Job::setStartTime(int time) {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling setStartTime");
+    REQUIRE(time >= 0, "time value should be equal to or greater then 0");
     this->start_time = time;
 }
 
 string Job::getType() {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getType");
+
     switch (this->get_type()) {
         case bw_job:
             return "black-and-white";
@@ -189,29 +211,43 @@ string Job::getType() {
 }
 
 bool Job::getCompensated() {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getCompensated");
+
     return this->compensated;
 }
 
 void Job::setCompNumber(int value) {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling setCompNumber");
+    REQUIRE(value >= 0, "value should be greather then or equal to 0");
     this->compNumber = value;
 }
 
 int Job::getCompNumber() {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getCompNumber");
+    ENSURE(compNumber >= 0, "compNumber value should be greater then or equal to 0");
     return compNumber;
 }
 
 void Job::setCompensated(bool value) {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling setCompensated");
+
     compensated = value;
 }
 
 string Job::getCompensationName() {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling getCompensationName");
+
     return this->compensation_name;
 }
 
 void Job::setTotalCO2(int value) {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling setTotalCO2");
+    REQUIRE(value >= 0, "value should be greater then or equal to 0");
     totalCO2 = value;
 }
 
 void Job::setTotalCost(int value) {
+    REQUIRE(properlyInitialized(), "Job wasn't initialized when calling setTotalCost");
+    REQUIRE(value >= 0, "value should be equal to or greater then 0");
     totalCost = value;
 }

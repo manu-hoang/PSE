@@ -9,8 +9,16 @@
 class System {
 public:
     /**
-     \n System initializer, contains a vector for all jobs and all devices
-
+    \n System initializer, contains a vector for all jobs and all devices
+    \n ENSURE(properlyInitialized(),"Constructor must end in properlyInitialized state");
+    \n ENSURE(_devices.empty(), "Devices vector must be empty after initialization");
+    \n ENSURE(_jobs.empty(), "Jobs vector must be empty after initialization");
+    \n ENSURE(current_time == 0, "time must start at 0 after initialization");
+    \n ENSURE(totalCO2emission == 0, "totalCO2emission value must be 0 after initialization");
+    \n ENSURE(totalOperatingCosts == 0, "totalOperationgCosts must be 0 after initialization");
+    \n ENSURE(averageCO2perPage == 0, "averageCO2perPage must be 0 after initialization");
+    \n ENSURE(mostUsedCompensation == nullptr, "mostUsedCompensation must be nullptr after initialization");
+    \n ENSURE(mostUsedDevice == nullptr, "mostUsedDevice must be nullptr after initialization");
     */
     System();
 
@@ -60,7 +68,7 @@ public:
 
     /**
      \n REQUIRE(properlyInitialized(), "System wasn't initialized when calling addCompensation");
-     \n REQUIRE(job != nullptr, "Cannot add nullptr as device to system");
+     \n REQUIRE(compensation != nullptr, "Cannot add nullptr as device to system");
     */
     void addCompensation(Compensation* compensation);
 
@@ -84,6 +92,8 @@ public:
 
     /**
     \n REQUIRE(properlyInitialized(), "System wasn't initialized when calling getCompensations");
+    \n ENSURE(totalCosts >= 0, "totalCosts must be greater or equal than 0");
+    \n ENSURE(average >= 0, "average must be greater or equal than 0");
    */
     void calculateStatistics();
 

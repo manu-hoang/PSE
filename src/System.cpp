@@ -21,6 +21,11 @@ System::System() {
     ENSURE(_devices.empty(), "Devices vector must be empty after initialization");
     ENSURE(_jobs.empty(), "Jobs vector must be empty after initialization");
     ENSURE(current_time == 0, "time must start at 0 after initialization");
+    ENSURE(totalCO2emission == 0, "totalCO2emission value must be 0 after initialization");
+    ENSURE(totalOperatingCosts == 0, "totalOperatingCosts must be 0 after initialization");
+    ENSURE(averageCO2perPage == 0, "averageCO2perPage must be 0 after initialization");
+    ENSURE(mostUsedCompensation == nullptr, "mostUsedCompensation must be nullptr after initialization");
+    ENSURE(mostUsedDevice == nullptr, "mostUsedDevice must be nullptr after initialization");
 }
 
 bool System::properlyInitialized() {
@@ -205,6 +210,7 @@ Device* pick_device(System* system, Job* job){
 }
 
 bool System::find_compensation(Job *job) {
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling find_compensation");
 
     for(auto compensation : this->getCompensations()){
         if(job->getCompNumber() == compensation->getCompNumber()){
@@ -317,15 +323,12 @@ void System::tick() {
 }
 
 void System::calculateStatistics() {
-
+    REQUIRE(properlyInitialized(), "System wasn't initialized when calling divideJobs");
     int totalCosts = 0;
     for(auto device : _devices){
         totalCosts += device->get_total_pages() * device->getCosts();
     }
     totalOperatingCosts = totalCosts;
-
-
-
 
     Device* most_used_dev = nullptr;
     long long unsigned int queue_size = 0;
@@ -336,9 +339,6 @@ void System::calculateStatistics() {
         }
     }
     mostUsedDevice = most_used_dev;
-
-
-
 
     double average = 0; // CO2 per page
     double counter = 0;
@@ -361,6 +361,9 @@ void System::calculateStatistics() {
         }
     }
     mostUsedCompensation = compensation;
+
+    ENSURE(totalCosts >= 0, "totalCosts must be greater or equal than 0");
+    ENSURE(average >= 0, "average must be greater or equal than 0");
 }
 
 int System::getTotalEmissions() {
@@ -377,7 +380,6 @@ int System::getTotalOperatingCosts() {
 
 Device *System::getMostUsedDevice() {
     REQUIRE(properlyInitialized(), "System wasn't initialized when calling getMostUsedDevice");
-
     return mostUsedDevice;
 }
 
