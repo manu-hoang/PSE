@@ -1,0 +1,310 @@
+\hypertarget{class_job}{}\doxysection{Job Class Reference}
+\label{class_job}\index{Job@{Job}}
+
+
+Inheritance diagram for Job\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_job_a352855cb9693382a1149cd597623db9a}{Job}} (int job\+Number, double page\+Count, string user\+Name, int comp\+Number)
+\item 
+\mbox{\Hypertarget{class_job_afbc949776d74776099b9fdc69456a24c}\label{class_job_afbc949776d74776099b9fdc69456a24c}} 
+virtual Job\+Enum {\bfseries get\+\_\+type} ()=0
+\item 
+\mbox{\Hypertarget{class_job_a50af6e4931ed0262da76ffa903e66682}\label{class_job_a50af6e4931ed0262da76ffa903e66682}} 
+bool {\bfseries properly\+Initialized} ()
+\item 
+void \mbox{\hyperlink{class_job_af93a8cc49f1e33704a1a0125d4b24c01}{print\+Full\+Page}} ()
+\item 
+bool \mbox{\hyperlink{class_job_aae3e8c48234ce203f03c269e96cc7b2b}{get\+\_\+busy}} ()
+\item 
+void \mbox{\hyperlink{class_job_a2f9b48d934a2b20cde7b79d4d0563331}{set\+\_\+busy}} (bool busy)
+\item 
+bool \mbox{\hyperlink{class_job_ad9f9b0233ab08ebe7ff4c2bd94ed91cb}{get\+Finished}} ()
+\item 
+int \mbox{\hyperlink{class_job_ad078f121340d42646a28c3aa9820a4eb}{get\+Job\+Number}} ()
+\item 
+int \mbox{\hyperlink{class_job_a6fc539574487468ff9e37bd58432d691}{get\+Total\+Page\+Count}} ()
+\item 
+int \mbox{\hyperlink{class_job_a0d3dc5145af23b4c1904cd8ffa18771f}{get\+Current\+Page\+Count}} ()
+\item 
+void \mbox{\hyperlink{class_job_a0012a0a5e3fc56a99767f24ab1e9c2a6}{set\+Current\+Page\+Count}} (int count)
+\item 
+double \mbox{\hyperlink{class_job_a18518c636d751d6000722c2814016984}{calculate\+Printing\+Time\+Page}} (int speed)
+\item 
+void \mbox{\hyperlink{class_job_ab428702d6fcf6d7feefe4ac6e807b1fc}{set\+Start\+Time}} (int time)
+\item 
+void \mbox{\hyperlink{class_job_aa1395a5cfc250f9cd6dba53ea8763d3d}{set\+Comp\+Number}} (int comp\+Number)
+\item 
+int \mbox{\hyperlink{class_job_a670c63a1d2edc93c7f640648202941e6}{get\+Comp\+Number}} ()
+\item 
+void \mbox{\hyperlink{class_job_ae634799b9c40fab9b552d14da409766a}{set\+Compensated}} (bool compensated)
+\item 
+bool \mbox{\hyperlink{class_job_a732368074f86771694b13b4747075882}{get\+Compensated}} ()
+\item 
+string \mbox{\hyperlink{class_job_acde6a35c16e2a060aec25e0def75793f}{get\+Type}} ()
+\item 
+string \mbox{\hyperlink{class_job_af36a590d3d9ee94fb94446d98cdec195}{get\+Owner}} ()
+\item 
+string \mbox{\hyperlink{class_job_a188b28af1b5e5697d585590b0797679e}{get\+Device}} ()
+\item 
+string \mbox{\hyperlink{class_job_af8a4a7c778f017c86596e7b8085ae6b5}{get\+Status}} ()
+\item 
+string \mbox{\hyperlink{class_job_a72906ccf8f48f534620628fac5d9795d}{get\+Total\+Pages}} ()
+\item 
+string \mbox{\hyperlink{class_job_af4db62f3f09a10299a4dbc41c2b13e54}{get\+Total\+CO2}} ()
+\item 
+string \mbox{\hyperlink{class_job_aaed77116e944360d7df7496cb5c3ffd4}{get\+Total\+Cost}} ()
+\item 
+string \& \mbox{\hyperlink{class_job_aee8a0cdcfc186ca42f83a22f6494a54d}{get\+User\+Name}} ()
+\item 
+void \mbox{\hyperlink{class_job_a1c57b71746c0321c7b26ac1a9a9b398c}{set\+Device\+Name}} (string name)
+\item 
+void \mbox{\hyperlink{class_job_a0791fae0c4a61dd8be9b775b2b5d02eb}{set\+Queue\+Position}} (int position)
+\item 
+void \mbox{\hyperlink{class_job_a770f1335be0b62f1aabec957153e5d89}{set\+Compensation\+Name}} (string name)
+\item 
+string \mbox{\hyperlink{class_job_a963927b6acddbd1b5c87972a7fc4b8c6}{get\+Compensation\+Name}} ()
+\item 
+void \mbox{\hyperlink{class_job_a44f38e8aa917a21e72a9ee157110d74e}{set\+Total\+CO2}} (int value)
+\item 
+void \mbox{\hyperlink{class_job_a4e989c621ba09c0067e79e56bd990184}{set\+Total\+Cost}} (int value)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_job_a352855cb9693382a1149cd597623db9a}\label{class_job_a352855cb9693382a1149cd597623db9a}} 
+\index{Job@{Job}!Job@{Job}}
+\index{Job@{Job}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{Job()}{Job()}}
+{\footnotesize\ttfamily Job\+::\+Job (\begin{DoxyParamCaption}\item[{int}]{job\+Number,  }\item[{double}]{page\+Count,  }\item[{string}]{user\+Name,  }\item[{int}]{comp\+Number }\end{DoxyParamCaption})}
+
+~\newline
+ \mbox{\hyperlink{class_job}{Job}} initializer ~\newline
+ REQUIRE(page\+Count $>$= 0, \char`\"{}\+Job page count must be a positive integer\char`\"{}); ~\newline
+ REQUIRE(job\+Number $>$= 0, \char`\"{}\+Job id number must be a positive integer\char`\"{}); ~\newline
+ ENSURE(properly\+Initialized(),\char`\"{}\+Constructor must end in properly\+Initialized state\char`\"{}); ~\newline
+ ENSURE(!finished,\char`\"{}\+Job cannot be in a finished state after initialization\char`\"{}); ~\newline
+ ENSURE(current\+Page\+Count == total\+Page\+Count, \char`\"{}current page count must be equal to total page count after initialization\char`\"{}); ~\newline
+ ENSURE(!busy, \char`\"{}job must not be busy when initialized\char`\"{}); ~\newline
+ ENSURE(!compensated, \char`\"{}job must not be compensated when initialized\char`\"{}); ~\newline
+ ENSURE(start\+\_\+time == 0, \char`\"{}start\+\_\+time value must be 0 when initialized\char`\"{}); ~\newline
+ ENSURE(total\+CO2 == 0, \char`\"{}total\+CO2 value must be 0 when initialized\char`\"{}); ~\newline
+ ENSURE(total\+Cost == 0, \char`\"{}total\+CO2 value must be 0 when initialized\char`\"{}); 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_job_a18518c636d751d6000722c2814016984}\label{class_job_a18518c636d751d6000722c2814016984}} 
+\index{Job@{Job}!calculatePrintingTimePage@{calculatePrintingTimePage}}
+\index{calculatePrintingTimePage@{calculatePrintingTimePage}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{calculatePrintingTimePage()}{calculatePrintingTimePage()}}
+{\footnotesize\ttfamily double Job\+::calculate\+Printing\+Time\+Page (\begin{DoxyParamCaption}\item[{int}]{speed }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling calculate\+Printing\+Time\+Page\char`\"{}); ~\newline
+ REQUIRE(speed $>$= 0, \char`\"{}speed value must be equal or greater then 0\char`\"{}); ~\newline
+ ENSURE(start\+\_\+time + (pages\+Printed + 1) $\ast$ pages\+Per\+Second $>$= 0, \char`\"{}\+Printingtimepage must be equal or greater then 0\char`\"{}); \mbox{\Hypertarget{class_job_aae3e8c48234ce203f03c269e96cc7b2b}\label{class_job_aae3e8c48234ce203f03c269e96cc7b2b}} 
+\index{Job@{Job}!get\_busy@{get\_busy}}
+\index{get\_busy@{get\_busy}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{get\_busy()}{get\_busy()}}
+{\footnotesize\ttfamily bool Job\+::get\+\_\+busy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+\_\+busy\char`\"{}); \mbox{\Hypertarget{class_job_a732368074f86771694b13b4747075882}\label{class_job_a732368074f86771694b13b4747075882}} 
+\index{Job@{Job}!getCompensated@{getCompensated}}
+\index{getCompensated@{getCompensated}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getCompensated()}{getCompensated()}}
+{\footnotesize\ttfamily bool Job\+::get\+Compensated (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Compensated\char`\"{}); \mbox{\Hypertarget{class_job_a963927b6acddbd1b5c87972a7fc4b8c6}\label{class_job_a963927b6acddbd1b5c87972a7fc4b8c6}} 
+\index{Job@{Job}!getCompensationName@{getCompensationName}}
+\index{getCompensationName@{getCompensationName}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getCompensationName()}{getCompensationName()}}
+{\footnotesize\ttfamily string Job\+::get\+Compensation\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Compensation\+Name\char`\"{}); \mbox{\Hypertarget{class_job_a670c63a1d2edc93c7f640648202941e6}\label{class_job_a670c63a1d2edc93c7f640648202941e6}} 
+\index{Job@{Job}!getCompNumber@{getCompNumber}}
+\index{getCompNumber@{getCompNumber}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getCompNumber()}{getCompNumber()}}
+{\footnotesize\ttfamily int Job\+::get\+Comp\+Number (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Comp\+Number\char`\"{}); ~\newline
+ ENSURE(comp\+Number $>$= 0, \char`\"{}comp\+Number value should be greater then or equal to 0\char`\"{}); \mbox{\Hypertarget{class_job_a0d3dc5145af23b4c1904cd8ffa18771f}\label{class_job_a0d3dc5145af23b4c1904cd8ffa18771f}} 
+\index{Job@{Job}!getCurrentPageCount@{getCurrentPageCount}}
+\index{getCurrentPageCount@{getCurrentPageCount}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getCurrentPageCount()}{getCurrentPageCount()}}
+{\footnotesize\ttfamily int Job\+::get\+Current\+Page\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Current\+Page\+Count\char`\"{}); ~\newline
+ ENSURE(\+\_\+current\+Page\+Count $>$= 0, \char`\"{}\+Current page count must be a positive integer\char`\"{}); \mbox{\Hypertarget{class_job_a188b28af1b5e5697d585590b0797679e}\label{class_job_a188b28af1b5e5697d585590b0797679e}} 
+\index{Job@{Job}!getDevice@{getDevice}}
+\index{getDevice@{getDevice}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getDevice()}{getDevice()}}
+{\footnotesize\ttfamily string Job\+::get\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Device\char`\"{}); \mbox{\Hypertarget{class_job_ad9f9b0233ab08ebe7ff4c2bd94ed91cb}\label{class_job_ad9f9b0233ab08ebe7ff4c2bd94ed91cb}} 
+\index{Job@{Job}!getFinished@{getFinished}}
+\index{getFinished@{getFinished}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getFinished()}{getFinished()}}
+{\footnotesize\ttfamily bool Job\+::get\+Finished (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Finished\char`\"{}); \mbox{\Hypertarget{class_job_ad078f121340d42646a28c3aa9820a4eb}\label{class_job_ad078f121340d42646a28c3aa9820a4eb}} 
+\index{Job@{Job}!getJobNumber@{getJobNumber}}
+\index{getJobNumber@{getJobNumber}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getJobNumber()}{getJobNumber()}}
+{\footnotesize\ttfamily int Job\+::get\+Job\+Number (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Job\+Number\char`\"{}); ~\newline
+ ENSURE(\+\_\+job\+Number $>$= 0, \char`\"{}\+\_\+job\+Number must be a positive integer\char`\"{}); \mbox{\Hypertarget{class_job_af36a590d3d9ee94fb94446d98cdec195}\label{class_job_af36a590d3d9ee94fb94446d98cdec195}} 
+\index{Job@{Job}!getOwner@{getOwner}}
+\index{getOwner@{getOwner}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getOwner()}{getOwner()}}
+{\footnotesize\ttfamily string Job\+::get\+Owner (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Owner\char`\"{}); \mbox{\Hypertarget{class_job_af8a4a7c778f017c86596e7b8085ae6b5}\label{class_job_af8a4a7c778f017c86596e7b8085ae6b5}} 
+\index{Job@{Job}!getStatus@{getStatus}}
+\index{getStatus@{getStatus}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getStatus()}{getStatus()}}
+{\footnotesize\ttfamily string Job\+::get\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Status\char`\"{}); \mbox{\Hypertarget{class_job_af4db62f3f09a10299a4dbc41c2b13e54}\label{class_job_af4db62f3f09a10299a4dbc41c2b13e54}} 
+\index{Job@{Job}!getTotalCO2@{getTotalCO2}}
+\index{getTotalCO2@{getTotalCO2}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getTotalCO2()}{getTotalCO2()}}
+{\footnotesize\ttfamily string Job\+::get\+Total\+CO2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Total\+CO2\char`\"{}); \mbox{\Hypertarget{class_job_aaed77116e944360d7df7496cb5c3ffd4}\label{class_job_aaed77116e944360d7df7496cb5c3ffd4}} 
+\index{Job@{Job}!getTotalCost@{getTotalCost}}
+\index{getTotalCost@{getTotalCost}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getTotalCost()}{getTotalCost()}}
+{\footnotesize\ttfamily string Job\+::get\+Total\+Cost (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Total\+Cost\char`\"{}); \mbox{\Hypertarget{class_job_a6fc539574487468ff9e37bd58432d691}\label{class_job_a6fc539574487468ff9e37bd58432d691}} 
+\index{Job@{Job}!getTotalPageCount@{getTotalPageCount}}
+\index{getTotalPageCount@{getTotalPageCount}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getTotalPageCount()}{getTotalPageCount()}}
+{\footnotesize\ttfamily int Job\+::get\+Total\+Page\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Total\+Page\+Count\char`\"{}); ~\newline
+ ENSURE(\+\_\+total\+Page\+Count $>$= 0, \char`\"{}\+Total page count must be a positive integer\char`\"{}); \mbox{\Hypertarget{class_job_a72906ccf8f48f534620628fac5d9795d}\label{class_job_a72906ccf8f48f534620628fac5d9795d}} 
+\index{Job@{Job}!getTotalPages@{getTotalPages}}
+\index{getTotalPages@{getTotalPages}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getTotalPages()}{getTotalPages()}}
+{\footnotesize\ttfamily string Job\+::get\+Total\+Pages (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Total\+Pages\char`\"{}); \mbox{\Hypertarget{class_job_acde6a35c16e2a060aec25e0def75793f}\label{class_job_acde6a35c16e2a060aec25e0def75793f}} 
+\index{Job@{Job}!getType@{getType}}
+\index{getType@{getType}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily string Job\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Type\char`\"{}); \mbox{\Hypertarget{class_job_aee8a0cdcfc186ca42f83a22f6494a54d}\label{class_job_aee8a0cdcfc186ca42f83a22f6494a54d}} 
+\index{Job@{Job}!getUserName@{getUserName}}
+\index{getUserName@{getUserName}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{getUserName()}{getUserName()}}
+{\footnotesize\ttfamily string \& Job\+::get\+User\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling get\+Use\+Name\char`\"{}); \mbox{\Hypertarget{class_job_af93a8cc49f1e33704a1a0125d4b24c01}\label{class_job_af93a8cc49f1e33704a1a0125d4b24c01}} 
+\index{Job@{Job}!printFullPage@{printFullPage}}
+\index{printFullPage@{printFullPage}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{printFullPage()}{printFullPage()}}
+{\footnotesize\ttfamily void Job\+::print\+Full\+Page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling print\+Full\+Page\char`\"{}); \mbox{\Hypertarget{class_job_a2f9b48d934a2b20cde7b79d4d0563331}\label{class_job_a2f9b48d934a2b20cde7b79d4d0563331}} 
+\index{Job@{Job}!set\_busy@{set\_busy}}
+\index{set\_busy@{set\_busy}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{set\_busy()}{set\_busy()}}
+{\footnotesize\ttfamily void Job\+::set\+\_\+busy (\begin{DoxyParamCaption}\item[{bool}]{busy }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling set\+\_\+busy\char`\"{}); \mbox{\Hypertarget{class_job_ae634799b9c40fab9b552d14da409766a}\label{class_job_ae634799b9c40fab9b552d14da409766a}} 
+\index{Job@{Job}!setCompensated@{setCompensated}}
+\index{setCompensated@{setCompensated}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{setCompensated()}{setCompensated()}}
+{\footnotesize\ttfamily void Job\+::set\+Compensated (\begin{DoxyParamCaption}\item[{bool}]{compensated }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling set\+Compensated\char`\"{}); \mbox{\Hypertarget{class_job_a770f1335be0b62f1aabec957153e5d89}\label{class_job_a770f1335be0b62f1aabec957153e5d89}} 
+\index{Job@{Job}!setCompensationName@{setCompensationName}}
+\index{setCompensationName@{setCompensationName}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{setCompensationName()}{setCompensationName()}}
+{\footnotesize\ttfamily void Job\+::set\+Compensation\+Name (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling set\+Compensation\+Name\char`\"{}); \mbox{\Hypertarget{class_job_aa1395a5cfc250f9cd6dba53ea8763d3d}\label{class_job_aa1395a5cfc250f9cd6dba53ea8763d3d}} 
+\index{Job@{Job}!setCompNumber@{setCompNumber}}
+\index{setCompNumber@{setCompNumber}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{setCompNumber()}{setCompNumber()}}
+{\footnotesize\ttfamily void Job\+::set\+Comp\+Number (\begin{DoxyParamCaption}\item[{int}]{comp\+Number }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling set\+Comp\+Number\char`\"{}); ~\newline
+ REQUIRE(value $>$= 0, \char`\"{}value should be greather then or equal to 0\char`\"{}); \mbox{\Hypertarget{class_job_a0012a0a5e3fc56a99767f24ab1e9c2a6}\label{class_job_a0012a0a5e3fc56a99767f24ab1e9c2a6}} 
+\index{Job@{Job}!setCurrentPageCount@{setCurrentPageCount}}
+\index{setCurrentPageCount@{setCurrentPageCount}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{setCurrentPageCount()}{setCurrentPageCount()}}
+{\footnotesize\ttfamily void Job\+::set\+Current\+Page\+Count (\begin{DoxyParamCaption}\item[{int}]{count }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling set\+Current\+Page\+Count\char`\"{}); ~\newline
+ REQUIRE(count $>$= 0, \char`\"{}count value must be equal or greater then 0\char`\"{}); \mbox{\Hypertarget{class_job_a1c57b71746c0321c7b26ac1a9a9b398c}\label{class_job_a1c57b71746c0321c7b26ac1a9a9b398c}} 
+\index{Job@{Job}!setDeviceName@{setDeviceName}}
+\index{setDeviceName@{setDeviceName}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{setDeviceName()}{setDeviceName()}}
+{\footnotesize\ttfamily void Job\+::set\+Device\+Name (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling set\+Device\+Name\char`\"{}); \mbox{\Hypertarget{class_job_a0791fae0c4a61dd8be9b775b2b5d02eb}\label{class_job_a0791fae0c4a61dd8be9b775b2b5d02eb}} 
+\index{Job@{Job}!setQueuePosition@{setQueuePosition}}
+\index{setQueuePosition@{setQueuePosition}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{setQueuePosition()}{setQueuePosition()}}
+{\footnotesize\ttfamily void Job\+::set\+Queue\+Position (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling set\+Queue\+Position\char`\"{}); ~\newline
+ REQUIRE(position $>$= 0, \char`\"{}position value should be greather then or equal to 0\char`\"{}); \mbox{\Hypertarget{class_job_ab428702d6fcf6d7feefe4ac6e807b1fc}\label{class_job_ab428702d6fcf6d7feefe4ac6e807b1fc}} 
+\index{Job@{Job}!setStartTime@{setStartTime}}
+\index{setStartTime@{setStartTime}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{setStartTime()}{setStartTime()}}
+{\footnotesize\ttfamily void Job\+::set\+Start\+Time (\begin{DoxyParamCaption}\item[{int}]{time }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling set\+Start\+Time\char`\"{}); ~\newline
+ REQUIRE(time $>$= 0, \char`\"{}time value should be equal to or greater then 0\char`\"{}); \mbox{\Hypertarget{class_job_a44f38e8aa917a21e72a9ee157110d74e}\label{class_job_a44f38e8aa917a21e72a9ee157110d74e}} 
+\index{Job@{Job}!setTotalCO2@{setTotalCO2}}
+\index{setTotalCO2@{setTotalCO2}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{setTotalCO2()}{setTotalCO2()}}
+{\footnotesize\ttfamily void Job\+::set\+Total\+CO2 (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling set\+Total\+CO2\char`\"{}); ~\newline
+ REQUIRE(value $>$= 0, \char`\"{}value should be greater then or equal to 0\char`\"{}); \mbox{\Hypertarget{class_job_a4e989c621ba09c0067e79e56bd990184}\label{class_job_a4e989c621ba09c0067e79e56bd990184}} 
+\index{Job@{Job}!setTotalCost@{setTotalCost}}
+\index{setTotalCost@{setTotalCost}!Job@{Job}}
+\doxysubsubsection{\texorpdfstring{setTotalCost()}{setTotalCost()}}
+{\footnotesize\ttfamily void Job\+::set\+Total\+Cost (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Job wasn\textquotesingle{}t initialized when calling set\+Total\+Cost\char`\"{}); ~\newline
+ REQUIRE(value $>$= 0, \char`\"{}value should be greater then or equal to 0\char`\"{}); 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Job.\+h\item 
+src/Job.\+cpp\end{DoxyCompactItemize}

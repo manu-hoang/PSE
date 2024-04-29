@@ -1,0 +1,67 @@
+\hypertarget{class_compensation}{}\doxysection{Compensation Class Reference}
+\label{class_compensation}\index{Compensation@{Compensation}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_compensation_a51e3312ae171153b6351f94ba91952cb}{Compensation}} (int comp\+Number, string name)
+\item 
+\mbox{\Hypertarget{class_compensation_adb7b2bf34c765befc6501a614b137718}\label{class_compensation_adb7b2bf34c765befc6501a614b137718}} 
+bool {\bfseries properly\+Initialized} ()
+\item 
+int \mbox{\hyperlink{class_compensation_afe6e8671519046e64cda6f60106e3e76}{get\+Comp\+Number}} ()
+\item 
+string \mbox{\hyperlink{class_compensation_a4f2dd54c205294630c4b342795eb04bf}{get\+Name}} ()
+\item 
+void \mbox{\hyperlink{class_compensation_a0e7cf305211401eeee51bae73d9b58fe}{increase\+Count}} ()
+\item 
+int \mbox{\hyperlink{class_compensation_a9b988c904a5fe4c92507534e432ad0c0}{get\+Counter}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_compensation_a51e3312ae171153b6351f94ba91952cb}\label{class_compensation_a51e3312ae171153b6351f94ba91952cb}} 
+\index{Compensation@{Compensation}!Compensation@{Compensation}}
+\index{Compensation@{Compensation}!Compensation@{Compensation}}
+\doxysubsubsection{\texorpdfstring{Compensation()}{Compensation()}}
+{\footnotesize\ttfamily Compensation\+::\+Compensation (\begin{DoxyParamCaption}\item[{int}]{comp\+Number,  }\item[{string}]{name }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{class_compensation}{Compensation}} Initializer 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_compensation_afe6e8671519046e64cda6f60106e3e76}\label{class_compensation_afe6e8671519046e64cda6f60106e3e76}} 
+\index{Compensation@{Compensation}!getCompNumber@{getCompNumber}}
+\index{getCompNumber@{getCompNumber}!Compensation@{Compensation}}
+\doxysubsubsection{\texorpdfstring{getCompNumber()}{getCompNumber()}}
+{\footnotesize\ttfamily int Compensation\+::get\+Comp\+Number (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Compensation wasn\textquotesingle{}t initialized when calling get\+Comp\+Number\char`\"{}); ~\newline
+ ENSURE(comp\+Number $>$= 0, \char`\"{}\+Compensation number must be a positive integer\char`\"{}); \mbox{\Hypertarget{class_compensation_a9b988c904a5fe4c92507534e432ad0c0}\label{class_compensation_a9b988c904a5fe4c92507534e432ad0c0}} 
+\index{Compensation@{Compensation}!getCounter@{getCounter}}
+\index{getCounter@{getCounter}!Compensation@{Compensation}}
+\doxysubsubsection{\texorpdfstring{getCounter()}{getCounter()}}
+{\footnotesize\ttfamily int Compensation\+::get\+Counter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Compensation wasn\textquotesingle{}t initialized when calling get\+Counter\char`\"{}); ~\newline
+ ENSURE(counter $>$= 0, \char`\"{}\+Compensation counter must be a positive integer\char`\"{}); \mbox{\Hypertarget{class_compensation_a4f2dd54c205294630c4b342795eb04bf}\label{class_compensation_a4f2dd54c205294630c4b342795eb04bf}} 
+\index{Compensation@{Compensation}!getName@{getName}}
+\index{getName@{getName}!Compensation@{Compensation}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily string Compensation\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Compensation wasn\textquotesingle{}t initialized when calling get\+Name\char`\"{}); \mbox{\Hypertarget{class_compensation_a0e7cf305211401eeee51bae73d9b58fe}\label{class_compensation_a0e7cf305211401eeee51bae73d9b58fe}} 
+\index{Compensation@{Compensation}!increaseCount@{increaseCount}}
+\index{increaseCount@{increaseCount}!Compensation@{Compensation}}
+\doxysubsubsection{\texorpdfstring{increaseCount()}{increaseCount()}}
+{\footnotesize\ttfamily void Compensation\+::increase\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Compensation wasn\textquotesingle{}t initialized when calling increase\+Count\char`\"{}); ~\newline
+ ENSURE(counter $>$= 0, \char`\"{}\+Compensation counter must be a positive integer\char`\"{}); 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Compensation.\+h\item 
+src/Compensation.\+cpp\end{DoxyCompactItemize}

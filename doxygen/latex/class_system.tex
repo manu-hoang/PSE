@@ -1,0 +1,199 @@
+\hypertarget{class_system}{}\doxysection{System Class Reference}
+\label{class_system}\index{System@{System}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_system_ae317936c9bcf1374d61745572e0f2f8a}{System}} ()
+\item 
+\mbox{\Hypertarget{class_system_a8532240d722aafc7084ca6047909c8da}\label{class_system_a8532240d722aafc7084ca6047909c8da}} 
+bool {\bfseries properly\+Initialized} ()
+\item 
+void \mbox{\hyperlink{class_system_a8c2974a34b30958106efde83ba9e10e9}{divide\+Jobs}} ()
+\item 
+void \mbox{\hyperlink{class_system_a77f86d9cc5592b20d04cb2d2c16552d5}{tick}} ()
+\item 
+void \mbox{\hyperlink{class_system_ab9988933284564702ffe615645b260e6}{automated\+\_\+processing}} (std\+::ostream \&on\+Stream)
+\item 
+void \mbox{\hyperlink{class_system_a737b67ac84c9122f609b70c5f8320e00}{manual\+\_\+processing}} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_device}{Device}} $\ast$device)
+\item 
+void \mbox{\hyperlink{class_system_ab5c41266c0eebb42effd22bc303d1e2c}{add\+Device}} (\mbox{\hyperlink{class_device}{Device}} $\ast$device)
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_device}{Device}} $\ast$ $>$ \& \mbox{\hyperlink{class_system_a2b983620d1429beeeff21c68926be12a}{get\+Devices}} ()
+\item 
+void \mbox{\hyperlink{class_system_ae0a4652f32c7c3f599c380de6efd6d1f}{add\+Job}} (\mbox{\hyperlink{class_job}{Job}} $\ast$job)
+\item 
+vector$<$ \mbox{\hyperlink{class_job}{Job}} $\ast$ $>$ \mbox{\hyperlink{class_system_aba18f5fcd8d454860427fb3ed9946054}{get\+Jobs}} ()
+\item 
+void \mbox{\hyperlink{class_system_a8613c6b9f2f79c41c99f136602059f0c}{add\+Compensation}} (\mbox{\hyperlink{class_compensation}{Compensation}} $\ast$compensation)
+\item 
+vector$<$ \mbox{\hyperlink{class_compensation}{Compensation}} $\ast$ $>$ \mbox{\hyperlink{class_system_aeed81fc188db8fde674eecb8a3bda5cd}{get\+Compensations}} ()
+\item 
+bool \mbox{\hyperlink{class_system_a0226eca6214177d96c5ba6454953baf2}{find\+\_\+compensation}} (\mbox{\hyperlink{class_job}{Job}} $\ast$job)
+\item 
+int \mbox{\hyperlink{class_system_a02a204eb7a657a0eb313cb66b713ed90}{get\+Total\+Emissions}} ()
+\item 
+void \mbox{\hyperlink{class_system_a8c7fd324a2dbddb464c96032eec1b093}{calculate\+Statistics}} ()
+\item 
+int \mbox{\hyperlink{class_system_ad628bf9626bc966711d2b7268e2d773c}{get\+Total\+Operating\+Costs}} ()
+\item 
+\mbox{\hyperlink{class_device}{Device}} $\ast$ \mbox{\hyperlink{class_system_a3d33bd39ce19a40cae17a333cdc42ae0}{get\+Most\+Used\+Device}} ()
+\item 
+double \mbox{\hyperlink{class_system_add3da58929c45f9548bb7df59da9b100}{get\+Average\+CO2per\+Page}} ()
+\item 
+\mbox{\hyperlink{class_compensation}{Compensation}} $\ast$ \mbox{\hyperlink{class_system_ad0b27ae7ff06e5a3bd6ac4772f0a9fc2}{get\+Most\+Used\+Compensation}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_system_ae317936c9bcf1374d61745572e0f2f8a}\label{class_system_ae317936c9bcf1374d61745572e0f2f8a}} 
+\index{System@{System}!System@{System}}
+\index{System@{System}!System@{System}}
+\doxysubsubsection{\texorpdfstring{System()}{System()}}
+{\footnotesize\ttfamily System\+::\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ \mbox{\hyperlink{class_system}{System}} initializer, contains a vector for all jobs and all devices ~\newline
+ ENSURE(properly\+Initialized(),\char`\"{}\+Constructor must end in properly\+Initialized state\char`\"{}); ~\newline
+ ENSURE(\+\_\+devices.\+empty(), \char`\"{}\+Devices vector must be empty after initialization\char`\"{}); ~\newline
+ ENSURE(\+\_\+jobs.\+empty(), \char`\"{}\+Jobs vector must be empty after initialization\char`\"{}); ~\newline
+ ENSURE(current\+\_\+time == 0, \char`\"{}time must start at 0 after initialization\char`\"{}); ~\newline
+ ENSURE(total\+CO2emission == 0, \char`\"{}total\+CO2emission value must be 0 after initialization\char`\"{}); ~\newline
+ ENSURE(total\+Operating\+Costs == 0, \char`\"{}total\+Operationg\+Costs must be 0 after initialization\char`\"{}); ~\newline
+ ENSURE(average\+CO2per\+Page == 0, \char`\"{}average\+CO2per\+Page must be 0 after initialization\char`\"{}); ~\newline
+ ENSURE(most\+Used\+Compensation == nullptr, \char`\"{}most\+Used\+Compensation must be nullptr after initialization\char`\"{}); ~\newline
+ ENSURE(most\+Used\+Device == nullptr, \char`\"{}most\+Used\+Device must be nullptr after initialization\char`\"{}); 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_system_a8613c6b9f2f79c41c99f136602059f0c}\label{class_system_a8613c6b9f2f79c41c99f136602059f0c}} 
+\index{System@{System}!addCompensation@{addCompensation}}
+\index{addCompensation@{addCompensation}!System@{System}}
+\doxysubsubsection{\texorpdfstring{addCompensation()}{addCompensation()}}
+{\footnotesize\ttfamily void System\+::add\+Compensation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_compensation}{Compensation}} $\ast$}]{compensation }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling add\+Compensation\char`\"{}); ~\newline
+ REQUIRE(compensation != nullptr, \char`\"{}\+Cannot add nullptr as device to system\char`\"{}); \mbox{\Hypertarget{class_system_ab5c41266c0eebb42effd22bc303d1e2c}\label{class_system_ab5c41266c0eebb42effd22bc303d1e2c}} 
+\index{System@{System}!addDevice@{addDevice}}
+\index{addDevice@{addDevice}!System@{System}}
+\doxysubsubsection{\texorpdfstring{addDevice()}{addDevice()}}
+{\footnotesize\ttfamily void System\+::add\+Device (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_device}{Device}} $\ast$}]{device }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling add\+Device\char`\"{}); ~\newline
+ REQUIRE(device != nullptr, \char`\"{}\+Cannot add nullptr as device to system\char`\"{}); \mbox{\Hypertarget{class_system_ae0a4652f32c7c3f599c380de6efd6d1f}\label{class_system_ae0a4652f32c7c3f599c380de6efd6d1f}} 
+\index{System@{System}!addJob@{addJob}}
+\index{addJob@{addJob}!System@{System}}
+\doxysubsubsection{\texorpdfstring{addJob()}{addJob()}}
+{\footnotesize\ttfamily void System\+::add\+Job (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_job}{Job}} $\ast$}]{job }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling add\+Job\char`\"{}); ~\newline
+ REQUIRE(job != nullptr, \char`\"{}\+Cannot add nullptr as job to system\char`\"{}); \mbox{\Hypertarget{class_system_ab9988933284564702ffe615645b260e6}\label{class_system_ab9988933284564702ffe615645b260e6}} 
+\index{System@{System}!automated\_processing@{automated\_processing}}
+\index{automated\_processing@{automated\_processing}!System@{System}}
+\doxysubsubsection{\texorpdfstring{automated\_processing()}{automated\_processing()}}
+{\footnotesize\ttfamily void System\+::automated\+\_\+processing (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{on\+Stream }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling automated\+\_\+processing\char`\"{}); \mbox{\Hypertarget{class_system_a8c7fd324a2dbddb464c96032eec1b093}\label{class_system_a8c7fd324a2dbddb464c96032eec1b093}} 
+\index{System@{System}!calculateStatistics@{calculateStatistics}}
+\index{calculateStatistics@{calculateStatistics}!System@{System}}
+\doxysubsubsection{\texorpdfstring{calculateStatistics()}{calculateStatistics()}}
+{\footnotesize\ttfamily void System\+::calculate\+Statistics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling get\+Compensations\char`\"{}); ~\newline
+ ENSURE(total\+Costs $>$= 0, \char`\"{}total\+Costs must be greater or equal than 0\char`\"{}); ~\newline
+ ENSURE(average $>$= 0, \char`\"{}average must be greater or equal than 0\char`\"{}); \mbox{\Hypertarget{class_system_a8c2974a34b30958106efde83ba9e10e9}\label{class_system_a8c2974a34b30958106efde83ba9e10e9}} 
+\index{System@{System}!divideJobs@{divideJobs}}
+\index{divideJobs@{divideJobs}!System@{System}}
+\doxysubsubsection{\texorpdfstring{divideJobs()}{divideJobs()}}
+{\footnotesize\ttfamily void System\+::divide\+Jobs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling divide\+Jobs\char`\"{}); \mbox{\Hypertarget{class_system_a0226eca6214177d96c5ba6454953baf2}\label{class_system_a0226eca6214177d96c5ba6454953baf2}} 
+\index{System@{System}!find\_compensation@{find\_compensation}}
+\index{find\_compensation@{find\_compensation}!System@{System}}
+\doxysubsubsection{\texorpdfstring{find\_compensation()}{find\_compensation()}}
+{\footnotesize\ttfamily bool System\+::find\+\_\+compensation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_job}{Job}} $\ast$}]{job }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling get\+Compensations\char`\"{}); \mbox{\Hypertarget{class_system_add3da58929c45f9548bb7df59da9b100}\label{class_system_add3da58929c45f9548bb7df59da9b100}} 
+\index{System@{System}!getAverageCO2perPage@{getAverageCO2perPage}}
+\index{getAverageCO2perPage@{getAverageCO2perPage}!System@{System}}
+\doxysubsubsection{\texorpdfstring{getAverageCO2perPage()}{getAverageCO2perPage()}}
+{\footnotesize\ttfamily double System\+::get\+Average\+CO2per\+Page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling get\+Average\+CO2per\+Page\char`\"{}); ~\newline
+ ENSURE(average\+CO2per\+Page $>$= 0, \char`\"{}\+Average CO2 per page must be greater or equal than 0\char`\"{}); \mbox{\Hypertarget{class_system_aeed81fc188db8fde674eecb8a3bda5cd}\label{class_system_aeed81fc188db8fde674eecb8a3bda5cd}} 
+\index{System@{System}!getCompensations@{getCompensations}}
+\index{getCompensations@{getCompensations}!System@{System}}
+\doxysubsubsection{\texorpdfstring{getCompensations()}{getCompensations()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{class_compensation}{Compensation}} $\ast$ $>$ System\+::get\+Compensations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling get\+Compensations\char`\"{}); \mbox{\Hypertarget{class_system_a2b983620d1429beeeff21c68926be12a}\label{class_system_a2b983620d1429beeeff21c68926be12a}} 
+\index{System@{System}!getDevices@{getDevices}}
+\index{getDevices@{getDevices}!System@{System}}
+\doxysubsubsection{\texorpdfstring{getDevices()}{getDevices()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_device}{Device}} $\ast$ $>$ \& System\+::get\+Devices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling get\+Devices\char`\"{}); \mbox{\Hypertarget{class_system_aba18f5fcd8d454860427fb3ed9946054}\label{class_system_aba18f5fcd8d454860427fb3ed9946054}} 
+\index{System@{System}!getJobs@{getJobs}}
+\index{getJobs@{getJobs}!System@{System}}
+\doxysubsubsection{\texorpdfstring{getJobs()}{getJobs()}}
+{\footnotesize\ttfamily vector$<$ \mbox{\hyperlink{class_job}{Job}} $\ast$ $>$ System\+::get\+Jobs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling get\+Jobs\char`\"{}); \mbox{\Hypertarget{class_system_ad0b27ae7ff06e5a3bd6ac4772f0a9fc2}\label{class_system_ad0b27ae7ff06e5a3bd6ac4772f0a9fc2}} 
+\index{System@{System}!getMostUsedCompensation@{getMostUsedCompensation}}
+\index{getMostUsedCompensation@{getMostUsedCompensation}!System@{System}}
+\doxysubsubsection{\texorpdfstring{getMostUsedCompensation()}{getMostUsedCompensation()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_compensation}{Compensation}} $\ast$ System\+::get\+Most\+Used\+Compensation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling get\+Most\+Used\+Compensation\char`\"{}); \mbox{\Hypertarget{class_system_a3d33bd39ce19a40cae17a333cdc42ae0}\label{class_system_a3d33bd39ce19a40cae17a333cdc42ae0}} 
+\index{System@{System}!getMostUsedDevice@{getMostUsedDevice}}
+\index{getMostUsedDevice@{getMostUsedDevice}!System@{System}}
+\doxysubsubsection{\texorpdfstring{getMostUsedDevice()}{getMostUsedDevice()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_device}{Device}} $\ast$ System\+::get\+Most\+Used\+Device (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling get\+Most\+Used\+Device\char`\"{}); \mbox{\Hypertarget{class_system_a02a204eb7a657a0eb313cb66b713ed90}\label{class_system_a02a204eb7a657a0eb313cb66b713ed90}} 
+\index{System@{System}!getTotalEmissions@{getTotalEmissions}}
+\index{getTotalEmissions@{getTotalEmissions}!System@{System}}
+\doxysubsubsection{\texorpdfstring{getTotalEmissions()}{getTotalEmissions()}}
+{\footnotesize\ttfamily int System\+::get\+Total\+Emissions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling get\+Total\+Emissions\char`\"{}); ~\newline
+ ENSURE(total\+CO2emission $>$= 0, \char`\"{}total\+CO2emission value must be greater or equal than 0\char`\"{}); \mbox{\Hypertarget{class_system_ad628bf9626bc966711d2b7268e2d773c}\label{class_system_ad628bf9626bc966711d2b7268e2d773c}} 
+\index{System@{System}!getTotalOperatingCosts@{getTotalOperatingCosts}}
+\index{getTotalOperatingCosts@{getTotalOperatingCosts}!System@{System}}
+\doxysubsubsection{\texorpdfstring{getTotalOperatingCosts()}{getTotalOperatingCosts()}}
+{\footnotesize\ttfamily int System\+::get\+Total\+Operating\+Costs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling get\+Total\+Operating\+Costs\char`\"{}); ~\newline
+ ENSURE(total\+Operating\+Costs $>$= 0, \char`\"{}total\+Operating\+Costs value must be greater or equal than 0\char`\"{}); \mbox{\Hypertarget{class_system_a737b67ac84c9122f609b70c5f8320e00}\label{class_system_a737b67ac84c9122f609b70c5f8320e00}} 
+\index{System@{System}!manual\_processing@{manual\_processing}}
+\index{manual\_processing@{manual\_processing}!System@{System}}
+\doxysubsubsection{\texorpdfstring{manual\_processing()}{manual\_processing()}}
+{\footnotesize\ttfamily void System\+::manual\+\_\+processing (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{on\+Stream,  }\item[{\mbox{\hyperlink{class_device}{Device}} $\ast$}]{device }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling manual\+\_\+processing\char`\"{}); \mbox{\Hypertarget{class_system_a77f86d9cc5592b20d04cb2d2c16552d5}\label{class_system_a77f86d9cc5592b20d04cb2d2c16552d5}} 
+\index{System@{System}!tick@{tick}}
+\index{tick@{tick}!System@{System}}
+\doxysubsubsection{\texorpdfstring{tick()}{tick()}}
+{\footnotesize\ttfamily void System\+::tick (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System wasn\textquotesingle{}t initialized when calling tick\char`\"{}); 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/System.\+h\item 
+src/System.\+cpp\end{DoxyCompactItemize}

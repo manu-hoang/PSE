@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['scanjob_65',['ScanJob',['../class_scan_job.html',1,'']]],
+  ['scanner_66',['Scanner',['../class_scanner.html',1,'']]],
+  ['set_5fbusy_67',['set_busy',['../class_job.html#a2f9b48d934a2b20cde7b79d4d0563331',1,'Job']]],
+  ['set_5fco2_68',['set_CO2',['../class_device.html#a8e18a7419edd11f941921d2ca85297bf',1,'Device']]],
+  ['set_5flimit_69',['set_limit',['../class_device.html#a41f5464f62f5ce24092270ac1245f905',1,'Device']]],
+  ['setcompensated_70',['setCompensated',['../class_job.html#ae634799b9c40fab9b552d14da409766a',1,'Job']]],
+  ['setcompensationname_71',['setCompensationName',['../class_job.html#a770f1335be0b62f1aabec957153e5d89',1,'Job']]],
+  ['setcompnumber_72',['setCompNumber',['../class_job.html#aa1395a5cfc250f9cd6dba53ea8763d3d',1,'Job']]],
+  ['setcurrentpagecount_73',['setCurrentPageCount',['../class_job.html#a0012a0a5e3fc56a99767f24ab1e9c2a6',1,'Job']]],
+  ['setdevicename_74',['setDeviceName',['../class_job.html#a1c57b71746c0321c7b26ac1a9a9b398c',1,'Job']]],
+  ['setqueueposition_75',['setQueuePosition',['../class_job.html#a0791fae0c4a61dd8be9b775b2b5d02eb',1,'Job']]],
+  ['setstarttime_76',['setStartTime',['../class_job.html#ab428702d6fcf6d7feefe4ac6e807b1fc',1,'Job']]],
+  ['settotalco2_77',['setTotalCO2',['../class_job.html#a44f38e8aa917a21e72a9ee157110d74e',1,'Job']]],
+  ['settotalcost_78',['setTotalCost',['../class_job.html#a4e989c621ba09c0067e79e56bd990184',1,'Job']]],
+  ['simple_5foutput_79',['simple_output',['../class_system_exporter.html#ac472d080a6270954c18ad4c50f60aee8',1,'SystemExporter']]],
+  ['statistics_5foutput_80',['statistics_output',['../class_system_exporter.html#a3ab66c092cb9b6e9c5be9aee8146a8b2',1,'SystemExporter']]],
+  ['system_81',['System',['../class_system.html',1,'System'],['../class_system.html#ae317936c9bcf1374d61745572e0f2f8a',1,'System::System()']]],
+  ['systemexporter_82',['SystemExporter',['../class_system_exporter.html',1,'SystemExporter'],['../class_system_exporter.html#a94a90680086f6b2f3d34053163d48293',1,'SystemExporter::SystemExporter()']]],
+  ['systemimporter_83',['SystemImporter',['../class_system_importer.html',1,'']]]
+];

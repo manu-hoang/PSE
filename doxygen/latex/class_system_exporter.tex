@@ -1,0 +1,151 @@
+\hypertarget{class_system_exporter}{}\doxysection{System\+Exporter Class Reference}
+\label{class_system_exporter}\index{SystemExporter@{SystemExporter}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_system_exporter_a94a90680086f6b2f3d34053163d48293}{System\+Exporter}} ()
+\item 
+\mbox{\Hypertarget{class_system_exporter_a1b39b0236e3bec69e7c8ab41c028f67a}\label{class_system_exporter_a1b39b0236e3bec69e7c8ab41c028f67a}} 
+bool {\bfseries properly\+Initialized} ()
+\item 
+bool \mbox{\hyperlink{class_system_exporter_ab3235ec66de9f35fb64dea8eb5436b88}{document\+Started}} ()
+\item 
+virtual void \mbox{\hyperlink{class_system_exporter_a0e85bfcb7721fbb673f57ca179ec5607}{document\+Start}} (std\+::ostream \&on\+Stream)
+\item 
+virtual void \mbox{\hyperlink{class_system_exporter_af26ea3e86fb8bc7a714e7547b0cb7f2e}{document\+End}} (std\+::ostream \&on\+Stream)
+\item 
+void \mbox{\hyperlink{class_system_exporter_ac472d080a6270954c18ad4c50f60aee8}{simple\+\_\+output}} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_system}{System}} \&system)
+\item 
+void \mbox{\hyperlink{class_system_exporter_add2799c74dd946ef21bcb2eb83e55b45}{advanced\+\_\+textual\+\_\+output}} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_system}{System}} \&system)
+\item 
+void \mbox{\hyperlink{class_system_exporter_a3ab66c092cb9b6e9c5be9aee8146a8b2}{statistics\+\_\+output}} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_system}{System}} \&system)
+\item 
+string \mbox{\hyperlink{class_system_exporter_a38037308854ecaeb41bcbfc3b1aeda24}{advanced\+\_\+textual\+\_\+output\+\_\+string}} (\mbox{\hyperlink{class_system}{System}} \&system)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_system_exporter_af4f1de0d2da2ebe4a72eaae2cb116679}\label{class_system_exporter_af4f1de0d2da2ebe4a72eaae2cb116679}} 
+void {\bfseries system\+Start} (std\+::ostream \&on\+Stream, const std\+::string title)
+\item 
+\mbox{\Hypertarget{class_system_exporter_adf88374ed467e5a56f588a802bb99817}\label{class_system_exporter_adf88374ed467e5a56f588a802bb99817}} 
+void {\bfseries whitespace} (std\+::ostream \&on\+Stream)
+\item 
+\mbox{\Hypertarget{class_system_exporter_af835973cb596ad53907bfe49ab80296f}\label{class_system_exporter_af835973cb596ad53907bfe49ab80296f}} 
+void {\bfseries devices\+Start} (std\+::ostream \&on\+Stream)
+\item 
+\mbox{\Hypertarget{class_system_exporter_af2a8e38f9cf999d41fd3e1c84d08ec15}\label{class_system_exporter_af2a8e38f9cf999d41fd3e1c84d08ec15}} 
+void {\bfseries device\+Name} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_device}{Device}} $\ast$device)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a5fbe7ec2aecd45b87abbf6fb6f214089}\label{class_system_exporter_a5fbe7ec2aecd45b87abbf6fb6f214089}} 
+void {\bfseries device\+Emissions} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_device}{Device}} $\ast$device)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a9033e699c5fbd60995a62390cca61d57}\label{class_system_exporter_a9033e699c5fbd60995a62390cca61d57}} 
+void {\bfseries device\+Speed} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_device}{Device}} $\ast$device)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a5ade6774ea4e99f0839cf7cfb9064be1}\label{class_system_exporter_a5ade6774ea4e99f0839cf7cfb9064be1}} 
+void {\bfseries device\+Type} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_device}{Device}} $\ast$device)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a17f0ba174685900449956ab6677c0602}\label{class_system_exporter_a17f0ba174685900449956ab6677c0602}} 
+void {\bfseries device\+Costs} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_device}{Device}} $\ast$device)
+\item 
+\mbox{\Hypertarget{class_system_exporter_af83d06f65b1a715a93296912ebd4ff14}\label{class_system_exporter_af83d06f65b1a715a93296912ebd4ff14}} 
+void {\bfseries jobs\+Start} (std\+::ostream \&on\+Stream)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a57361e8b7289c2b04f110b42a3cf241b}\label{class_system_exporter_a57361e8b7289c2b04f110b42a3cf241b}} 
+void {\bfseries job\+Number} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_job}{Job}} $\ast$job)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a0af93315b7dec705341b6bcfb03cff6a}\label{class_system_exporter_a0af93315b7dec705341b6bcfb03cff6a}} 
+void {\bfseries job\+Owner} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_job}{Job}} $\ast$job)
+\item 
+\mbox{\Hypertarget{class_system_exporter_afa6fe0f0597b0b19021c09e99fdae9a3}\label{class_system_exporter_afa6fe0f0597b0b19021c09e99fdae9a3}} 
+void {\bfseries job\+Device} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_job}{Job}} $\ast$job)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a20ab87a5fa3d6ac26cfd68e69e4a9f10}\label{class_system_exporter_a20ab87a5fa3d6ac26cfd68e69e4a9f10}} 
+void {\bfseries job\+Status} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_job}{Job}} $\ast$job)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a95e459bc4516e43949524c0ea9cab1bd}\label{class_system_exporter_a95e459bc4516e43949524c0ea9cab1bd}} 
+void {\bfseries job\+Total\+Pages} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_job}{Job}} $\ast$job)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a3ff0b233b94a4fb384425a7313911bd3}\label{class_system_exporter_a3ff0b233b94a4fb384425a7313911bd3}} 
+void {\bfseries job\+Total\+CO2} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_job}{Job}} $\ast$job)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a1cdd5bed3914b710c4c226601b25323a}\label{class_system_exporter_a1cdd5bed3914b710c4c226601b25323a}} 
+void {\bfseries job\+Total\+Cost} (std\+::ostream \&on\+Stream, \mbox{\hyperlink{class_job}{Job}} $\ast$job)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a20fb13be3bcab5aa3601bf112e79a1c6}\label{class_system_exporter_a20fb13be3bcab5aa3601bf112e79a1c6}} 
+void {\bfseries compensation\+Start} (std\+::ostream \&on\+Stream)
+\item 
+\mbox{\Hypertarget{class_system_exporter_a3fe2a81d1b8a4ad0dc757e5d771ff684}\label{class_system_exporter_a3fe2a81d1b8a4ad0dc757e5d771ff684}} 
+void {\bfseries system\+End} (std\+::ostream \&on\+Stream)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_system_exporter_a94a90680086f6b2f3d34053163d48293}\label{class_system_exporter_a94a90680086f6b2f3d34053163d48293}} 
+\index{SystemExporter@{SystemExporter}!SystemExporter@{SystemExporter}}
+\index{SystemExporter@{SystemExporter}!SystemExporter@{SystemExporter}}
+\doxysubsubsection{\texorpdfstring{SystemExporter()}{SystemExporter()}}
+{\footnotesize\ttfamily System\+Exporter\+::\+System\+Exporter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ \mbox{\hyperlink{class_system_exporter}{System\+Exporter}} initializer 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_system_exporter_add2799c74dd946ef21bcb2eb83e55b45}\label{class_system_exporter_add2799c74dd946ef21bcb2eb83e55b45}} 
+\index{SystemExporter@{SystemExporter}!advanced\_textual\_output@{advanced\_textual\_output}}
+\index{advanced\_textual\_output@{advanced\_textual\_output}!SystemExporter@{SystemExporter}}
+\doxysubsubsection{\texorpdfstring{advanced\_textual\_output()}{advanced\_textual\_output()}}
+{\footnotesize\ttfamily void System\+Exporter\+::advanced\+\_\+textual\+\_\+output (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{on\+Stream,  }\item[{\mbox{\hyperlink{class_system}{System}} \&}]{system }\end{DoxyParamCaption})}
+
+Use Case 2.\+3\+: Advanced textual output ~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System\+Exporter wasn\textquotesingle{}t initialized when calling advanced\+\_\+textual\+\_\+output\char`\"{}); \mbox{\Hypertarget{class_system_exporter_a38037308854ecaeb41bcbfc3b1aeda24}\label{class_system_exporter_a38037308854ecaeb41bcbfc3b1aeda24}} 
+\index{SystemExporter@{SystemExporter}!advanced\_textual\_output\_string@{advanced\_textual\_output\_string}}
+\index{advanced\_textual\_output\_string@{advanced\_textual\_output\_string}!SystemExporter@{SystemExporter}}
+\doxysubsubsection{\texorpdfstring{advanced\_textual\_output\_string()}{advanced\_textual\_output\_string()}}
+{\footnotesize\ttfamily string System\+Exporter\+::advanced\+\_\+textual\+\_\+output\+\_\+string (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_system}{System}} \&}]{system }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System\+Exporter wasn\textquotesingle{}t initialized when calling statistics\+\_\+output\char`\"{}); \mbox{\Hypertarget{class_system_exporter_af26ea3e86fb8bc7a714e7547b0cb7f2e}\label{class_system_exporter_af26ea3e86fb8bc7a714e7547b0cb7f2e}} 
+\index{SystemExporter@{SystemExporter}!documentEnd@{documentEnd}}
+\index{documentEnd@{documentEnd}!SystemExporter@{SystemExporter}}
+\doxysubsubsection{\texorpdfstring{documentEnd()}{documentEnd()}}
+{\footnotesize\ttfamily void System\+Exporter\+::document\+End (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{on\+Stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System\+Exporter wasn\textquotesingle{}t initialized when calling document\+End\char`\"{}); ~\newline
+ ENSURE(\mbox{\hyperlink{class_system_exporter_ab3235ec66de9f35fb64dea8eb5436b88}{document\+Started()}}, \char`\"{}\+Failed post condition document\+End\char`\"{}); \mbox{\Hypertarget{class_system_exporter_a0e85bfcb7721fbb673f57ca179ec5607}\label{class_system_exporter_a0e85bfcb7721fbb673f57ca179ec5607}} 
+\index{SystemExporter@{SystemExporter}!documentStart@{documentStart}}
+\index{documentStart@{documentStart}!SystemExporter@{SystemExporter}}
+\doxysubsubsection{\texorpdfstring{documentStart()}{documentStart()}}
+{\footnotesize\ttfamily void System\+Exporter\+::document\+Start (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{on\+Stream }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System\+Exporter wasn\textquotesingle{}t initialized when calling document\+Start\char`\"{}); ~\newline
+ ENSURE(\mbox{\hyperlink{class_system_exporter_ab3235ec66de9f35fb64dea8eb5436b88}{document\+Started()}}, \char`\"{}\+Failed post condition document\+Start\char`\"{}); \mbox{\Hypertarget{class_system_exporter_ab3235ec66de9f35fb64dea8eb5436b88}\label{class_system_exporter_ab3235ec66de9f35fb64dea8eb5436b88}} 
+\index{SystemExporter@{SystemExporter}!documentStarted@{documentStarted}}
+\index{documentStarted@{documentStarted}!SystemExporter@{SystemExporter}}
+\doxysubsubsection{\texorpdfstring{documentStarted()}{documentStarted()}}
+{\footnotesize\ttfamily bool System\+Exporter\+::document\+Started (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System\+Exporter wasn\textquotesingle{}t initialized when calling document\+Started\char`\"{}); \mbox{\Hypertarget{class_system_exporter_ac472d080a6270954c18ad4c50f60aee8}\label{class_system_exporter_ac472d080a6270954c18ad4c50f60aee8}} 
+\index{SystemExporter@{SystemExporter}!simple\_output@{simple\_output}}
+\index{simple\_output@{simple\_output}!SystemExporter@{SystemExporter}}
+\doxysubsubsection{\texorpdfstring{simple\_output()}{simple\_output()}}
+{\footnotesize\ttfamily void System\+Exporter\+::simple\+\_\+output (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{on\+Stream,  }\item[{\mbox{\hyperlink{class_system}{System}} \&}]{system }\end{DoxyParamCaption})}
+
+Use Case 2.\+2\+: Simple output (new) ~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System\+Exporter wasn\textquotesingle{}t initialized when calling simple\+\_\+output\char`\"{}); \mbox{\Hypertarget{class_system_exporter_a3ab66c092cb9b6e9c5be9aee8146a8b2}\label{class_system_exporter_a3ab66c092cb9b6e9c5be9aee8146a8b2}} 
+\index{SystemExporter@{SystemExporter}!statistics\_output@{statistics\_output}}
+\index{statistics\_output@{statistics\_output}!SystemExporter@{SystemExporter}}
+\doxysubsubsection{\texorpdfstring{statistics\_output()}{statistics\_output()}}
+{\footnotesize\ttfamily void System\+Exporter\+::statistics\+\_\+output (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{on\+Stream,  }\item[{\mbox{\hyperlink{class_system}{System}} \&}]{system }\end{DoxyParamCaption})}
+
+Use Case 3.\+9\+: Statistical calculations ~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+System\+Exporter wasn\textquotesingle{}t initialized when calling statistics\+\_\+output\char`\"{}); 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/System\+Exporter.\+h\item 
+src/System\+Exporter.\+cpp\end{DoxyCompactItemize}

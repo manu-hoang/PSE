@@ -1,0 +1,27 @@
+\hypertarget{class_system_importer}{}\doxysection{System\+Importer Class Reference}
+\label{class_system_importer}\index{SystemImporter@{SystemImporter}}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Success\+Enum \mbox{\hyperlink{class_system_importer_ab3d7b1c1cac31b12578f747c9facbd1c}{import\+System}} (const char $\ast$inputfilename, std\+::ostream \&err\+Stream, \mbox{\hyperlink{class_system}{System}} \&system)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_system_importer_ab3d7b1c1cac31b12578f747c9facbd1c}\label{class_system_importer_ab3d7b1c1cac31b12578f747c9facbd1c}} 
+\index{SystemImporter@{SystemImporter}!importSystem@{importSystem}}
+\index{importSystem@{importSystem}!SystemImporter@{SystemImporter}}
+\doxysubsubsection{\texorpdfstring{importSystem()}{importSystem()}}
+{\footnotesize\ttfamily Success\+Enum System\+Importer\+::import\+System (\begin{DoxyParamCaption}\item[{const char $\ast$}]{inputfilename,  }\item[{std\+::ostream \&}]{err\+Stream,  }\item[{\mbox{\hyperlink{class_system}{System}} \&}]{system }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Read an XML description of an input file from in\+Stream and process it into the system. If errors occur, report them on err\+Stream. Return whether succesful in the errorcode\+:
+\begin{DoxyItemize}
+\item Import\+Aborted = \mbox{\hyperlink{class_system}{System}} is unchanged; reason for abortion is reported on err\+Stream
+\item Partial\+Import = Some semantic errors reported on err\+Stream; state is partially imported and system might have changed
+\item Succes = No importer errors; no errors reported 
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/System\+Importer.\+h\item 
+src/System\+Importer.\+cpp\end{DoxyCompactItemize}

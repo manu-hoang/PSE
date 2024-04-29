@@ -1,0 +1,235 @@
+\hypertarget{class_device}{}\doxysection{Device Class Reference}
+\label{class_device}\index{Device@{Device}}
+
+
+Inheritance diagram for Device\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_device_a9bd6e18c7fea6029b23ebb4c4f80f0d0}{Device}} (string name, int emissions, double speed, int cost)
+\item 
+\mbox{\Hypertarget{class_device_af764e9ea0f181f14d6d4c6f807c613c8}\label{class_device_af764e9ea0f181f14d6d4c6f807c613c8}} 
+virtual Device\+Enum {\bfseries get\+\_\+type} ()=0
+\item 
+\mbox{\Hypertarget{class_device_ab70d6d270b62c48ddb2cc9cfe0d22cf2}\label{class_device_ab70d6d270b62c48ddb2cc9cfe0d22cf2}} 
+bool {\bfseries properly\+Initialized} ()
+\item 
+bool \mbox{\hyperlink{class_device_a2fd31025c424894ed7e206d1d4d3afa3}{print}} (int total\+Run\+Time)
+\item 
+void \mbox{\hyperlink{class_device_ac623d896f3532dd8dad2a62a09518abe}{pop\+Queue}} ()
+\item 
+void \mbox{\hyperlink{class_device_a6b99b11646318e611a3adad67326ffda}{update\+Positions}} (int total\+Run\+Time)
+\item 
+\mbox{\hyperlink{class_job}{Job}} $\ast$ \mbox{\hyperlink{class_device_a0589f66edbd6de002aacac755dd3642c}{get\+Current\+Job}} ()
+\item 
+void \mbox{\hyperlink{class_device_aa170a39b45f49db70ddca7bcd42b5e31}{add\+\_\+job}} (\mbox{\hyperlink{class_job}{Job}} $\ast$job)
+\item 
+queue$<$ \mbox{\hyperlink{class_job}{Job}} $\ast$ $>$ \mbox{\hyperlink{class_device_aa24654577785dc3bb06792be568dca5d}{get\+\_\+queue}} ()
+\item 
+int \mbox{\hyperlink{class_device_ad363bb4691ff8465b0c528db18407e4a}{get\+\_\+\+CO2}} ()
+\item 
+void \mbox{\hyperlink{class_device_a8e18a7419edd11f941921d2ca85297bf}{set\+\_\+\+CO2}} (int value)
+\item 
+bool \mbox{\hyperlink{class_device_a0533410da9ee83507d5b07d92b803472}{exceeds\+\_\+\+CO2\+\_\+limit}} (int value)
+\item 
+int \mbox{\hyperlink{class_device_aad11b2277d1e68ac90e708ac385d15bc}{get\+\_\+emissions}} ()
+\item 
+int \mbox{\hyperlink{class_device_a0436e0b1414bfe2291da8a6f3ef4ed69}{get\+\_\+speed}} ()
+\item 
+int \mbox{\hyperlink{class_device_a7c490b5feb738f928fae508ba534def6}{get\+\_\+total\+\_\+pages}} ()
+\item 
+int \mbox{\hyperlink{class_device_a900a2bacecd1e7732d5e01d1e6d4ebee}{get\+\_\+limit}} ()
+\item 
+string \mbox{\hyperlink{class_device_a40d76ebef523305c69df9635b0eb81ec}{get\+Name}} ()
+\item 
+string \mbox{\hyperlink{class_device_a88f6816027747530b9dce5364a4b1d42}{get\+Emissions}} ()
+\item 
+string \mbox{\hyperlink{class_device_a37efdb8387284bbdf4229bef7ef7411c}{get\+Speed}} ()
+\item 
+string \mbox{\hyperlink{class_device_ab6470478c254826f570fc80723048fec}{get\+Type}} ()
+\item 
+string \mbox{\hyperlink{class_device_ab1cb5320eefc1323c879893e16db34c7}{get\+Type\+Job}} ()
+\item 
+int \mbox{\hyperlink{class_device_a3ef34cb1cb585b5bb0dfd850fab55c36}{get\+Costs}} ()
+\item 
+void \mbox{\hyperlink{class_device_a41f5464f62f5ce24092270ac1245f905}{set\+\_\+limit}} (int limit)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_device_a9bd6e18c7fea6029b23ebb4c4f80f0d0}\label{class_device_a9bd6e18c7fea6029b23ebb4c4f80f0d0}} 
+\index{Device@{Device}!Device@{Device}}
+\index{Device@{Device}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{Device()}{Device()}}
+{\footnotesize\ttfamily Device\+::\+Device (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{int}]{emissions,  }\item[{double}]{speed,  }\item[{int}]{cost }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(emissions $>$= 0, \char`\"{}\+Emissions must be non-\/negative\char`\"{}); ~\newline
+ REQUIRE(speed $>$= 0, \char`\"{}\+Speed must be non-\/negative\char`\"{}); ~\newline
+ REQUIRE(cost $>$= 0, \char`\"{}\+Cost must be non-\/negative\char`\"{}); ~\newline
+ ENSURE(busy == false, \char`\"{}\+Device must not be busy after being initialized\char`\"{}); ~\newline
+ ENSURE(properly\+Initialized(),\char`\"{}\+Constructor must end in properly\+Initialized state\char`\"{}); ~\newline
+ ENSURE(\+\_\+queue.\+empty(), \char`\"{}queue must be empty when initialized\char`\"{}); ~\newline
+ ENSURE(CO2\+\_\+value == 0, \char`\"{}\+CO2\+\_\+value must be 0 when initialized\char`\"{}); 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_device_aa170a39b45f49db70ddca7bcd42b5e31}\label{class_device_aa170a39b45f49db70ddca7bcd42b5e31}} 
+\index{Device@{Device}!add\_job@{add\_job}}
+\index{add\_job@{add\_job}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{add\_job()}{add\_job()}}
+{\footnotesize\ttfamily void Device\+::add\+\_\+job (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_job}{Job}} $\ast$}]{job }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling add\+\_\+job\char`\"{}); ~\newline
+ REQUIRE(job != nullptr, \char`\"{}\+Cannot add nullptr as job to device\char`\"{}); ~\newline
+ ENSURE(this-\/$>$busy == true, \char`\"{}add\+\_\+job post condition failure\char`\"{}); \mbox{\Hypertarget{class_device_a0533410da9ee83507d5b07d92b803472}\label{class_device_a0533410da9ee83507d5b07d92b803472}} 
+\index{Device@{Device}!exceeds\_CO2\_limit@{exceeds\_CO2\_limit}}
+\index{exceeds\_CO2\_limit@{exceeds\_CO2\_limit}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{exceeds\_CO2\_limit()}{exceeds\_CO2\_limit()}}
+{\footnotesize\ttfamily bool Device\+::exceeds\+\_\+\+CO2\+\_\+limit (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling exceeds\+\_\+\+CO2\+\_\+limit\char`\"{}); \mbox{\Hypertarget{class_device_ad363bb4691ff8465b0c528db18407e4a}\label{class_device_ad363bb4691ff8465b0c528db18407e4a}} 
+\index{Device@{Device}!get\_CO2@{get\_CO2}}
+\index{get\_CO2@{get\_CO2}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{get\_CO2()}{get\_CO2()}}
+{\footnotesize\ttfamily int Device\+::get\+\_\+\+CO2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+\_\+\+CO2\char`\"{}); ~\newline
+ ENSURE(CO2\+\_\+value $>$= 0, \char`\"{}\+CO2\+\_\+value value must be greater or equal than 0\char`\"{}); \mbox{\Hypertarget{class_device_aad11b2277d1e68ac90e708ac385d15bc}\label{class_device_aad11b2277d1e68ac90e708ac385d15bc}} 
+\index{Device@{Device}!get\_emissions@{get\_emissions}}
+\index{get\_emissions@{get\_emissions}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{get\_emissions()}{get\_emissions()}}
+{\footnotesize\ttfamily int Device\+::get\+\_\+emissions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+\_\+emissions\char`\"{}); ~\newline
+ ENSURE(this-\/$>$emissions $>$= 0, \char`\"{}this-\/$>$emissions value must be greater or equal than 0\char`\"{}); \mbox{\Hypertarget{class_device_a900a2bacecd1e7732d5e01d1e6d4ebee}\label{class_device_a900a2bacecd1e7732d5e01d1e6d4ebee}} 
+\index{Device@{Device}!get\_limit@{get\_limit}}
+\index{get\_limit@{get\_limit}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{get\_limit()}{get\_limit()}}
+{\footnotesize\ttfamily int Device\+::get\+\_\+limit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+\_\+limit\char`\"{}); ~\newline
+ ENSURE(CO2\+\_\+limit $>$= 0, \char`\"{}\+CO2\+\_\+limit value must be greater or equal than 0\char`\"{}); \mbox{\Hypertarget{class_device_aa24654577785dc3bb06792be568dca5d}\label{class_device_aa24654577785dc3bb06792be568dca5d}} 
+\index{Device@{Device}!get\_queue@{get\_queue}}
+\index{get\_queue@{get\_queue}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{get\_queue()}{get\_queue()}}
+{\footnotesize\ttfamily queue$<$ \mbox{\hyperlink{class_job}{Job}} $\ast$ $>$ Device\+::get\+\_\+queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+\_\+queue\char`\"{}); \mbox{\Hypertarget{class_device_a0436e0b1414bfe2291da8a6f3ef4ed69}\label{class_device_a0436e0b1414bfe2291da8a6f3ef4ed69}} 
+\index{Device@{Device}!get\_speed@{get\_speed}}
+\index{get\_speed@{get\_speed}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{get\_speed()}{get\_speed()}}
+{\footnotesize\ttfamily int Device\+::get\+\_\+speed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+\_\+speed\char`\"{}); ~\newline
+ ENSURE(this-\/$>$speed $>$= 0, \char`\"{}this-\/$>$speed value must be greater or equal than 0\char`\"{}); \mbox{\Hypertarget{class_device_a7c490b5feb738f928fae508ba534def6}\label{class_device_a7c490b5feb738f928fae508ba534def6}} 
+\index{Device@{Device}!get\_total\_pages@{get\_total\_pages}}
+\index{get\_total\_pages@{get\_total\_pages}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{get\_total\_pages()}{get\_total\_pages()}}
+{\footnotesize\ttfamily int Device\+::get\+\_\+total\+\_\+pages (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+\_\+total\+\_\+pages\char`\"{}); ~\newline
+ ENSURE(total $>$= 0, \char`\"{}total value must be greater or equal than 0\char`\"{}); \mbox{\Hypertarget{class_device_a3ef34cb1cb585b5bb0dfd850fab55c36}\label{class_device_a3ef34cb1cb585b5bb0dfd850fab55c36}} 
+\index{Device@{Device}!getCosts@{getCosts}}
+\index{getCosts@{getCosts}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{getCosts()}{getCosts()}}
+{\footnotesize\ttfamily int Device\+::get\+Costs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+Costs\char`\"{}); ~\newline
+ ENSURE(cost $>$= 0, \char`\"{}cost value must be greater or equal than 0\char`\"{}); \mbox{\Hypertarget{class_device_a0589f66edbd6de002aacac755dd3642c}\label{class_device_a0589f66edbd6de002aacac755dd3642c}} 
+\index{Device@{Device}!getCurrentJob@{getCurrentJob}}
+\index{getCurrentJob@{getCurrentJob}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{getCurrentJob()}{getCurrentJob()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_job}{Job}} $\ast$ Device\+::get\+Current\+Job (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+Current\+Job\char`\"{}); \mbox{\Hypertarget{class_device_a88f6816027747530b9dce5364a4b1d42}\label{class_device_a88f6816027747530b9dce5364a4b1d42}} 
+\index{Device@{Device}!getEmissions@{getEmissions}}
+\index{getEmissions@{getEmissions}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{getEmissions()}{getEmissions()}}
+{\footnotesize\ttfamily string Device\+::get\+Emissions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+Emissions\char`\"{}); \mbox{\Hypertarget{class_device_a40d76ebef523305c69df9635b0eb81ec}\label{class_device_a40d76ebef523305c69df9635b0eb81ec}} 
+\index{Device@{Device}!getName@{getName}}
+\index{getName@{getName}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily string Device\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+Name\char`\"{}); \mbox{\Hypertarget{class_device_a37efdb8387284bbdf4229bef7ef7411c}\label{class_device_a37efdb8387284bbdf4229bef7ef7411c}} 
+\index{Device@{Device}!getSpeed@{getSpeed}}
+\index{getSpeed@{getSpeed}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{getSpeed()}{getSpeed()}}
+{\footnotesize\ttfamily string Device\+::get\+Speed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+Speed\char`\"{}); \mbox{\Hypertarget{class_device_ab6470478c254826f570fc80723048fec}\label{class_device_ab6470478c254826f570fc80723048fec}} 
+\index{Device@{Device}!getType@{getType}}
+\index{getType@{getType}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily string Device\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+Type\char`\"{}); \mbox{\Hypertarget{class_device_ab1cb5320eefc1323c879893e16db34c7}\label{class_device_ab1cb5320eefc1323c879893e16db34c7}} 
+\index{Device@{Device}!getTypeJob@{getTypeJob}}
+\index{getTypeJob@{getTypeJob}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{getTypeJob()}{getTypeJob()}}
+{\footnotesize\ttfamily string Device\+::get\+Type\+Job (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling get\+Type\char`\"{}); \mbox{\Hypertarget{class_device_ac623d896f3532dd8dad2a62a09518abe}\label{class_device_ac623d896f3532dd8dad2a62a09518abe}} 
+\index{Device@{Device}!popQueue@{popQueue}}
+\index{popQueue@{popQueue}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{popQueue()}{popQueue()}}
+{\footnotesize\ttfamily void Device\+::pop\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling pop\+Queue\char`\"{}); \mbox{\Hypertarget{class_device_a2fd31025c424894ed7e206d1d4d3afa3}\label{class_device_a2fd31025c424894ed7e206d1d4d3afa3}} 
+\index{Device@{Device}!print@{print}}
+\index{print@{print}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily bool Device\+::print (\begin{DoxyParamCaption}\item[{int}]{total\+Run\+Time }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling print\char`\"{}); ~\newline
+ REQUIRE(total\+Run\+Time $>$= 0, \char`\"{}total\+Run\+Time value must be equal or higher then 0\char`\"{}); ~\newline
+ ENSURE(busy == true, \char`\"{}\+Device must be busy after print is called\char`\"{}); \mbox{\Hypertarget{class_device_a8e18a7419edd11f941921d2ca85297bf}\label{class_device_a8e18a7419edd11f941921d2ca85297bf}} 
+\index{Device@{Device}!set\_CO2@{set\_CO2}}
+\index{set\_CO2@{set\_CO2}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{set\_CO2()}{set\_CO2()}}
+{\footnotesize\ttfamily void Device\+::set\+\_\+\+CO2 (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling set\+\_\+\+CO2\char`\"{}); ~\newline
+ REQUIRE(value $>$= 0, \char`\"{}value must be non-\/negative\char`\"{}); \mbox{\Hypertarget{class_device_a41f5464f62f5ce24092270ac1245f905}\label{class_device_a41f5464f62f5ce24092270ac1245f905}} 
+\index{Device@{Device}!set\_limit@{set\_limit}}
+\index{set\_limit@{set\_limit}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{set\_limit()}{set\_limit()}}
+{\footnotesize\ttfamily void Device\+::set\+\_\+limit (\begin{DoxyParamCaption}\item[{int}]{limit }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling set\+\_\+limit\char`\"{}); ~\newline
+ REQUIRE(limit $>$= 0, \char`\"{}value must be non-\/negative\char`\"{}); \mbox{\Hypertarget{class_device_a6b99b11646318e611a3adad67326ffda}\label{class_device_a6b99b11646318e611a3adad67326ffda}} 
+\index{Device@{Device}!updatePositions@{updatePositions}}
+\index{updatePositions@{updatePositions}!Device@{Device}}
+\doxysubsubsection{\texorpdfstring{updatePositions()}{updatePositions()}}
+{\footnotesize\ttfamily void Device\+::update\+Positions (\begin{DoxyParamCaption}\item[{int}]{total\+Run\+Time }\end{DoxyParamCaption})}
+
+~\newline
+ REQUIRE(properly\+Initialized(), \char`\"{}\+Device wasn\textquotesingle{}t initialized when calling update\+Positions\char`\"{}); ~\newline
+ REQUIRE(total\+Run\+Time $>$= 0, \char`\"{}total\+Run\+Time value must be equal or higher then 0\char`\"{}); 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Device.\+h\item 
+src/Device.\+cpp\end{DoxyCompactItemize}
