@@ -8,10 +8,10 @@
     </DEVICE>
     <DEVICE>
         <name>ColorPrinter</name>
-        <emission>0</emission>
+        <emission>6</emission>
         <type>color</type>
         <speed>32</speed>
-        <cost>0</cost>
+        <cost>30</cost>
     </DEVICE>
     <JOB>
         <jobNumber>89751</jobNumber>
@@ -32,6 +32,7 @@
         <type>color</type>
         <userName>oneoneone</userName>
     </JOB>
+
     <COMPENSATION>
         <compNumber>545684</compNumber>
         <name>Students 4 Climate</name>

@@ -281,7 +281,7 @@ TEST_F(FunctionalityTests, StatisticalCalculations) {
     ASSERT_TRUE(DirectoryExists("tests/functionalityTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    SystemExporter exporter;
+    AdvancedTextualExporter advanced_exporter;
 
     // input parser
     ofstream myfile;
@@ -292,18 +292,19 @@ TEST_F(FunctionalityTests, StatisticalCalculations) {
     int seconds = 2; // total run time of the program
     sys.divideJobs(); // divide all jobs to respective devices queue before loop (prevents multiple unnecessary divisions)
 
-    exporter.documentStart(myfile);
+    advanced_exporter.documentStart(myfile);
     for (int i = 0; i <= seconds; ++i) {
         sys.tick();
-        exporter.advanced_textual_output(myfile, sys);
+        advanced_exporter.output(myfile, sys);
     }
-    exporter.documentEnd(myfile);
+    advanced_exporter.documentEnd(myfile);
 
     // simple output
+    StatisticsExporter statistics_exporter;
     myfile.open("tests/functionalityTests/StatisticalCalculationsOutput.txt");
-    exporter.documentStart(myfile);
-    exporter.statistics_output(myfile, sys);
-    exporter.documentEnd(myfile);
+    statistics_exporter.documentStart(myfile);
+    statistics_exporter.output(myfile, sys);
+    statistics_exporter.documentEnd(myfile);
     myfile.close();
 
     EXPECT_TRUE(FileCompare("tests/functionalityTests/StatisticalCalculationsOutput.txt",

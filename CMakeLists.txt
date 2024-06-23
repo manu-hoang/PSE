@@ -44,6 +44,15 @@ set(DEBUG_SOURCE_FILES
         src/Compensation.cpp
         tests/TestUtils.cpp
         tests/PrinterOutputTests.cpp
+        graphics_engine/engine.h
+        graphics_engine/build/utils/easy_image.cc
+        graphics_engine/build/utils/ini_configuration.cc
+        graphics_engine/build/utils/vector3d.cc
+        graphics_engine/build/createSolids.cpp
+        graphics_engine/build/Figure3D.cpp
+        graphics_engine/build/Lines2D.cpp
+        graphics_engine/build/Matrices.cpp
+        graphics_engine/build/ZBuffer.cpp
 )
 
 # Create RELEASE target

@@ -123,7 +123,7 @@ TEST_F(PrinterOutputTest, SimpleOutput) {
 
 
 
-    SystemExporter exporter;
+    SimpleExporter exporter;
 
     myfile.open("tests/outputTests/SimpleOutput.txt");
 
@@ -134,7 +134,7 @@ TEST_F(PrinterOutputTest, SimpleOutput) {
     }
 
     exporter.documentStart(myfile);
-    exporter.simple_output(myfile, sys);
+    exporter.output(myfile, sys);
     exporter.documentEnd(myfile);
 
     myfile.close();
@@ -156,7 +156,7 @@ TEST_F(PrinterOutputTest, AdvancedTextualOutput) {
 
 
 
-    SystemExporter exporter;
+    AdvancedTextualExporter exporter;
 
     myfile.open("tests/outputTests/AdvancedTextualOutput.txt");
 
@@ -167,7 +167,7 @@ TEST_F(PrinterOutputTest, AdvancedTextualOutput) {
     }
 
     exporter.documentStart(myfile);
-    exporter.advanced_textual_output(myfile, sys);
+    exporter.output(myfile, sys);
     exporter.documentEnd(myfile);
 
     myfile.close();
@@ -182,19 +182,19 @@ TEST_F(PrinterOutputTest, ExporterTestsContractViolations) {
     ASSERT_TRUE(DirectoryExists("tests/outputTests"));
     //if directory doesn't exist then no need in proceeding with the test
 
-    SystemExporter exporter;
+    SimpleExporter exporter;
     ofstream myfile;
 
     myfile.open("tests/OutputTests/ExporterTestsContractViolations.txt");
     EXPECT_TRUE(exporter.properlyInitialized());
     EXPECT_FALSE(exporter.documentStarted());
-    EXPECT_DEATH(exporter.simple_output(myfile, sys), "Document was not started when calling simple_output");
+    EXPECT_DEATH(exporter.output(myfile, sys), "Document was not started when calling simple_output");
 
     exporter.documentStart(myfile);
     EXPECT_TRUE(exporter.documentStarted());
-    exporter.simple_output(myfile, sys);
+    exporter.output(myfile, sys);
     exporter.documentEnd(myfile);
     EXPECT_FALSE(exporter.documentStarted());
-    EXPECT_DEATH(exporter.simple_output(myfile, sys), "Document was not started when calling simple_output");
+    EXPECT_DEATH(exporter.output(myfile, sys), "Document was not started when calling simple_output");
     myfile.close();
 }
