@@ -14,17 +14,21 @@ include_directories(./gtest/include)
 # Set Library dir
 link_directories(./gtest/lib)
 
-# Find SFML
-set(SFML_DIR "path/to/SFML/cmake/modules" CACHE PATH "SFML config directory")
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
-
 
 # Set source files for RELEASE target
 # Only add cpp files, no h files!
 # Only add files with functionality here, no test files!
 set(RELEASE_SOURCE_FILES src/SystemExporter.cpp src/SystemImporter.cpp src/Job.cpp src/Compensation.cpp src/Device.cpp src/System.cpp
-        src/PrinterMain.cpp tinyxml/tinyxml.cpp tinyxml/tinystr.cpp tinyxml/tinyxmlerror.cpp tinyxml/tinyxmlparser.cpp sfml/State.cpp
-        sfml/stateManager.cpp)
+        src/PrinterMain.cpp tinyxml/tinyxml.cpp tinyxml/tinystr.cpp tinyxml/tinyxmlerror.cpp tinyxml/tinyxmlparser.cpp
+        graphics_engine/engine.h
+        graphics_engine/build/utils/easy_image.cc
+        graphics_engine/build/utils/ini_configuration.cc
+        graphics_engine/build/utils/vector3d.cc
+        graphics_engine/build/createSolids.cpp
+        graphics_engine/build/Figure3D.cpp
+        graphics_engine/build/Lines2D.cpp
+        graphics_engine/build/Matrices.cpp
+        graphics_engine/build/ZBuffer.cpp)
 
 # Set source files for DEBUG target
 # Only add cpp files, no h files!
@@ -50,4 +54,3 @@ add_executable(debug_target ${DEBUG_SOURCE_FILES})
 
 # Link library
 target_link_libraries(debug_target gtest)
-target_link_libraries(release_target sfml-graphics sfml-window sfml-system)

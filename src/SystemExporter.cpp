@@ -8,6 +8,7 @@
 
 #include "contracts/DesignByContract.h"
 #include "SystemExporter.h"
+#include "../graphics_engine/engine.h"
 
 using namespace std;
 
@@ -29,89 +30,8 @@ bool SystemExporter::documentStarted() {
     return _documentStarted;
 }
 
-
-void SystemExporter::simple_output (std::ostream& onStream, System &system) {
-    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling simple_output");
-    REQUIRE(documentStarted(), "Document was not started when calling simple_output");
-
-    documentStart(onStream);
-
-    systemStart(onStream, "System Status");
-    whitespace(onStream);
-
-    devicesStart(onStream);
-    whitespace(onStream);
-
-    for(auto device : system.getDevices()){
-        deviceName(onStream, device);
-        deviceEmissions(onStream, device);
-        deviceSpeed(onStream, device);
-        deviceType(onStream, device);
-        deviceCosts(onStream, device);
-
-        whitespace(onStream);
-    }
-
-    jobsStart(onStream);
-    whitespace(onStream);
-
-    for(auto job : system.getJobs()){
-        jobNumber(onStream, job);
-        jobOwner(onStream, job);
-        jobDevice(onStream, job);
-        jobStatus(onStream, job);
-        jobTotalPages(onStream, job);
-        jobTotalCO2(onStream, job);
-        jobTotalCost(onStream, job);
-
-        if(job->getCompensated()){
-            onStream << "* Compensation: " << job->getCompensationName() << std::endl;
-        }
-
-        whitespace(onStream);
-    }
-
-    compensationStart(onStream);
-    for(auto compensation : system.getCompensations()){
-        onStream << compensation->getName() << " [#" << compensation->getCompNumber() << "]" << endl;
-    }
-    whitespace(onStream);
-
-    systemEnd(onStream);
-
-    documentEnd(onStream);
-}
-
 string display(Job* job){
     return "[" + to_string(job->getCurrentPageCount()) + "/" + to_string(job->getTotalPageCount()) + "]";
-}
-
-void SystemExporter::advanced_textual_output(ostream &onStream, System &system) {
-    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling advanced_textual_output");
-    REQUIRE(documentStarted(), "Document was not started when calling simple_output");
-
-    for(auto device : system.getDevices()){
-        onStream << device->getName() << endl;
-        auto queue = device->get_queue();
-
-        int counter = 0;
-
-        onStream << "   ";
-
-        while(!queue.empty()){
-            onStream << display(queue.front()) << " ";
-            queue.pop();
-            counter++;
-
-            if(counter == 1){
-                onStream << " | ";
-                counter++;
-            }
-        }
-
-        onStream << endl;
-    }
-    onStream << endl;
 }
 
 string SystemExporter::advanced_textual_output_string(System &system) {
@@ -228,7 +148,90 @@ void SystemExporter::systemEnd (std::ostream& onStream) {
     onStream << "# ======================= #" << std::endl;
 }
 
-void SystemExporter::statistics_output(ostream &onStream, System &system) {
+void SystemExporter::output(ostream &onStream, System &system) {
+}
+
+void SimpleExporter::output(ostream &onStream, System &system) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling simple_output");
+    REQUIRE(documentStarted(), "Document was not started when calling simple_output");
+
+    documentStart(onStream);
+
+    systemStart(onStream, "System Status");
+    whitespace(onStream);
+
+    devicesStart(onStream);
+    whitespace(onStream);
+
+    for(auto device : system.getDevices()){
+        deviceName(onStream, device);
+        deviceEmissions(onStream, device);
+        deviceSpeed(onStream, device);
+        deviceType(onStream, device);
+        deviceCosts(onStream, device);
+
+        whitespace(onStream);
+    }
+
+    jobsStart(onStream);
+    whitespace(onStream);
+
+    for(auto job : system.getJobs()){
+        jobNumber(onStream, job);
+        jobOwner(onStream, job);
+        jobDevice(onStream, job);
+        jobStatus(onStream, job);
+        jobTotalPages(onStream, job);
+        jobTotalCO2(onStream, job);
+        jobTotalCost(onStream, job);
+
+        if(job->getCompensated()){
+            onStream << "* Compensation: " << job->getCompensationName() << std::endl;
+        }
+
+        whitespace(onStream);
+    }
+
+    compensationStart(onStream);
+    for(auto compensation : system.getCompensations()){
+        onStream << compensation->getName() << " [#" << compensation->getCompNumber() << "]" << endl;
+    }
+    whitespace(onStream);
+
+    systemEnd(onStream);
+
+    documentEnd(onStream);
+}
+
+void AdvancedTextualExporter::output(ostream &onStream, System &system) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling advanced_textual_output");
+    REQUIRE(documentStarted(), "Document was not started when calling simple_output");
+
+    for(auto device : system.getDevices()){
+        onStream << device->getName() << endl;
+        auto queue = device->get_queue();
+
+        int counter = 0;
+
+        onStream << "   ";
+
+        while(!queue.empty()){
+            onStream << display(queue.front()) << " ";
+            queue.pop();
+            counter++;
+
+            if(counter == 1){
+                onStream << " | ";
+                counter++;
+            }
+        }
+
+        onStream << endl;
+    }
+    onStream << endl;
+}
+
+void StatisticsExporter::output(ostream &onStream, System &system) {
     system.calculateStatistics();
 
     onStream << "Interesting Statistics: " << endl << endl;
@@ -243,4 +246,65 @@ void SystemExporter::statistics_output(ostream &onStream, System &system) {
     if(system.getMostUsedCompensation() != nullptr) {
         onStream << "Most used compensation: " << system.getMostUsedCompensation()->getName() << endl;
     } else{ onStream << "Most used compensation: No compensations" << endl;}
+}
+
+void GraphicsExporter::output(ostream &onStream, System &system) {
+    onStream << "[General]" << endl;
+    onStream << "type = \"Wireframe\"" << endl;
+    onStream << "size = 1000" << endl;
+    onStream << "backgroundcolor = (0, 0, 0)" << endl;
+
+    int unfinished_jobs = 0;
+
+    for (auto job : system.getJobs()) {
+        if(!job->getFinished()){
+            unfinished_jobs++;
+        }
+    }
+
+    onStream << "nrFigures = " << system.getDevices().size() + unfinished_jobs << endl;
+    onStream << "eye = (100, 50, 75)" << endl << endl;
+
+    int figure_counter = 0;
+    for (long long unsigned int i = 0; i < system.getDevices().size(); ++i) {
+        onStream << "[Figure" << figure_counter << "]" << endl;
+        onStream << "type = \"Cube\"" << endl;
+
+        if(system.getDevices()[i]->get_queue().empty()){
+            // GREEN = FREE
+            onStream << "color = (0, 1, 0)" << endl;
+        }
+        else {
+            // RED = BUSY
+            onStream << "color = (1, 0, 0)" << endl;
+        }
+
+        onStream << "scale = 1" << endl;
+        onStream << "rotateX = 0" << endl;
+        onStream << "rotateY = 0" << endl;
+        onStream << "rotateZ = 0" << endl;
+        onStream << "center = (0, " << i*4 << ", 0)" << endl;
+
+        onStream << endl;
+
+        if(!system.getDevices()[i]->get_queue().empty()) {
+            for (long long unsigned int job = 0; job < system.getDevices()[i]->get_queue().size(); ++job) {
+                figure_counter++;
+                onStream << "[Figure" << figure_counter << "]" << endl;
+                onStream << "type = \"Cube\"" << endl;
+                onStream << "color = (0, 0, 1)" << endl;
+                onStream << "scale = 0.2" << endl;
+                onStream << "rotateX = 0" << endl;
+                onStream << "rotateY = 0" << endl;
+                onStream << "rotateZ = 0" << endl;
+                onStream << "center = (0, " << i * 4 << ", " << -1 + job * 0.4 << ")" << endl;
+
+                onStream << endl;
+            }
+        }
+
+        figure_counter++;
+    }
+
+    graphics();
 }

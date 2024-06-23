@@ -3,7 +3,6 @@
 #include "SystemImporter.h"
 #include "SystemExporter.h"
 #include "contracts/DesignByContract.h"
-#include "../sfml/stateManager.h"
 #include "chrono"
 
 using namespace std;
@@ -11,7 +10,7 @@ using namespace std;
 int main() {
 
     System system;
-    SystemExporter exporter;
+    AdvancedTextualExporter advanced_exporter;
 
     // input parser
     ofstream myfile;
@@ -19,36 +18,44 @@ int main() {
     SystemImporter::importSystem("./xml_files/CompleteInput.xml", myfile, system);
     myfile.close();
 
-    /*
     myfile.open("in_output/advanced_textual_output.txt");
-    exporter.documentStart(myfile);
+    advanced_exporter.documentStart(myfile);
 
     // main loop
-    int seconds = 3; // total run time of the program
+    int seconds = 1; // total run time of the program
     system.divideJobs(); // divide all jobs to respective devices queue before loop (prevents multiple unnecessary divisions)
     for (int i = 0; i <= seconds; ++i) {
         system.tick();
-        exporter.advanced_textual_output(myfile, system);
+        advanced_exporter.output(myfile, system);
     }
 
-    //system.automated_processing(cout);
+/*    system.automated_processing(cout);
+    advanced_exporter.output(myfile, system);
+    system.calculateStatistics();*/
 
-    //system.calculateStatistics();
-
-    exporter.documentEnd(myfile);
+    advanced_exporter.documentEnd(myfile);
     myfile.close();
-     */
 
     // simple output
+    SimpleExporter simple_exporter;
     myfile.open("in_output/simple_output.txt");
 
-    exporter.documentStart(myfile);
-    exporter.simple_output(myfile, system);
-    exporter.documentEnd(myfile);
+    simple_exporter.documentStart(myfile);
+    simple_exporter.output(myfile, system);
+    simple_exporter.documentEnd(myfile);
 
     myfile.close();
 
-    // Create the SFML window
+
+    // 3D Graphical output
+    GraphicsExporter graphics_exporter;
+    myfile.open("in_output/graphics.ini");
+    graphics_exporter.documentStart(myfile);
+    graphics_exporter.output(myfile, system);
+    graphics_exporter.documentEnd(myfile);
+    myfile.close();
+
+/*    // Create the SFML window
     sf::RenderWindow window(sf::VideoMode(500, 700), "SFML Window");
     system.divideJobs();
     stateManager s(window,system,exporter);
@@ -172,7 +179,5 @@ int main() {
         }
     }
 
-    return 0;
-
-    return 0;
+    return 0;*/
 }

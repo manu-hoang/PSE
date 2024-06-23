@@ -8,10 +8,10 @@
     </DEVICE>
     <DEVICE>
         <name>ColorPrinter</name>
-        <emission>6</emission>
+        <emission>0</emission>
         <type>color</type>
         <speed>32</speed>
-        <cost>30</cost>
+        <cost>0</cost>
     </DEVICE>
     <JOB>
         <jobNumber>89751</jobNumber>

@@ -47,23 +47,8 @@ public:
     */
     virtual void documentEnd (std::ostream& onStream);
 
-    /**
-     *  Use Case 2.2: Simple output (new)
-     \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling simple_output");
-    */
-    void simple_output (std::ostream& onStream, System &system);
 
-    /**
-     *  Use Case 2.3: Advanced textual output
-     \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling advanced_textual_output");
-    */
-    void advanced_textual_output (std::ostream& onStream, System &system);
-
-    /**
-     *  Use Case 3.9: Statistical calculations
-     \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling statistics_output");
-    */
-    void statistics_output (std::ostream& onStream, System &system);
+    virtual void output(std::ostream& onStream, System &system);
 
     /**
     \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling statistics_output");
@@ -101,6 +86,39 @@ private:
     SystemExporter * _initCheck; //! use pointer to myself to verify whether I am properly initialized
     bool _documentStarted;
 
+};
+
+/**
+ *  Use Case 2.2: Simple output (new)
+ \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling simple_output");
+*/
+class SimpleExporter : public SystemExporter {
+public:
+    void output(std::ostream& onStream, System &system) override;
+};
+
+/**
+ *  Use Case 2.3: Advanced textual output
+ \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling advanced_textual_output");
+*/
+class AdvancedTextualExporter : public SystemExporter {
+public:
+    void output(std::ostream& onStream, System &system) override;
+};
+
+
+/**
+ *  Use Case 3.9: Statistical calculations
+ \n REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling statistics_output");
+*/
+class StatisticsExporter : public SystemExporter {
+public:
+    void output(std::ostream& onStream, System &system) override;
+};
+
+class GraphicsExporter : public SystemExporter {
+public:
+    void output(std::ostream& onStream, System &system) override;
 };
 
 // Closing of the ``header guard''.
