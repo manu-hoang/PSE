@@ -143,12 +143,15 @@ JobEnum ScanJob::get_type() {
 void Job::printFullPage() {
     REQUIRE(properlyInitialized(), "Job wasn't initialized when calling print_page");
 
+    int initialPageCount = _currentPageCount;
+
     _currentPageCount--;
 
     if(_currentPageCount <= 0){
         _finished = true;
         busy = false;
     }
+    ENSURE(_currentPageCount == initialPageCount - 1, "The _currentPageCount should have decreased by 1");
 }
 
 void Job::setDeviceName(string name) {

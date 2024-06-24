@@ -12,14 +12,12 @@
 
 using namespace std;
 
-
 SystemExporter::SystemExporter() {
     _initCheck = this;
     _documentStarted = false;
     ENSURE(properlyInitialized(),
            "constructor must end in properlyInitialized state");
 }
-
 
 bool SystemExporter::properlyInitialized() {
     return _initCheck == this;
@@ -77,78 +75,116 @@ void SystemExporter::documentEnd (std::ostream& onStream) {
 }
 
 void SystemExporter::systemStart (std::ostream& onStream, const string title) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling systemStart");
+    REQUIRE(documentStarted(), "Document was not started when calling systemStart");
     onStream << "# === [" << title << "] === #" << std::endl;
 }
 
 void SystemExporter::devicesStart (std::ostream& onStream) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling devicesStart");
+    REQUIRE(documentStarted(), "Document was not started when calling devicesStart");
     onStream << "--== Devices ==--" << std::endl;
 }
 
 void SystemExporter::deviceName(ostream &onStream, Device *device) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling deviceName");
+    REQUIRE(documentStarted(), "Document was not started when calling deviceName");
     onStream << device->getName() << ":" << std::endl;
 }
 
 void SystemExporter::deviceEmissions(ostream &onStream, Device *device) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling deviceEmissions");
+    REQUIRE(documentStarted(), "Document was not started when calling deviceEmissions");
     onStream << "* " << device->getEmissions() << "g/page" << std::endl;
 }
 
 void SystemExporter::deviceSpeed(ostream &onStream, Device *device) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling deviceSpeed");
+    REQUIRE(documentStarted(), "Document was not started when calling deviceSpeed");
     onStream << "* " << device->getSpeed() << " pages / minute" << std::endl;
 }
 
 void SystemExporter::deviceType(ostream &onStream, Device *device) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling deviceType");
+    REQUIRE(documentStarted(), "Document was not started when calling deviceType");
     onStream << "* " << device->getType() << std::endl;
 }
 
 void SystemExporter::deviceCosts(ostream &onStream, Device *device) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling deviceCosts");
+    REQUIRE(documentStarted(), "Document was not started when calling deviceCosts");
     onStream << "* " << device->getCosts() << " cents / page"<< std::endl;
 }
 
 void SystemExporter::jobsStart (std::ostream& onStream) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling jobsStart");
+    REQUIRE(documentStarted(), "Document was not started when calling jobsStart");
     onStream << "--== Jobs ==--" << std::endl;
 }
 
 void SystemExporter::jobNumber(ostream &onStream, Job *job) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling jobNumber");
+    REQUIRE(documentStarted(), "Document was not started when calling jobNumber");
     onStream << "[Job #" << job->getJobNumber() << "]" << std::endl;
 }
 
 void SystemExporter::jobOwner(ostream &onStream, Job *job) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling jobOwner");
+    REQUIRE(documentStarted(), "Document was not started when calling jobOwner");
     onStream << "* Owner: " << job->getOwner() << std::endl;
 }
 
 void SystemExporter::jobDevice(ostream &onStream, Job *job) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling jobDevice");
+    REQUIRE(documentStarted(), "Document was not started when calling jobDevice");
     onStream << "* Device: " << job->getDevice() << std::endl;
 }
 
 void SystemExporter::jobStatus(ostream &onStream, Job *job) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling jobStatus");
+    REQUIRE(documentStarted(), "Document was not started when calling jobStatus");
     onStream << "* Status: " << job->getStatus() << std::endl;
 }
 
 void SystemExporter::jobTotalPages(ostream &onStream, Job *job) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling jobTotalPages");
+    REQUIRE(documentStarted(), "Document was not started when calling jobTotalPages");
     onStream << "* Total pages: " << job->getTotalPages() << " pages" << std::endl;
 }
 
 void SystemExporter::jobTotalCO2(ostream &onStream, Job *job) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling jobTotalCO2");
+    REQUIRE(documentStarted(), "Document was not started when calling jobTotalCO2");
     onStream << "* Total CO2: " << job->getTotalCO2() << "g CO2"<< std::endl;
 }
 
 void SystemExporter::jobTotalCost(ostream &onStream, Job *job) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling jobTotalCost");
+    REQUIRE(documentStarted(), "Document was not started when calling jobTotalCost");
     onStream << "* Total cost: " << job->getTotalCost() << " cents" << std::endl;
 }
 
 void SystemExporter::compensationStart (std::ostream& onStream) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling compensationStart");
+    REQUIRE(documentStarted(), "Document was not started when calling compensationStart");
     onStream << "--== Co2 Compensation initiatives ==--" << std::endl;
 }
 
 void SystemExporter::whitespace(ostream &onStream) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling whitespace");
+    REQUIRE(documentStarted(), "Document was not started when calling whitespace");
     onStream << endl;
 }
 
 void SystemExporter::systemEnd (std::ostream& onStream) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling systemEnd");
+    REQUIRE(documentStarted(), "Document was not started when calling systemEnd");
     onStream << "# ======================= #" << std::endl;
 }
 
 void SystemExporter::output(ostream &onStream, System &system) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling output");
+    REQUIRE(documentStarted(), "Document was not started when calling output");
 }
 
 void SimpleExporter::output(ostream &onStream, System &system) {
@@ -205,7 +241,7 @@ void SimpleExporter::output(ostream &onStream, System &system) {
 
 void AdvancedTextualExporter::output(ostream &onStream, System &system) {
     REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling advanced_textual_output");
-    REQUIRE(documentStarted(), "Document was not started when calling simple_output");
+    REQUIRE(documentStarted(), "Document was not started when calling advanced_textual_output");
 
     for(auto device : system.getDevices()){
         onStream << device->getName() << endl;
@@ -232,6 +268,9 @@ void AdvancedTextualExporter::output(ostream &onStream, System &system) {
 }
 
 void StatisticsExporter::output(ostream &onStream, System &system) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling statistics_output");
+    REQUIRE(documentStarted(), "Document was not started when calling statistics_output");
+
     system.calculateStatistics();
 
     onStream << "Interesting Statistics: " << endl << endl;
@@ -249,6 +288,9 @@ void StatisticsExporter::output(ostream &onStream, System &system) {
 }
 
 void GraphicsExporter::output(ostream &onStream, System &system) {
+    REQUIRE(properlyInitialized(), "SystemExporter wasn't initialized when calling graphics_output");
+    REQUIRE(documentStarted(), "Document was not started when calling graphics_output");
+
     onStream << "[General]" << endl;
     onStream << "type = \"Wireframe\"" << endl;
     onStream << "size = 1000" << endl;
