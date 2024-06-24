@@ -210,7 +210,33 @@ TEST_F(PrinterInputTest, ReadingPrintingCosts) {
 }
 
 
+TEST_F(PrinterInputTest, XMLSyntaxErrorALL) {
+    ASSERT_TRUE(DirectoryExists("tests/inputTests"));
+    //if directory doesn't exist then no need in proceeding with the test
 
+    ofstream myfile;
+    SuccessEnum importResult;
+
+    int fileCounter = 1;
+    string fileName = "tests/inputTests/XMLSyntaxError" + to_string(fileCounter) + ".xml";
+    string errorfileName;
+
+    while (FileExists (fileName)) {
+        myfile.open("tests/inputTests/XMLSyntaxErrorOutput.txt");
+        importResult = SystemImporter::importSystem(fileName.c_str(), myfile, sys);
+        myfile.close();
+
+        EXPECT_TRUE(importResult == ImportAborted);
+
+        errorfileName = "tests/inputTests/XMLSyntaxError" + to_string(fileCounter) + ".txt";
+        EXPECT_TRUE(FileCompare("tests/inputTests/XMLSyntaxErrorOutput.txt", errorfileName));
+
+        fileCounter = fileCounter + 1;
+        fileName = "tests/inputTests/XMLSyntaxError" + to_string(fileCounter) + ".xml";
+    }
+
+    EXPECT_TRUE(fileCounter == 5);
+}
 
 // The opening tag is missing a '>'
 TEST_F(PrinterInputTest, XMLSyntaxError1) {
