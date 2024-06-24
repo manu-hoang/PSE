@@ -4,6 +4,8 @@
 #include "SystemExporter.h"
 #include "contracts/DesignByContract.h"
 #include "chrono"
+#include "../sfml/State.h"
+#include "../sfml/stateManager.h"
 
 using namespace std;
 
@@ -11,6 +13,7 @@ int main() {
 
     System system;
     AdvancedTextualExporter advanced_exporter;
+    GraphicsExporter graphics_exporter;
 
     // input parser
     ofstream myfile;
@@ -18,6 +21,7 @@ int main() {
     SystemImporter::importSystem("./xml_files/CompleteInput.xml", myfile, system);
     myfile.close();
 
+    /*
     myfile.open("in_output/advanced_textual_output.txt");
     advanced_exporter.documentStart(myfile);
 
@@ -29,9 +33,9 @@ int main() {
         advanced_exporter.output(myfile, system);
     }
 
-/*    system.automated_processing(cout);
+    system.automated_processing(cout);
     advanced_exporter.output(myfile, system);
-    system.calculateStatistics();*/
+    system.calculateStatistics();
 
     advanced_exporter.documentEnd(myfile);
     myfile.close();
@@ -55,10 +59,12 @@ int main() {
     graphics_exporter.documentEnd(myfile);
     myfile.close();
 
-/*    // Create the SFML window
+     */
+
+    // Create the SFML window
     sf::RenderWindow window(sf::VideoMode(500, 700), "SFML Window");
     system.divideJobs();
-    stateManager s(window,system,exporter);
+    stateManager s(window,system,advanced_exporter, graphics_exporter);
     window.setFramerateLimit(60);
 
     std::string userInput;
@@ -148,9 +154,14 @@ int main() {
                 lastClickTime = currentTime;
                 system.tick();
                 myfile.open("in_output/advanced_textual_output.txt");
-                exporter.documentStart(myfile);
-                exporter.advanced_textual_output(myfile,system);
-                exporter.documentEnd(myfile);
+                advanced_exporter.documentStart(myfile);
+                advanced_exporter.output(myfile,system);
+                advanced_exporter.documentEnd(myfile);
+                myfile.close();
+                myfile.open("in_output/graphics.ini");
+                graphics_exporter.documentStart(myfile);
+                graphics_exporter.output(myfile, system);
+                graphics_exporter.documentEnd(myfile);
                 myfile.close();
             }
         }
@@ -179,5 +190,5 @@ int main() {
         }
     }
 
-    return 0;*/
+    return 0;
 }

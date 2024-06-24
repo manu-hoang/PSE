@@ -17,7 +17,7 @@ X: Niet werkend of niet geïmplementeerd
 | | _Output_        |        |                                    |
 | | Use Case 2.2    | V      |                                    |
 | | Use Case 2.3    | V      |                                    |
-| | Use Case 2.4    |        | Can't use external library         |
+| | Use Case 2.4    | V      |                                    |
 | | _Simulation_    |        |                                    |
 | | Use Case 3.3    | V      |                                    |
 | | Use Case 3.4    | V      |                                    |
@@ -47,7 +47,7 @@ X: Niet werkend of niet geïmplementeerd
 | | _Output_        |        |                                    |
 | | Use Case 2.2    | V      |                                    |
 | | Use Case 2.3    | V      |                                    |
-| | Use Case 2.4    |        |                                    |
+| | Use Case 2.4    | V      |                                    |
 | | _Simulation_    | V      |                                    |
 | | Use Case 3.3    | V      |                                    |
 | | Use Case 3.4    | V      |                                    |
